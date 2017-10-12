@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'shop',
     'accounts',    
     'django_forms_bootstrap',
+    'paypal.standard.ipn',
+    'paypal_store',
+    'products',    
 ]
 
 MIDDLEWARE = [
@@ -131,3 +134,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'accounts.backends.EmailAuth',
 )
+
+
+# PayPal Settings
+# Where PayPal should return our customer after they've bought our products.
+SITE_URL = 'http://127.0.0.1:8000'
+#Used by Django-Paypal to record transactions in the database. However, we're not going to be using it
+PAYPAL_NOTIFY_URL = 'http://127.0.0.1/a-very-hard-to-guess-url/'
+# This is the email address of the person who will be given the funds for any transactions. 
+# For us, that will be the *merchant* email address that we setup earlier in the developer section of the PayPal website
+PAYPAL_RECEIVER_EMAIL = 'paul_cheeseman@zoho.com'
