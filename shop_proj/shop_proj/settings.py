@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+#To import secret keys not held on GitHub
+from private import *
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -123,11 +126,22 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+   os.path.join(BASE_DIR, "static"),
+)
+
 
 #Setting authorisation to use the defined model, not default
 AUTH_USER_MODEL = 'accounts.User'
+
+
+
+#Stripe Environment Variables:
+STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE', 'pk_test_zkkJLlqQ1Tc9XhPXQhJi7QZC')
+#STRIPE_SECRET is in private.py, which is ignroed by GIT, to prevent it being uploaded to GitHub
+
 
 #To force Django to use the bespoke email/pw authentication, not the default username/pw
 AUTHENTICATION_BACKENDS = (
