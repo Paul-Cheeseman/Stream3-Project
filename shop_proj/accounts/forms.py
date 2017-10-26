@@ -59,9 +59,9 @@ class CCRegistrationForm(forms.Form):
 
  
 
-    def save(self, myval, user, commit=True):
+    def save(self, stripe_token, user, commit=True):
         #Update authenticated user with valid stripe_id
-        user.stripe_id = myval
+        user.stripe_id = stripe_token
         user.save()
 
 

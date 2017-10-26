@@ -30,12 +30,9 @@ def user_register(request):
             user = auth.authenticate(email=request.POST.get('email'),
                                      password=request.POST.get('password1'))
  
-            if user:
-                messages.success(request, "You have successfully registered")
-                return redirect(reverse('profile'))
- 
-            else:
-                messages.error(request, "unable to log you in at this time!")
+            auth.login(request, user)
+            messages.error(request, "You have successfully logged in")
+            return redirect(reverse('profile'))
  
     else:
         form = UserRegistrationForm()
@@ -61,6 +58,9 @@ def register_cc(request):
             #print request.user.email
             #print data['stripe_id']
             form.save(data['stripe_id'], request.user)
+
+            #Change to a thankyou for logging in
+            return redirect(reverse('profile'))
 
     #The form on intial page load (blank)
     else:
