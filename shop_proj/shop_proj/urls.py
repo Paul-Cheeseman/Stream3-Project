@@ -24,7 +24,8 @@ from products import views as product_views
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^$', shop_views.get_index, name='index'),
-	url(r'^register/$', accounts_views.register, name='register'),
+	url(r'^user_register/$', accounts_views.user_register, name='user_register'),
+    url(r'^register_cc/$', accounts_views.register_cc, name='register_cc'),    
 	url(r'^profile/$', accounts_views.profile, name='profile'),	
 	url(r'^login/$', accounts_views.login, name='login'),	
 	url(r'^logout/$', accounts_views.logout, name='logout'),	

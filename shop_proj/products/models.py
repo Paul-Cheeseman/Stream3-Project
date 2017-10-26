@@ -14,7 +14,7 @@ class Product(models.Model):
     name = models.CharField(max_length=254, default='')
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
-
+    stock_level = models.IntegerField(default=0)
 
     # Below creates a dictionary of the information needed to 
     # create a paypal button in products.html for the value 'product.paypal_form'
@@ -35,10 +35,5 @@ class Product(models.Model):
  
     def __unicode__(self):
         return self.name
-
-
-
-
-
 
 
