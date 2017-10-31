@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'^paypal-return', paypal_views.paypal_return),
     url(r'^paypal-cancel', paypal_views.paypal_cancel),	
     url(r'^products/$', product_views.all_products),
+   
 ]
 
