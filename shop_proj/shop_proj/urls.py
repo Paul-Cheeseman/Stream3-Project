@@ -20,6 +20,8 @@ from shop import views as shop_views
 from paypal.standard.ipn import urls as paypal_urls
 from paypal_store import views as paypal_views
 from products import views as product_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
@@ -33,6 +35,6 @@ urlpatterns = [
     url(r'^paypal-return', paypal_views.paypal_return),
     url(r'^paypal-cancel', paypal_views.paypal_cancel),	
     url(r'^products/$', product_views.all_products),
-   
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 

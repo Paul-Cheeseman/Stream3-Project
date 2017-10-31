@@ -18,7 +18,12 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     stock_level = models.IntegerField(default=0)
     category = models.CharField(max_length=254, default='')
-    photo = models.ImageField(upload_to = "media/img/")
+    photo = models.ImageField(upload_to = "img/")
+
+
+
+
+
 
     # Below creates a dictionary of the information needed to 
     # create a paypal button in products.html for the value 'product.paypal_form'
