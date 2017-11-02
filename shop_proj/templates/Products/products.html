@@ -1,41 +1,42 @@
-{% extends "base.html" %}
-{% block content %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Thumb Nail</th>                
-                <th>Brief Description</th>
-                <td>more information  </td>
-                <th>Price</th>
-                <th>Basket</th>
-                <th>Quantity</th>                
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-                <tr>
-                    <td>{{ product.name }}</td>
-                    <td><img src="{{ product.photo.url }}" alt="My image" width="80" height="80"/>
-                    </td>
-
-                    <td>{{ product.description }}</td>
-                    <td>more information  </td>
-                    <td>${{ product.price }}</td>
-                    <td>default value  </td>
-                    <td><a href="#">add</a>/<a href="#">remove</a></td>
-
-                    <!-- Below puts the paypal button on the page, currently linked to Dev/Sandbox -->
-                    <!-- This is tied into the @property attribute and function def paypal_form in 'Product model' -->
-                   
-                    <!--
+{% extends "base.html" %} {% block content %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><a href="{% url 'sort_prod_alpha' %}?reverse={{reverse}}">Name</a></th>
+            <th>Thumb Nail</th>
+            <th>Brief Description</th>
+            <th>Category</th>            
+            <th><a href="{% url 'sort_prod_price' %}">Price</a></th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td><img src="{{ product.photo.url }}" alt="My image" width="80" height="80" /></td>
+            <td>{{ product.description }}</td>
+            <td><a href="{% url 'filtered_cat' %}?pd={{product.category}}">{{product.category}}</a></td>
+            <td>${{ product.price }}</td>
+            <td>
+                <div class="form-horizontal">
+                    <form role="form" method="post" id="register-form" action="{% url 'basket_add' %}">{% csrf_token %}
+                        <input type="number" name="amount" id="search" value="1" min="0" max="{{product.stock_level}}" />
+                        <input name="product" type="hidden" value="{{product.name}}">
+                        <button class="btn btn-sm btn-success"  type="submit">Update Cart</button>
+                    </form>
+                </div>
+            </td>
+            <!-- Below puts the paypal button on the page, currently linked to Dev/Sandbox -->
+            <!-- This is tied into the @property attribute and function def paypal_form in 'Product model' -->
+            <!--
                     <td>{{ product.paypal_form.sandbox }}</td>
                     -->
-                    <!-- For production environment, use the .render method to real PayPal handling system:
+            <!-- For production environment, use the .render method to real PayPal handling system:
                     <td>{{ product.paypal_form.render }}</td>
                     -->
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

@@ -35,6 +35,14 @@ urlpatterns = [
     url(r'^paypal-return', paypal_views.paypal_return),
     url(r'^paypal-cancel', paypal_views.paypal_cancel),	
     url(r'^products/$', product_views.all_products),
+    url(r'^basket_add/$', product_views.basket_add, name='basket_add'),
+    url(r'^basket_list/$', product_views.basket_list, name='basket_list'),    
+    url(r'^sort_prod_alpha/$', product_views.sort_prod_alpha, name='sort_prod_alpha'),
+    url(r'^sort_prod_price/$', product_views.sort_prod_alpha, name='sort_prod_price'),    
+    url(r'^filtered_cat/$', product_views.filtered_cat, name='filtered_cat'),
+
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

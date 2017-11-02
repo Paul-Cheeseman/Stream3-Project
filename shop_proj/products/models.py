@@ -11,13 +11,11 @@ from paypal.standard.forms import PayPalPaymentsForm
  
 class Product(models.Model):
  
-
-
-    name = models.CharField(max_length=254, default='')
+    name = models.CharField(max_length=254, unique=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     stock_level = models.IntegerField(default=0)
-    category = models.CharField(max_length=254, default='')
+    category = models.CharField(max_length=254)
     photo = models.ImageField(upload_to = "img/")
 
 
