@@ -7,7 +7,6 @@
             <th>Brief Description</th>
             <th>Category</th>            
             <th><a href="{% url 'sort_prod_price' %}">Price</a></th>
-            <th>Quantity</th>
         </tr>
     </thead>
     <tbody>
@@ -20,10 +19,9 @@
             <td>${{ product.price }}</td>
             <td>
                 <div class="form-horizontal">
-                    <form role="form" method="post" id="register-form" action="{% url 'basket_add' %}">{% csrf_token %}
-                        <input type="number" name="amount" id="search" value="1" min="0" max="{{product.stock_level}}" />
+                    <form role="form" method="post" id="register-form" action="{% url 'basket_rem' %}">{% csrf_token %}
                         <input name="product" type="hidden" value="{{product.id}}">
-                        <button class="btn btn-sm btn-success"  type="submit">Update Cart</button>
+                        <button class="btn btn-sm btn-danger"  type="submit">Remove from Cart</button>
                     </form>
                 </div>
             </td>

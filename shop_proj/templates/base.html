@@ -18,8 +18,6 @@
 
 </head>
 
-<a href="{% url 'register_cc' %}" class="button">add</a>
-
 <body>
     <div class="container">
         <div class="masthead">
@@ -33,6 +31,7 @@
                 <li><a href="{% url 'user_register' %}">Register</a></li>
                 {% endif %}                
                 <li><a href="/products/">Products</a></li>
+                <li><a href="{% url 'basket_list' %}">Basket</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
