@@ -2,10 +2,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render
 from .models import Product
-from django.db.models import Q
 
-
-# Create your views here.
 
 
 #Change to list all 
@@ -15,31 +12,26 @@ def all_products(request):
 
 
 
-
-
-
-
 def basket_add(request):
+	#get submitted values
 	product = request.POST['product']
 	amount = request.POST['amount']	
+	cart = request.session.get('cart', {})
 
- 	cart = request.session.get('cart', {})
- 	#print product
- 	#print amount
-
- 	if int(amount) == 0:
- 		print "zero val"
- 		#remove from cart
+	#check to see if user removing via product 
+	#page by entering 0 amount
+	if int(amount) == 0:
+ 		print ("zero val")
  		if product in cart:
-			cart.pop(product)
-			request.session['cart'] = cart
-			#print cart 
- 	else: 
- 		cart[product] = amount
+ 			cart.pop(product)
+ 			request.session['cart'] = cart
+	#update the cart
+	else:
+		cart[product] = amount
 		request.session['cart'] = cart
 
-	print "cart info:"
-	print request.session['cart']
+	#print "cart info:"
+	#print request.session['cart']
 	products = Product.objects.all()
 	return render(request, "products/products.html", {"products": products})
 
@@ -47,61 +39,48 @@ def basket_add(request):
 
 
 
-
 def basket_rem(request):
-	#print request.POST['product']
-	product = request.POST['product']
-	print "product to remove:"
-	print product
+	#initialise variables
 	count = 0
 	basket_item = {}
 
-	#Dodgey coding
+	#get submitted values
+	product = request.POST['product']
+
+	#Dodgey coding? It just gets round an error if not here
+	#Create variable before its used
 	text_str = ""
 
- 	basket = request.session.get('cart', {})
- 	print "Basket:"
-	print basket
+	basket = request.session.get('cart', {})
 
-
+ 	#remove the submitted product if it is in the basket
 	if product in basket:
 		basket.pop(product)
 		request.session['cart'] = basket
-		#print cart 
 
-	#is basket empty after item removed?
-	# empty dictionary returns false
-
+	#if basket still has items in after product removed
+	#build a 
 	if basket:
-		print "in basket"
 		for item_key in basket:
-			print "basket item"
-			print item_key
- 			print basket[item_key]
- 			print "-----------------"
- 		#query_add = query_add + ""
+
+			#create an individual queryset per item in the basket, then 
+			#build string which holds query which merges multiple querysets
+			#into a single query set.
 			basket_item[count] = Product.objects.filter(id=item_key)
 
 			if count == 0:
  				text_str = "products = basket_item[%d]" %(count)
-
 			else:
 				text_str = text_str + " | basket_item[%d]" %(count)
 
-	 		#print text_str
 			count += 1
 
-		#print "text_str"		
-		#print text_str
-		#Dodgey coding
-		exec text_str
+		#Dodgey coding?
+		#Changing string to executable code
+		exec(text_str)
 
-	 	#exec(products)
-		#print products
-		print "something in"
 		return render(request, "products/basket.html", {"products": products})
 	else:
-		print "nothing in"
 		return render(request, "products/basket.html")
 
 
@@ -109,54 +88,34 @@ def basket_rem(request):
 
 
 def basket_list(request):
-
-	prod_item = {}
+	#initialise variables
+	basket_item = {}
 	products = {}
 	count = 0
-	
 	#Dodgey coding?
 	text_str = ""
 
-	#print "cart"
-	#print request.session.get('cart', {})
- 	basket = request.session.get('cart', {})
-	print basket
+	basket = request.session.get('cart', {})
 
+ 	# I couldn't find a way to create a single queryset using multiple inputs, ie
+ 	# I couldn't see how I could input  - Products.objects.filter(id=item1_id, id=item2_id, id=item3_id), 
+ 	# especially for a variable about of items, hence iteration below.
 	for item_key in basket:
+		#create an individual queryset per item in the basket, then 
+		#build string which holds query which merges multiple querysets
+		#into a single query set.
+		basket_item[count] = Product.objects.filter(id=item_key)
 
-		#print "basket item"
-		#print item_key
- 		#print basket[item_key]
+		if count == 0:
+			text_str = "products = basket_item[%d]" %(count)
+		else:
+			text_str = text_str + " | basket_item[%d]" %(count)
 
- 		#query_add = query_add + ""
+		count += 1
 
- 		prod_item[count] = Product.objects.filter(id=item_key)
-
-
-
- 		if count == 0:
- 			text_str = "products = prod_item[%d]" %(count)
-
- 		else:
- 			text_str = text_str + " | prod_item[%d]" %(count)
-
- 		#print text_str
- 		count += 1
-
- 	#Dodgey coding
- 	exec text_str
-
-
-	#print products
-
-
- 	#print products
- 	#pulling out product object where product is equal to name, adding quantity?
-
-	#for item in basket:
-		#print item, cart[item] 
-	#	print item	
-	#	print Product.objects.get(id=basket[item])
+		#Dodgey coding?
+		#Changing string to executable code
+		exec(text_str)
 
 	return render(request, "products/basket.html", {"products": products})
 
@@ -166,7 +125,7 @@ def basket_list(request):
 
 
 def sort_prod_alpha(request):
-	print request.GET.get('reverse')
+	#first 'get' is blank so sorted decendingly first
 	if request.GET.get('reverse') == "true":
 		reverse = "false"
 		sorted_products = Product.objects.order_by('-name')		
@@ -178,17 +137,13 @@ def sort_prod_alpha(request):
 
 
 def sort_prod_price(request):
-	#Code!
 	sorted_products = Product.objects.order_by('price')		
 	return render(request, "products/products.html",  {"products": sorted_products})
 
 
 def filtered_cat(request):
-	print request.GET.get('pd')
 	cat_filter = request.GET.get('pd')
-	print cat_filter
 	filtered_category = Product.objects.filter(category=cat_filter)		
-	print filtered_category
 	return render(request, "products/products.html",  {"products": filtered_category})
 
 
