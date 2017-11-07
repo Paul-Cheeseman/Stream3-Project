@@ -27,6 +27,7 @@ def basket_add(request):
  			request.session['cart'] = cart
 	#update the cart
 	else:
+		print ("something added")
 		cart[product] = amount
 		request.session['cart'] = cart
 
@@ -95,7 +96,14 @@ def basket_list(request):
 	#Dodgey coding?
 	text_str = ""
 
+	namespace = {}
+
+
+
 	basket = request.session.get('cart', {})
+
+	print ("Basket List:")
+	print (basket)
 
  	# I couldn't find a way to create a single queryset using multiple inputs, ie
  	# I couldn't see how I could input  - Products.objects.filter(id=item1_id, id=item2_id, id=item3_id), 
@@ -115,7 +123,13 @@ def basket_list(request):
 
 		#Dodgey coding?
 		#Changing string to executable code
-		exec(text_str)
+		
+	exec(text_str)
+	#print(test['text_str'])
+	#print(test['products'])
+	print(products)
+
+	
 
 	return render(request, "products/basket.html", {"products": products})
 

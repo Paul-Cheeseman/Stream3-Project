@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'paypal_store',
     'products',    
+    'easy_thumbnails'
 ]
 
 MIDDLEWARE = [
@@ -162,4 +163,17 @@ PAYPAL_RECEIVER_EMAIL = 'paul_cheeseman@zoho.com'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+
+
+THUMBNAIL_ALIASES = {
+    '': {
+            'list-small': {'size': (75, 40)},
+            'list-medium': {'size': (150, 80)},
+            'list-large': {'size': (300, 160)},
+            'item-small': {'size': (75, 40)},
+            'item-medium': {'size': (150, 80)},
+            'item-large': {'size': (300, 160)}            
+    },
+}
+
 
