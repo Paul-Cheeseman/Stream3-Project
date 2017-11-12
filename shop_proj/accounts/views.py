@@ -31,7 +31,7 @@ def user_register(request):
                                      password=request.POST.get('password1'))
  
             auth.login(request, user)
-            messages.error(request, "You have successfully logged in")
+            messages.error(request, "You have successfully logged in")            
             return redirect(reverse('profile'))
  
     else:
@@ -93,6 +93,7 @@ def login(request):
             if user is not None:
                 auth.login(request, user)
                 messages.error(request, "You have successfully logged in")
+
                 return redirect(reverse('profile'))
             else:
                 form.add_error(None, "Your email or password was not recognised")

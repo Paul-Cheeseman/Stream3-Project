@@ -16,25 +16,35 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from accounts import views as accounts_views
-from shop import views as shop_views
+#from shop import views as shop_views
 from paypal.standard.ipn import urls as paypal_urls
 from paypal_store import views as paypal_views
 from products import views as product_views
+from cart import views as cart_views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
-	url(r'^$', shop_views.get_index, name='index'),
-	url(r'^user_register/$', accounts_views.user_register, name='user_register'),
+	#url(r'^$', shop_views.get_index, name='index'),
+    url(r'^$', cart_views.cart_add, name='index'),
+    url(r'^test', cart_views.cart_add, name='contact'),
+
+#	url(r'^index/$', shop_views.get_index),
+    url(r'^user_register/$', accounts_views.user_register, name='user_register'),
     url(r'^register_cc/$', accounts_views.register_cc, name='register_cc'),    
+#    url(r'^contact/$', shop_views.get_contact, name='contact'),    
 	url(r'^profile/$', accounts_views.profile, name='profile'),	
+
+    url(r'^list_cart/$', cart_views.list_cart, name='list_cart'), 
+
 	url(r'^login/$', accounts_views.login, name='login'),	
 	url(r'^logout/$', accounts_views.logout, name='logout'),	
     url(r'^a-very-hard-to-guess-url/', include(paypal_urls)),
     url(r'^paypal-return', paypal_views.paypal_return),
     url(r'^paypal-cancel', paypal_views.paypal_cancel),	
     url(r'^products/$', product_views.all_products),
+
     url(r'^basket_add/$', product_views.basket_add, name='basket_add'),
     url(r'^basket_rem/$', product_views.basket_rem, name='basket_rem'),    
     url(r'^basket_list/$', product_views.basket_list, name='basket_list'),    
@@ -44,6 +54,6 @@ urlpatterns = [
 
 
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

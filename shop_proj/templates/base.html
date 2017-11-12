@@ -10,35 +10,58 @@
     <meta name="author" content="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/cerulean/bootstrap.min.css">
 
+ 
+    
     <!-- Moved to top so jQuery is available for stripe validation script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- CND for icons -->
+    <script src="https://use.fontawesome.com/395dde387b.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+
     {% block head_js %}{% endblock %}
 
 
 </head>
 
 <body>
+
     <div class="container">
-        <div class="masthead">
-            <ul class="nav nav-pills pull-right">
-                <li><a href="#">Home</a></li>
+
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Our Simple Site</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="  #myCollapsingList">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+            </div>
+            <ul id="myCollapsingList" class ="nav navbar-nav collapse navbar-collapse navbar-right">
+                <li><a href="{% url 'index' %}">Home</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'register_cc' %}">Credit Card Register</a></li>
                 <li><a href="{% url 'logout' %}">Log Out</a></li>
                 {% else %}                
-                <li><a href="{% url 'login' %}">Log In</a></li>
+                <li><a href="{% url 'login' %}">Login &nbsp<span class="fa fa-sign-in" aria-hidden="true"></span></a></li>
                 <li><a href="{% url 'user_register' %}">Register</a></li>
                 {% endif %}                
                 <li><a href="/products/">Products</a></li>
-                <li><a href="{% url 'basket_list' %}">Basket</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{% url 'basket_list' %}">Basket &nbsp<span class="fa fa-shopping-basket" aria-hidden="true"></span></a></li>
+
+                <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
-            <h1><span class="fui-settings-16 muted">Our Simple Site</span></h1>
-        </div>
+        </nav>
+
+
+
         <hr> {% if messages %}
-        <div class="alert alert-success">
+        <div class="alert alert-warning">
             <div class="messages">
                 {% for message in messages %} {{ message }} {% endfor %}
             </div>
@@ -49,7 +72,7 @@
         </div>
         <hr>
         <div class="footer">
-            <p>Made By Bootcampers and Django </p>
+            <p>Made By Big Cheese Productions! </p>
         </div>
     </div>
 </body>

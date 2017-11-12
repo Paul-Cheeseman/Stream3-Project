@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop',
+    'cart',
     'accounts',    
     'django_forms_bootstrap',
     'paypal.standard.ipn',
@@ -130,8 +130,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-   os.path.join(BASE_DIR, "static"),
+   os.path.join(BASE_DIR, 'static'),
 )
+
+# If going to add App specific img/css then use:
+# STATICFILES_DIRS = (os.path.join(
+#    BASE_DIR, "my_app", "static"),)
+
+
+
 
 
 #Setting authorisation to use the defined model, not default

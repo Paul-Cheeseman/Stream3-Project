@@ -30,6 +30,17 @@ nnnnnnnnnn
 - I used a default bootstrap responsive menu, although I have adapted it from its default design to make it more responsive. In this site the text shown on the menu will change size depending on the viewing device. In addition, where applicable, I changed the default Bootstrap div elements as HTML5 semantic elements for improved usability.
 
 
+https://easy-thumbnails.readthedocs.io/en/2.1/install/
+Django (1.11.7)
+django-bootstrap-forms (0.1)
+django-forms-bootstrap (3.1.0)
+django-paypal (0.4.1)
+easy-thumbnails (2.5)
+Pillow (4.3.0)
+stripe (1.73.0)
+
+
+
 #### Justification of approach
 - 
 
