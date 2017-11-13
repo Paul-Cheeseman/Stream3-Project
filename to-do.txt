@@ -1,14 +1,25 @@
 
 
 --------------------------------------
-Up early - Running, then.....
+
+Sort out cart_list (then delete cart function)
+Then sort out the Products filters
+
+Then redo all URLS
+	- Start with cart app
 
 
-Hit the fuck out of this!!!
+-------------------
+Cart app needs:
+	- Amend amount function
+	- List function
+	- Delete cart function
 
-Set up Database as per Timmy (with cart)
 
-Write the views in a better way
+Product app needs
+	- List All
+	- Filtering, as per Timmy showed
+
  - Doing what Timmy suggested on site
 
 Layout of site, write down

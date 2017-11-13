@@ -28,6 +28,8 @@ urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	#url(r'^$', shop_views.get_index, name='index'),
     url(r'^$', cart_views.cart_add, name='index'),
+    url(r'^cart_list', cart_views.cart_list, name='cart_list'),
+    
     url(r'^test', cart_views.cart_add, name='contact'),
 
 #	url(r'^index/$', shop_views.get_index),
@@ -36,7 +38,6 @@ urlpatterns = [
 #    url(r'^contact/$', shop_views.get_contact, name='contact'),    
 	url(r'^profile/$', accounts_views.profile, name='profile'),	
 
-    url(r'^list_cart/$', cart_views.list_cart, name='list_cart'), 
 
 	url(r'^login/$', accounts_views.login, name='login'),	
 	url(r'^logout/$', accounts_views.logout, name='logout'),	

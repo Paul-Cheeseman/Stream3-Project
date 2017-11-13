@@ -32,6 +32,12 @@ def cart_add(request):
 		print("cart found")
 		#print("cart found")
 
+
+		# -------------------------------------
+		# If posted value is 0, remove from cart
+		# -------------------------------------
+		
+
 		#testing element
 		#this is be accessed via the POST value
 		test_product = Product.objects.get(id=2)
@@ -48,7 +54,7 @@ def cart_add(request):
 		cartItem.save()
 
 		#This is testing, put this at checkout and logout
-		del request.session['cart']
+		#del request.session['cart']
 
 
 	#if cart not exist
@@ -63,33 +69,26 @@ def cart_add(request):
 
 
 #Change to list all 
-def list_cart(request):
-	#code!
+def cart_list(request):
 
-	#------------------------------------------------
-	#product2 = Product.objects.filter(id=2)
-	product2 = Product.objects.get(id=2)
-	print (product2.id)
-	print (product2.category)
+	print("Cart id:")
+	print(request.session['cart'])
 
+	if 'cart' in request.session:
+		
+		#Select all records from Cart_Item for current id
+		items_in_cart = CartItem.objects.filter(cart_id=request.session['cart'])		
 
-	#products = 
-	#cartthing = CartItem(cart=testcart, product=product2)	
-	#print(cartthing.product.name)
-	#------------------------------------------------
-
-	return render(request, "cart/cart.html", {"products": products})
+		#for each cart item, use the stored product_id to retrive product details from product table
+		products = Product.objects.filter(id__in=[item.product_id for item in items_in_cart])
 
 
-#add to cart
-	#Test for Cart
-    	#create new cart instance
+		return render(request, "cart/cart.html", {"products": products})
 
-    	#update with new product!
+	#MAYBE A DIFFERENT TEMPLATE or use "MESSAGE" to put message at top??
+	return render(request, "cart/cart.html")
 
-    	#create in database
 
-    	#update session variable with cart_id from db
 
 
 #remove from cart

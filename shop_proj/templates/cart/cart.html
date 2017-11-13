@@ -4,34 +4,14 @@
     <thead>
         <tr>
             <th><a href="{% url 'sort_prod_alpha' %}?reverse={{reverse}}">Name</a></th>
-            <th>Thumb Nail</th>
             <th>Brief Description</th>
-            <th>Category</th>            
-            <th><a href="{% url 'sort_prod_price' %}">Price</a></th>
-            <th>Quantity</th>
         </tr>
     </thead>
     <tbody>
-        {% for product in cart %}
+        {% for item in products %}
         <tr>
-            <td>{{ product.name }}</td>
-
-
-
-            <td><img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}"></td>
-
-            <td>{{ product.description }}</td>
-            <td><a href="{% url 'filtered_cat' %}?pd={{product.category}}">{{product.category}}</a></td>
-            <td>${{ product.price }}</td>
-            <td>
-                <div class="form-horizontal">
-                    <form role="form" method="post" id="register-form" action="{% url 'basket_add' %}">{% csrf_token %}
-                        <input type="number" name="amount" id="search" value="1" min="0" max="{{product.stock_level}}" />
-                        <input name="product" type="hidden" value="{{product.id}}">
-                        <button class="btn btn-sm btn-success"  type="submit">Update Cart</button>
-                    </form>
-                </div>
-            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
             <!-- Below puts the paypal button on the page, currently linked to Dev/Sandbox -->
             <!-- This is tied into the @property attribute and function def paypal_form in 'Product model' -->
             <!--
