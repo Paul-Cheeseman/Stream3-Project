@@ -1,12 +1,43 @@
+Timmy
+
+Making things modular, in that my cart and product apps over lap..
+
+--------------
+
+Longer screws (better load baring and also potential for better masonary)
+No more nails
+
+--------------
+
+
+Remember small laptop for Viks Dad
+
 
 
 --------------------------------------
+On form, need to make zero default, 
+but then use basket amount
+-----------------------------------------
 
-Sort out cart_list (then delete cart function)
-Then sort out the Products filters
 
-Then redo all URLS
-	- Start with cart app
+
+
+
+Sorting out, from products list, getting items into basket
+Then basket list
+May need to clear out the basket and basket-item tables when testing
+
+Then:
+
+cart_add function), then sort out cart list page:
+	- update item (amount)
+	- delete item
+ 	- refresh list 
+
+
+
+
+
 
 
 -------------------
@@ -21,6 +52,9 @@ Product app needs
 	- Filtering, as per Timmy showed
 
  - Doing what Timmy suggested on site
+
+Redo all URLS and sort each app out as individual package
+
 
 Layout of site, write down
 

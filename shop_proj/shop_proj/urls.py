@@ -26,32 +26,33 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
-	#url(r'^$', shop_views.get_index, name='index'),
-    url(r'^$', cart_views.cart_add, name='index'),
+	url(r'^$', cart_views.get_index, name='index'),
     url(r'^cart_list', cart_views.cart_list, name='cart_list'),
+    url(r'^cart_add', cart_views.cart_add, name='cart_add'),
+    url(r'^cart_update', cart_views.cart_update, name='cart_update'),
+    url(r'^cart_del', cart_views.cart_del, name='cart_del'),
+
+
+    url(r'^products/$', product_views.all_products),
+
+
+
+
+
     
     url(r'^test', cart_views.cart_add, name='contact'),
-
 #	url(r'^index/$', shop_views.get_index),
     url(r'^user_register/$', accounts_views.user_register, name='user_register'),
     url(r'^register_cc/$', accounts_views.register_cc, name='register_cc'),    
 #    url(r'^contact/$', shop_views.get_contact, name='contact'),    
 	url(r'^profile/$', accounts_views.profile, name='profile'),	
-
-
 	url(r'^login/$', accounts_views.login, name='login'),	
 	url(r'^logout/$', accounts_views.logout, name='logout'),	
     url(r'^a-very-hard-to-guess-url/', include(paypal_urls)),
     url(r'^paypal-return', paypal_views.paypal_return),
     url(r'^paypal-cancel', paypal_views.paypal_cancel),	
-    url(r'^products/$', product_views.all_products),
 
-    url(r'^basket_add/$', product_views.basket_add, name='basket_add'),
-    url(r'^basket_rem/$', product_views.basket_rem, name='basket_rem'),    
-    url(r'^basket_list/$', product_views.basket_list, name='basket_list'),    
-    url(r'^sort_prod_alpha/$', product_views.sort_prod_alpha, name='sort_prod_alpha'),
-    url(r'^sort_prod_price/$', product_views.sort_prod_alpha, name='sort_prod_price'),    
-    url(r'^filtered_cat/$', product_views.filtered_cat, name='filtered_cat'),
+
 
 
 
