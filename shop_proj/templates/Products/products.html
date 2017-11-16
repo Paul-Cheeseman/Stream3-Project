@@ -3,14 +3,42 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Name</th>
+            <th>
+                <a href="{% url 'products' %}?name={{ name }}">&nbsp Name &nbsp<span class="fa fa-sort-alpha-desc" aria-hidden="true"></span></a>
+
+
+            </th>
             <th>Thumb Nail</th>
             <th>Brief Description</th>
-            <th>Category</th>            
-            <th>Price</th>
-            <th>Quantity</th>
+            <th>Category
+
+                 <form method="post" action="{% url 'products' %}?category=category">{% csrf_token %}
+                    <select name="item_id"  onchange="this.form.submit();">
+                        {% for cat in category_ddl %}
+                            <option value="{{ cat.category }}">{{ cat.category }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+
+            </th>
+            <th>Price
+
+                 <form method="post"  action="{% url 'products' %}?price=price">{% csrf_token %}
+                    <select name="item_id"  onchange="this.form.submit();">
+                        {% for price in price_range_ddl %}
+                            <option value="{{ price }}">{{ price }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+
+            </th>
+            <th>Quantity<tr></tr></th>
+
         </tr>
+
     </thead>
+        <tr></tr>
+
     <tbody>
         {% for product in products %}
         <tr>

@@ -13,7 +13,9 @@ from cart.models import Cart, CartItem
 	#just some rubbish to get site running to test something before tidying up
 def get_index(request):
 	#just some rubbish to get site running to test something before tidying up
-	return render(request, "cart/cart.html")
+	return render(request, "index.html")
+
+
 
 
 def isNum(data):
@@ -22,6 +24,8 @@ def isNum(data):
         return True
     except ValueError:
         return False
+
+
 
 
 #Change to list all 
@@ -66,7 +70,6 @@ def cart_add(request):
 
 			else:
 
-
 				#Check to see if product already in cart, if so update value
 				checking_queryset = CartItem.objects.filter(cart_id=request.session['cart'], product_id=product_id)
 				if checking_queryset.exists():
@@ -75,10 +78,6 @@ def cart_add(request):
 						if item.product_id == int(product_id):
 							item.amount = amount_req
 							item.save()
-
-
-
-
 
 				else:
 					print("new item for cart")
@@ -159,10 +158,8 @@ def cart_list(request):
 		#Select all records from Cart_Item for current id
 		items_in_cart = CartItem.objects.filter(cart_id=request.session['cart'])		
 
-
 		#for each cart item, use the stored product_id to retrive product details from product table
 		products = Product.objects.filter(id__in=[item.product_id for item in items_in_cart])
-
 
 		#getting amount ordered of each product so can auto-fill cart list
 		for item in products:

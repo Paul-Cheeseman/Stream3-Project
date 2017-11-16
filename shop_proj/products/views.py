@@ -6,11 +6,44 @@ from .models import Product
 
 
 #Change to list all 
-def all_products(request):
+def products(request):
+
+	#Get all Products from DB for display
 	products = Product.objects.all()
-	return render(request, "products/products.html", {"products": products})
 
 
+	if request.GET.get('name') == "reverse":
+		products = Product.objects.order_by('-name')
+		name = ""
+	else:
+		products = Product.objects.order_by('name')
+		name = "reverse"
+		#print("name")
+		#print(name)
+
+
+
+	if request.GET.get('category'):
+		print("category")
+		print(request.GET.get('category'))
+
+
+
+#	elif request.GET.get('price'):
+#		print("price")
+
+
+#	elif request.GET.get('reset'):
+#		print("reset")
+	
+
+	#list of categories for drop down search
+	category_ddl = Product.objects.values('category').distinct()
+
+	#list of price ranges
+	price_range_ddl = {"Below £15": "Below £15", "Between £15-40": "Between £15-40", "Above £40": "Above £40"}
+
+	return render(request, "products/products.html", {"products": products, "category_ddl": category_ddl, "price_range_ddl": price_range_ddl, "name": name})
 
 
 

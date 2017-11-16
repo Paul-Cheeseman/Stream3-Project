@@ -33,8 +33,7 @@ urlpatterns = [
     url(r'^cart_del', cart_views.cart_del, name='cart_del'),
 
 
-    url(r'^products/$', product_views.all_products),
-
+    url(r'^products/$', product_views.products, name='products'),
 
 
 

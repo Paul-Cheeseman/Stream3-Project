@@ -2,7 +2,31 @@ Timmy
 
 Making things modular, in that my cart and product apps over lap..
 
---------------
+---------------------------------
+
+Name - filter up/down arrows
+Price - group in ranges, only 2 or 3???
+Category - drop down, filter by options
+
+---------------------------------
+
+Checkout
+
+Order History
+
+Sign in
+
+
+
+Design!
+
+
+
+----------------
+Cut up wood for loft room, panel per panel
+
+
+
 
 Longer screws (better load baring and also potential for better masonary)
 No more nails
