@@ -8,9 +8,8 @@ from .models import Product
 #Change to list all 
 def products(request):
 
-	#Get all Products from DB for display
-	products = Product.objects.all()
-
+	print("get")
+	print(request.GET.get)
 
 	if request.GET.get('name') == "reverse":
 		products = Product.objects.order_by('-name')
@@ -18,55 +17,31 @@ def products(request):
 	else:
 		products = Product.objects.order_by('name')
 		name = "reverse"
-		#print("name")
-		#print(name)
-
 
 
 	if request.GET.get('category'):
-		print("category")
-		print(request.GET.get('category'))
+		if request.GET.get('category') == "all":
+			products = Product.objects.all()
+		else:
+			cat_filter = request.GET.get('category')
+			products = Product.objects.filter(category=cat_filter)
 
 
+	if request.GET.get('price'):
+		price2 = request.GET.get('price')
+		if price2 == "all":
+			products = Product.objects.all()
+		else:
+			if price2 == "Below 2":
+				products = Product.objects.filter(price__lt = 2.00)
+			elif price2 == "Between 2-4":
+				products = Product.objects.filter(price__lte = 4.00).filter(price__gte = 2.00)
+			elif price2 == "Above 4":
+				products = Product.objects.filter(price__gt = 4)				
 
-#	elif request.GET.get('price'):
-#		print("price")
-
-
-#	elif request.GET.get('reset'):
-#		print("reset")
-	
-
-	#list of categories for drop down search
 	category_ddl = Product.objects.values('category').distinct()
-
 	#list of price ranges
-	price_range_ddl = {"Below £15": "Below £15", "Between £15-40": "Between £15-40", "Above £40": "Above £40"}
+	price_range_ddl = {"Below 2": "Below 2", "Between 2-4": "Between 2-4", "Above 4": "Above 4"}
 
 	return render(request, "products/products.html", {"products": products, "category_ddl": category_ddl, "price_range_ddl": price_range_ddl, "name": name})
-
-
-
-def sort_prod_alpha(request):
-	#first 'get' is blank so sorted decendingly first
-	if request.GET.get('reverse') == "true":
-		reverse = "false"
-		sorted_products = Product.objects.order_by('-name')		
-	else:
-		reverse = "true"
-		sorted_products = Product.objects.order_by('name')
-
-	return render(request, "products/products.html",  {"products": sorted_products, "reverse": reverse})
-
-
-def sort_prod_price(request):
-	sorted_products = Product.objects.order_by('price')		
-	return render(request, "products/products.html",  {"products": sorted_products})
-
-
-def filtered_cat(request):
-	cat_filter = request.GET.get('pd')
-	filtered_category = Product.objects.filter(category=cat_filter)		
-	return render(request, "products/products.html",  {"products": filtered_category})
-
 

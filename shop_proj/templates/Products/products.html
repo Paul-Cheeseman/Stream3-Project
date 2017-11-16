@@ -1,62 +1,54 @@
-{% extends "base.html" %} {% block content %}
-{% load thumbnail %}
+{% extends "base.html" %} {% block content %} {% load thumbnail %}
 <table class="table table-hover">
     <thead>
         <tr>
             <th>
                 <a href="{% url 'products' %}?name={{ name }}">&nbsp Name &nbsp<span class="fa fa-sort-alpha-desc" aria-hidden="true"></span></a>
-
-
             </th>
             <th>Thumb Nail</th>
             <th>Brief Description</th>
-            <th>Category
-
-                 <form method="post" action="{% url 'products' %}?category=category">{% csrf_token %}
-                    <select name="item_id"  onchange="this.form.submit();">
+            <th>
+                <form method="get" action="/products/">
+                    <select name="category" onchange="this.form.submit();">
+                        <option>Categories</option>                        
+                        <option value="all">All</option>
                         {% for cat in category_ddl %}
-                            <option value="{{ cat.category }}">{{ cat.category }}</option>
+                        <option value="{{ cat.category }}">{{ cat.category }}</option>
                         {% endfor %}
                     </select>
                 </form>
-
             </th>
-            <th>Price
-
-                 <form method="post"  action="{% url 'products' %}?price=price">{% csrf_token %}
-                    <select name="item_id"  onchange="this.form.submit();">
+            <th>
+                <form method="get" action="/products/">
+                    <select name="price" onchange="this.form.submit();">
+                        <option value="null">Price</option>
                         {% for price in price_range_ddl %}
-                            <option value="{{ price }}">{{ price }}</option>
+                        <option value="{{ price }}">{{ price }}</option>
                         {% endfor %}
                     </select>
                 </form>
-
             </th>
-            <th>Quantity<tr></tr></th>
-
+            <th>Quantity
+                <tr></tr>
+            </th>
         </tr>
-
     </thead>
-        <tr></tr>
-
+    <tr></tr>
     <tbody>
         {% for product in products %}
         <tr>
             <td>{{ product.name }}</td>
-
-
-
             <td><img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}"></td>
-
             <td>{{ product.description }}</td>
-            <td>{{product.category}}</a></td>
+            <td>{{product.category}}</a>
+            </td>
             <td>&pound;{{ product.price }}</td>
             <td>
                 <div class="form-horizontal">
                     <form role="form" method="post" id="register-form" action="{% url 'cart_add' %}">{% csrf_token %}
                         <input type="number" name="amount" id="search" value=0 min="0" max="{{product.stock_level}}" />
                         <input name="product" type="hidden" value="{{product.id}}">
-                        <button class="btn btn-sm btn-success"  type="submit">Update Cart</button>
+                        <button class="btn btn-sm btn-success" type="submit">Update Cart</button>
                     </form>
                 </div>
             </td>

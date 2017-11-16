@@ -42,7 +42,11 @@ stripe (1.73.0)
 
 
 #### Justification of approach
-- 
+- **** While cart based apps were available, I wanted to develop my own so that I had the opportunity to develope from "the ground up", and alo it would allow me to tailor the app to my specific requirements.
+
+
+
+
 
 ## How was the project deployed
 - 
