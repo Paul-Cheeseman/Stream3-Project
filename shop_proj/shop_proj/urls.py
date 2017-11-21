@@ -32,11 +32,11 @@ urlpatterns = [
     url(r'^cart_update', cart_views.cart_update, name='cart_update'),
     url(r'^cart_del', cart_views.cart_del, name='cart_del'),
 
-
     url(r'^products/$', product_views.products, name='products'),
 
+    url(r'^checkout/$', cart_views.checkout, name='checkout'),
 
-
+    url(r'^address/$', accounts_views.address, name='address'),
 
     
     url(r'^test', cart_views.cart_add, name='contact'),

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'paypal_store',
     'products',    
+    'orders',    
     'easy_thumbnails'
 ]
 

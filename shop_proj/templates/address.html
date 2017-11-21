@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load bootstrap_tags %}
+{% load staticfiles %}
+ 
+{% block content %}
+  <form role="form" method="post" id="register-form" action="{% url 'address' %}">
+    <legend>Enter Address</legend>
+    {% csrf_token %}
+    {{ form|as_bootstrap }}
+    <div class="form-group">
+      <input class="btn btn-success" id="address_input" name="commit" type="submit" value="Update Address">
+    </div>
+  </form>
+{% endblock %}

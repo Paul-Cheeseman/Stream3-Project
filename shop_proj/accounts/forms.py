@@ -29,6 +29,7 @@ class UserRegistrationForm(UserCreationForm):
             raise ValidationError(message)
  
         return password2
+
  
     def save(self, commit=True):
         instance = super(UserRegistrationForm, self).save(commit=False)
@@ -56,16 +57,12 @@ class CCRegistrationForm(forms.Form):
     expiry_month = forms.ChoiceField(label="Month", choices=MONTH_CHOICES)
     expiry_year = forms.ChoiceField(label="Year", choices=YEAR_CHOICES)
     stripe_id = forms.CharField(widget=forms.HiddenInput)
-
  
 
     def save(self, stripe_token, user, commit=True):
-        #Update authenticated user with valid stripe_id
+        #update user with credit card, generate stripe token at checkout
         user.stripe_id = stripe_token
         user.save()
-
-
-        
 
 
 
@@ -75,3 +72,8 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
+class AddressForm(forms.Form):
+    address_line1 = forms.CharField()
+    address_line2 = forms.CharField()
+    county = forms.CharField()
+    postcode = forms.CharField()

@@ -7,11 +7,13 @@ from django.template.context_processors import csrf
 from accounts.forms import UserRegistrationForm, UserLoginForm, CCRegistrationForm
 from django.contrib.auth.decorators import login_required
 
+from accounts.models import User
+
 # Create your views here.
 
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
-from accounts.forms import UserRegistrationForm, UserLoginForm
+from accounts.forms import UserRegistrationForm, UserLoginForm, AddressForm
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
@@ -47,22 +49,48 @@ def user_register(request):
 
 stripe.api_key = settings.STRIPE_SECRET
 
+
+
+
 @login_required(login_url='/login/') 
 def register_cc(request):
     #The form sent to server
     if request.method == 'POST':
+
+        print("request.POST:")
+        print(request.POST)
+
+
         form = CCRegistrationForm(request.POST)
+
+        #create stripe_id for this checkout
         if form.is_valid():
             data = form.cleaned_data
-            #print data['stripe_id']
-            #print request.user.email
-            #print data['stripe_id']
-            form.save(data['stripe_id'], request.user)
+            #form.save(data['stripe_id'], request.user)
+
+            user = User.objects.get(username=request.user)
+
+            # ----------------------------------------------------------
+            ### NEED TO PUT IN SOME CHECKING HERE TO VALIDATE CARD IS OK
+            ### Also need to put in a DELETE ACCOUNT, and delete customer 
+            #   from stripe DB along with own: https://stripe.com/docs/api#delete_customer
+            # ----------------------------------------------------------
+
+            #create customer on stripe
+            stripe_customer = stripe.Customer.create(
+            email=user.username,
+            source=data['stripe_id'],
+            )
+
+            #save credit card to database for future sure checkouts
+            user = User.objects.filter(username=request.user).update(stripe_custID = stripe_customer.id)
+         
+
 
             #Change to a thankyou for logging in
             return redirect(reverse('profile'))
 
-    #The form on intial page load (blank)
+
     else:
         today = datetime.date.today()
         form = CCRegistrationForm()
@@ -80,6 +108,9 @@ def register_cc(request):
 @login_required(login_url='/login/')
 def profile(request):
     return render(request, 'profile.html')
+
+
+
 
 
 def login(request):
@@ -112,3 +143,26 @@ def logout(request):
     auth.logout(request)
     messages.success(request, 'You have successfully logged out')
     return redirect(reverse('index'))
+
+
+def address(request):
+
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        #data validated via JS
+
+        user = User.objects.get(username=request.user)      
+        user.address_line1 = request.POST['address_line1']
+        user.address_line2 = request.POST['address_line2']
+        user.county = request.POST['county']
+        user.postcode = request.POST['postcode']
+        user.save()
+
+        messages.error(request, "Address successfully updated")
+
+    else:
+        form = AddressForm()
+
+    form = AddressForm()
+    args = {'form':form}    
+    return render(request, 'address.html', args)
