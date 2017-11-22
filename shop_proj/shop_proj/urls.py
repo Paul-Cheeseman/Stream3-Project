@@ -21,6 +21,7 @@ from paypal.standard.ipn import urls as paypal_urls
 from paypal_store import views as paypal_views
 from products import views as product_views
 from cart import views as cart_views
+from orders import views as orders_views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -38,6 +39,7 @@ urlpatterns = [
 
     url(r'^address/$', accounts_views.address, name='address'),
 
+    url(r'^orders/$', orders_views.orders_list, name='orders'),
     
     url(r'^test', cart_views.cart_add, name='contact'),
 #	url(r'^index/$', shop_views.get_index),

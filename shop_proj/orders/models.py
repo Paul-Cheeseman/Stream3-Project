@@ -10,7 +10,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
   order_date = models.DateTimeField(auto_now_add=True)
-  order_id = models.ForeignKey('orders.Order')
+  order = models.ForeignKey('orders.Order')
   product = models.ForeignKey('products.Product')
   quantity = models.IntegerField(default=0)
   price = models.IntegerField(default=0)

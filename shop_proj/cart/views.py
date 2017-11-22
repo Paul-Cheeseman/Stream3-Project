@@ -7,9 +7,8 @@ from orders.models import Order, OrderItem
 from cart.models import Cart, CartItem
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
-
 import stripe
+
 
 	#just some rubbish to get site running to test something before tidying up
 	#just some rubbish to get site running to test something before tidying up
@@ -88,9 +87,7 @@ def cart_add(request):
 				else:
 					print("new item for cart")
 					product_to_add = Product.objects.get(id=product_id)
-
 					cart = Cart.objects.get(id=request.session['cart'])
-					
 					cartItem = CartItem(cart=cart, product=product_to_add, amount=amount_req)
 					cartItem.save()
 
@@ -169,7 +166,7 @@ def cart_list(request):
 
 		#getting amount ordered of each product so can auto-fill cart list
 		for item in products:
-			cartItem_amount = CartItem.objects.get(product_id=item.id)
+			cartItem_amount = CartItem.objects.get(product_id=item.id, cart_id=request.session['cart'])
 			item.amount = cartItem_amount.amount
 
 		return render(request, "cart/cart.html", {"products": products})
@@ -229,7 +226,7 @@ def checkout(request):
 		total_cost = 0
 
 		for item in products:
-			cartItem_amount = CartItem.objects.get(product_id=item.id)
+			cartItem_amount = CartItem.objects.get(product_id=item.id, cart_id=request.session['cart'])
 			item.amount = cartItem_amount.amount
 			item.cost = item.amount * item.price
 			total_cost = total_cost + item.cost
@@ -260,12 +257,10 @@ def checkout(request):
   						customer=user.stripe_custID,
 					)
 					messages.error(request, "Payment Made! - Go to orders Page, delete cart etc")
-					#disable button
-					#msg to say payment submitted
-					#on successful payment, go to another screen
+
+					#Create order entries
 					new_order = Order()
 					new_order.save()
-
 					customer = User.objects.get(username=request.user)
 					
 					for item in products:
@@ -274,25 +269,28 @@ def checkout(request):
 						new_orderItem = OrderItem(order_id=new_order, product=item, quantity=item.amount, price=item.price, customer=user, address_line1=user.address_line1, address_line2=user.address_line2, county=user.county, postcode=user.postcode)
 						new_orderItem.save()
 
+					#remove cartItems from database and cart from session
+
+
+					cartItems_to_rem = CartItem.objects.filter(cart_id=request.session['cart'])
 
 
 
+					for item in cartItems_to_rem:
+						#item_to_go = CartItem.objects.get(cart_id=request.session['cart'])
+						#item_to_go.delete()
+						item.delete()
 
 
-					#### Put in order
-					### Then orders page for customer
-					### Then done!!!
+					#remove cart from database and session
+					print("cart id:")
+					print(request.session['cart'])
+					Cart.objects.get(id=request.session['cart']).delete()
+					del request.session['cart']
 
 
-
-
-
-
-
-
-
-
-
+					return render(request, "cart/checkout.html")					
+	
 
 				else:
 					cc_reg = "btn btn-sm btn-success"

@@ -46,6 +46,9 @@
                 <li><a href="{% url 'index' %}">Home</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'register_cc' %}">Credit Card Register</a></li>
+                <li><a href="{% url 'address' %}">Add Address</a></li>
+                <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                <li><a href="{% url 'orders' %}">Orders</a></li>                
                 <li><a href="{% url 'logout' %}">Log Out</a></li>
                 {% else %}                
                 <li><a href="{% url 'login' %}">Login &nbsp<span class="fa fa-sign-in" aria-hidden="true"></span></a></li>
