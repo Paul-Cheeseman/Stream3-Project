@@ -47,10 +47,12 @@ INSTALLED_APPS = [
     'paypal_store',
     'products',    
     'orders',    
-    'easy_thumbnails'
+    'easy_thumbnails',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +61,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+   INTERNAL_IPS = ('127.0.0.1', 'localhost',)
+
+
+DEBUG_TOOLBAR_CONFIG = {
+       'INTERCEPT_REDIRECTS': False,
+   }
+
+
+
 
 ROOT_URLCONF = 'shop_proj.urls'
 
@@ -183,5 +196,6 @@ THUMBNAIL_ALIASES = {
             'item-large': {'size': (300, 160)}            
     },
 }
+
 
 
