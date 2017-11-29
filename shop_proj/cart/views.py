@@ -10,26 +10,19 @@ from django.contrib import messages
 import stripe
 
 
-	#just some rubbish to get site running to test something before tidying up
-	#just some rubbish to get site running to test something before tidying up
-	#just some rubbish to get site running to test something before tidying up
-	#just some rubbish to get site running to test something before tidying up
-	#just some rubbish to get site running to test something before tidying up
-	#just some rubbish to get site running to test something before tidying up
+#just some rubbish to get site running to test something before tidying up
 def get_index(request):
 	#just some rubbish to get site running to test something before tidying up
 	return render(request, "index.html")
 
 
 
-
-def isNum(data):
+def isNotNum(data):
     try:
         int(data)
-        return True
-    except ValueError:
         return False
-
+    except ValueError:
+        return True
 
 
 
@@ -39,60 +32,34 @@ def cart_add(request):
 	#Only process if add URL requested from products page (which will pass these vars)
 	if 'product' in request.POST and 'amount' in request.POST:
 
-		product_id = request.POST['product']
+		product_id = int(request.POST['product'])
 		amount_req = request.POST['amount']
 
-		#cater for null value
-		if isNum(amount_req):
-			print("numeric")
-		else:
+		#cater for null/blank value
+		if isNotNum(amount_req):
 			amount_req = 0
-			print("null to 0")
-
 
 		if 'cart' not in request.session:
-			print("Cart created")
 			cart = Cart()
-			#create cart in db
-			cart.save()
-			request.session['cart'] = cart.id
+			cart.create_cart(request.session)
 
 			#check, if amount is 0, don't add to cart
 			if amount_req != 0:
-				product_to_add = Product.objects.get(id=product_id)
-				cartItem = CartItem(cart=cart, product=product_to_add, amount=amount_req)
-				cartItem.save()
+				cart.add_to_cart(product_id, amount_req)
 
 		else:
+			#put this here to reduce repeating code
+			cart = Cart.get_cart(request.session['cart'])
 
 			if int(amount_req) == 0:
-				#Check to see if product already in cart, if so set value to 0
-				checking_queryset = CartItem.objects.filter(cart_id=request.session['cart'])
-				for item in checking_queryset:
-
-					if item.product_id == int(product_id):
-						CartItem.objects.filter(id=item.id).delete()
+				cart.remove_from_cart(product_id)
 
 			else:
-
 				#Check to see if product already in cart, if so update value
-				checking_queryset = CartItem.objects.filter(cart_id=request.session['cart'], product_id=product_id)
-				if checking_queryset.exists():
-					print("item already in cart")
-					for item in checking_queryset:
-						if item.product_id == int(product_id):
-							item.amount = amount_req
-							item.save()
-
+				if cart.item_in_cart(product_id):
+					cart.update_cart(product_id, amount_req)
 				else:
-					print("new item for cart")
-					product_to_add = Product.objects.get(id=product_id)
-					cart = Cart.objects.get(id=request.session['cart'])
-					cartItem = CartItem(cart=cart, product=product_to_add, amount=amount_req)
-					cartItem.save()
-
-				#This is testing, put this at checkout and logout
-				#del request.session['cart']
+					cart.add_to_cart(product_id, amount_req)
 
 	products = Product.objects.all()
 
@@ -102,102 +69,95 @@ def cart_add(request):
 
 def cart_update(request):
 
-	#Only process if add URL requested from products page (which will pass these vars)
-	if 'product' in request.POST and 'amount' in request.POST:
-
-		product_id = request.POST['product']
-		amount_req = request.POST['amount']
-
-		#cater for null value
-		if isNum(amount_req):
-			print("numeric")
-		else:
-			amount_req = 0
-			print("null to 0")
-
-
-		if int(amount_req) == 0:
-			#Check to see if product already in cart, if so set value to 0
-			checking_queryset = CartItem.objects.filter(cart_id=request.session['cart'], product_id=product_id)
-			if checking_queryset.exists():
-				CartItem.objects.filter(cart_id=request.session['cart'], product_id=product_id).delete()
-
-		else:
-
-			#Check to see if product already in cart, if so update value
-			checking_queryset = CartItem.objects.filter(cart_id=request.session['cart'], product_id=product_id)
-			if checking_queryset.exists():
-				print("item already in cart")
-				for item in checking_queryset:
-					if item.product_id == int(product_id):
-						item.amount = amount_req
-						item.save()
-
-
-			#This is testing, put this at checkout and logout
-			#del request.session['cart']
-
-	#Select all records from Cart_Item for current id
-	items_in_cart = CartItem.objects.filter(cart_id=request.session['cart'])		
-
-	#for each cart item, use the stored product_id to retrive product details from product table
-	products = Product.objects.filter(id__in=[item.product_id for item in items_in_cart])
-
-	#getting amount ordered of each product so can auto-fill cart list
-	for item in products:
-		cartItem_amount = CartItem.objects.get(product_id=item.id)
-		item.amount = cartItem_amount.amount
-
-	return render(request, "cart/cart.html", {"products": products})
-
-
-
-
-#Change to list all 
-def cart_list(request):
-
 	if 'cart' in request.session:
-		
-		#Select all records from Cart_Item for current id
-		items_in_cart = CartItem.objects.filter(cart_id=request.session['cart'])		
+		print("Cart detected")
+		cart = Cart.get_cart(request.session['cart'])
 
-		#for each cart item, use the stored product_id to retrive product details from product table
-		products = Product.objects.filter(id__in=[item.product_id for item in items_in_cart])
+		#default setting to show cart delete button on form when have a cart
+		delete_button_show = True
 
-		#getting amount ordered of each product so can auto-fill cart list
-		for item in products:
-			cartItem_amount = CartItem.objects.get(product_id=item.id, cart_id=request.session['cart'])
-			item.amount = cartItem_amount.amount
+		if 'delete' in request.POST:
+			print("Delete activated!")
+			#remove items from CartItem table
 
-		return render(request, "cart/cart.html", {"products": products})
+			cart.del_cart(request)
+			messages.error(request, "As requested Cart Deleted!")
+			#prevent the HTML for the delete button being generated
+			delete_button_show = False
 
-	return render(request, "cart/cart.html")
 
+		#Determine is the page is initially loading or user is submitting form
+		if 'product' in request.POST and 'amount' in request.POST:
+			product_id = int(request.POST['product'])
+			amount_req = request.POST['amount']
+			cart.update_cart(product_id, amount_req)
+
+			if not cart.items_in_cart():
+				cart.del_cart(request)
+				messages.error(request, "Cart Removed as no items within it!")
+				delete_button_show = False
+
+		products = cart.add_quantity()
+
+	else:
+		products = {}
+		#prevent the HTML for the delete button being generated	
+		delete_button_show = False
+
+	print("delete_button_show value:")
+	print(delete_button_show)
+	return render(request, "cart/cart.html", {"products": products, "delete_button_show": delete_button_show})
+
+
+
+
+
+
+def cart_list(request):
+	if 'cart' in request.session:
+		print("Cart detected")
+		cart = Cart.get_cart(request.session['cart'])
+
+		#default setting to show cart delete button on form when have a cart
+		delete_button_show = True
+
+		if 'delete' in request.POST:
+			print("Delete activated!")
+			#remove items from CartItem table
+
+			cart.del_cart(request)
+			messages.error(request, "As requested Cart Deleted!")
+			#prevent the HTML for the delete button being generated
+			delete_button_show = False
+
+
+		#Determine is the page is initially loading or user is submitting form
+		if 'product' in request.POST and 'amount' in request.POST:
+			product_id = int(request.POST['product'])
+			amount_req = request.POST['amount']
+			cart.update_cart(product_id, amount_req)
+
+			if not cart.items_in_cart():
+				cart.del_cart(request)
+				messages.error(request, "Cart Removed as no items within it!")
+				delete_button_show = False
+
+		products = cart.add_quantity()
+
+	else:
+		products = {}
+		#prevent the HTML for the delete button being generated	
+		delete_button_show = False
+
+	print("delete_button_show value:")
+	print(delete_button_show)
+	return render(request, "cart/cart.html", {"products": products, "delete_button_show": delete_button_show})
 
 
 
 #remove from cart
 def cart_del(request):
-
-	if 'cart' in request.session:
-
-		#remove items from CartItem table
-		items_in_cart = CartItem.objects.filter(cart_id=request.session['cart'])
-		for item in items_in_cart:
-				CartItem.objects.filter(id=item.id).delete()
-
-		#remove from Cart table
-		Cart.objects.filter(id=request.session['cart']).delete()		
-
-		#delete session key
-		del request.session['cart']
-
-
-	#send customers to products page (with all products) after cart deletion
-	products = Product.objects.all()
-	return render(request, "products/products.html", {"products": products})
-
-
+	print("")
 
 
 
@@ -258,15 +218,17 @@ def checkout(request):
 					)
 					messages.error(request, "Payment Made! - Go to orders Page, delete cart etc")
 
+
 					#Create order entries
 					new_order = Order()
 					new_order.save()
 					customer = User.objects.get(username=request.user)
 					
+
 					for item in products:
 						print("item cost post order!")
 						print(item.cost)
-						new_orderItem = OrderItem(order_id=new_order, product=item, quantity=item.amount, price=item.price, customer=user, address_line1=user.address_line1, address_line2=user.address_line2, county=user.county, postcode=user.postcode)
+						new_orderItem = OrderItem(order_id=new_order.id, product=item, quantity=item.amount, price=item.price, customer=user, address_line1=user.address_line1, address_line2=user.address_line2, county=user.county, postcode=user.postcode)
 						new_orderItem.save()
 
 					#remove cartItems from database and cart from session

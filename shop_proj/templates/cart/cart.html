@@ -44,8 +44,11 @@
         {% endfor %}
     </tbody>
 </table>
-<form action="{% url 'cart_del' %}" method="post"> {% csrf_token %}
+{% if delete_button_show  %}
+<form action="{% url 'cart_update' %}" method="post"> {% csrf_token %}
+    <input name="delete" type="hidden"">
     <button class="btn btn-sm btn-danger"  type="submit">DELETE Cart</button>
 </form>
+{% endif %}
 
 {% endblock %}
