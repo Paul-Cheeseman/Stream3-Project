@@ -30,22 +30,14 @@ urlpatterns = [
 	url(r'^$', cart_views.get_index, name='index'),
     url(r'^cart_list', cart_views.cart_list, name='cart_list'),
     url(r'^cart_add', cart_views.cart_add, name='cart_add'),
-    url(r'^cart_update', cart_views.cart_update, name='cart_update'),
-    url(r'^cart_del', cart_views.cart_del, name='cart_del'),
-
     url(r'^products/$', product_views.products, name='products'),
-
     url(r'^checkout/$', cart_views.checkout, name='checkout'),
-
     url(r'^address/$', accounts_views.address, name='address'),
-
     url(r'^orders/$', orders_views.orders_list, name='orders'),
     
     url(r'^test', cart_views.cart_add, name='contact'),
-#	url(r'^index/$', shop_views.get_index),
     url(r'^user_register/$', accounts_views.user_register, name='user_register'),
     url(r'^register_cc/$', accounts_views.register_cc, name='register_cc'),    
-#    url(r'^contact/$', shop_views.get_contact, name='contact'),    
 	url(r'^profile/$', accounts_views.profile, name='profile'),	
 	url(r'^login/$', accounts_views.login, name='login'),	
 	url(r'^logout/$', accounts_views.logout, name='logout'),	

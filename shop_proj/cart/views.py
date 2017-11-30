@@ -67,52 +67,6 @@ def cart_add(request):
 
 
 
-def cart_update(request):
-
-	if 'cart' in request.session:
-		print("Cart detected")
-		cart = Cart.get_cart(request.session['cart'])
-
-		#default setting to show cart delete button on form when have a cart
-		delete_button_show = True
-
-		if 'delete' in request.POST:
-			print("Delete activated!")
-			#remove items from CartItem table
-
-			cart.del_cart(request)
-			messages.error(request, "As requested Cart Deleted!")
-			#prevent the HTML for the delete button being generated
-			delete_button_show = False
-
-
-		#Determine is the page is initially loading or user is submitting form
-		if 'product' in request.POST and 'amount' in request.POST:
-			product_id = int(request.POST['product'])
-			amount_req = request.POST['amount']
-			cart.update_cart(product_id, amount_req)
-
-			if not cart.items_in_cart():
-				cart.del_cart(request)
-				messages.error(request, "Cart Removed as no items within it!")
-				delete_button_show = False
-
-		products = cart.add_quantity()
-
-	else:
-		products = {}
-		#prevent the HTML for the delete button being generated	
-		delete_button_show = False
-
-	print("delete_button_show value:")
-	print(delete_button_show)
-	return render(request, "cart/cart.html", {"products": products, "delete_button_show": delete_button_show})
-
-
-
-
-
-
 def cart_list(request):
 	if 'cart' in request.session:
 		print("Cart detected")
@@ -154,10 +108,6 @@ def cart_list(request):
 	return render(request, "cart/cart.html", {"products": products, "delete_button_show": delete_button_show})
 
 
-
-#remove from cart
-def cart_del(request):
-	print("")
 
 
 
@@ -201,7 +151,7 @@ def checkout(request):
 				messages.error(request, "Please register a credit card before attempting purchase")
 
 			elif user.address_line1 == "None" or user.address_line2 == "None" or user.county == "None" or user.postcode == "None":
-				messages.error(request, "Please register an address")
+				messages.error(request, "Please register a complete address")
 
 			else:
 				cc_reg = "btn btn-sm btn-success"

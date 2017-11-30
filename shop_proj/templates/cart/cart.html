@@ -25,28 +25,20 @@
             <td>&pound;{{ product.price }}</td>
             <td>
                 <div class="form-horizontal">
-                    <form role="form" method="post" id="register-form" action="{% url 'cart_update' %}">{% csrf_token %}
+                    <form role="form" method="post" id="register-form" action="{% url 'cart_list' %}">{% csrf_token %}
                         <input type="number" name="amount" id="search" value={{product.amount}} min="0" max="{{product.stock_level}}" />
                         <input name="product" type="hidden" value="{{product.id}}">
                         <button class="btn btn-sm btn-success"  type="submit">Update Cart</button>
                     </form>
                 </div>
             </td>
-            <!-- Below puts the paypal button on the page, currently linked to Dev/Sandbox -->
-            <!-- This is tied into the @property attribute and function def paypal_form in 'Product model' -->
-            <!--
-                    <td>{{ product.paypal_form.sandbox }}</td>
-                    -->
-            <!-- For production environment, use the .render method to real PayPal handling system:
-                    <td>{{ product.paypal_form.render }}</td>
-                    -->
         </tr>
         {% endfor %}
     </tbody>
 </table>
 {% if delete_button_show  %}
-<form action="{% url 'cart_update' %}" method="post"> {% csrf_token %}
-    <input name="delete" type="hidden"">
+<form action="{% url 'cart_list' %}" method="post"> {% csrf_token %}
+    <input name="delete" type="hidden">
     <button class="btn btn-sm btn-danger"  type="submit">DELETE Cart</button>
 </form>
 {% endif %}
