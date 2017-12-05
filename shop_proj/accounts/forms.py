@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from accounts.models import User
 from django.core.exceptions import ValidationError 
- 
+from django.core.validators import RegexValidator, EmailValidator
 
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(
@@ -73,7 +73,10 @@ class UserLoginForm(forms.Form):
 
 
 class AddressForm(forms.Form):
-    address_line1 = forms.CharField()
-    address_line2 = forms.CharField()
-    county = forms.CharField()
-    postcode = forms.CharField()
+
+    alpha_num = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only use alpha-numeric characters for address information.')
+
+    address_line1 = forms.CharField(validators=[alpha_num])
+    address_line2 = forms.CharField(validators=[alpha_num])
+    county = forms.CharField(validators=[alpha_num])
+    postcode = forms.CharField(validators=[alpha_num])

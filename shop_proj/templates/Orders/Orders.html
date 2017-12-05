@@ -5,35 +5,37 @@
     <thead>
         <tr>
             <th>Date</th>
-            <th>Order id</th>
-            <th>Total</th>
             <th>Product</th>
-            <th>Amount</th>
             <th>Price</th>
+            <th>Quantity</th>
         </tr>
     </thead>
 
     <tbody>
 
-	<!-- Loop through the order groupings to give access to each order group -->
-    {% for key, order in orders_dict.items %}
-    	{% for order_item in order %}
-    	<tr>
-			<td>{{order_item.order_date}}</td>
-			<td>{{order_item.order_id}}</td>
-			<td> TOTAL </td>
-			<td>{{order_item.product_id}}</td>
-			<td>{{order_item.quantity}}</td>
-			<td>{{order_item.price}}</td>			
-		</tr>
+    {% regroup all_customer_orders by order_date|date:"D M Y" as cust_orders_by_date %}
 
-		{% endfor %}
+
+        {% for orders_group in cust_orders_by_date %}
+
+            <tr>
+                <td>{{ orders_group.grouper }} </td> <!-- DateHeading -->
+            </tr>
+    
+            {% for order in orders_group.list %}
+
+            <tr>
+                <td></td>
+                <td> {{order.product}}</td>
+                <td> {{order.price}} </td>
+                <td> {{order.quantity}} </td>
+            </tr>
+            {% endfor %}
+    </ul>
     {% endfor %}
-
 
     </tbody>
 </table>
-
 
 
 {% endblock %}

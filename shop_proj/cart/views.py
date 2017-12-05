@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from products.models import Product
 from accounts.models import User
 from orders.models import Order, OrderItem
@@ -103,8 +103,6 @@ def cart_list(request):
 		#prevent the HTML for the delete button being generated	
 		delete_button_show = False
 
-	print("delete_button_show value:")
-	print(delete_button_show)
 	return render(request, "cart/cart.html", {"products": products, "delete_button_show": delete_button_show})
 
 
@@ -119,7 +117,7 @@ def checkout(request):
 	#assume credit card not record until proven otherwise
 	cc_reg = "btn btn-sm btn-success disabled"
 
-	user = User.objects.get(username=request.user)
+	user = get_object_or_404(User, username=request.user)
 
 	#if basket present
 	if 'cart' in request.session:
@@ -136,7 +134,7 @@ def checkout(request):
 		total_cost = 0
 
 		for item in products:
-			cartItem_amount = CartItem.objects.get(product_id=item.id, cart_id=request.session['cart'])
+			cartItem_amount = get_object_or_404(CartItem, product_id=item.id, cart_id=request.session['cart'])
 			item.amount = cartItem_amount.amount
 			item.cost = item.amount * item.price
 			total_cost = total_cost + item.cost
@@ -171,8 +169,9 @@ def checkout(request):
 
 					#Create order entries
 					new_order = Order()
+					new_order.total_cost = pence_cost/100 #Get back into £
 					new_order.save()
-					customer = User.objects.get(username=request.user)
+					customer = get_object_or_404(User, username=request.user)
 					
 
 					for item in products:
@@ -197,7 +196,7 @@ def checkout(request):
 					#remove cart from database and session
 					print("cart id:")
 					print(request.session['cart'])
-					Cart.objects.get(id=request.session['cart']).delete()
+					get_object_or_404(Cart, id=request.session['cart']).delete()
 					del request.session['cart']
 
 

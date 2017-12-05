@@ -1,25 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import messages, auth
-from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
-from django.template.context_processors import csrf
-from accounts.forms import UserRegistrationForm, UserLoginForm, CCRegistrationForm
 from django.contrib.auth.decorators import login_required
-
-from accounts.models import User
-
-# Create your views here.
-
-from django.contrib import messages, auth
-from django.contrib.auth.decorators import login_required
-from accounts.forms import UserRegistrationForm, UserLoginForm, AddressForm
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.context_processors import csrf
 from django.conf import settings
 import datetime
 import stripe
+
+from accounts.forms import UserRegistrationForm, UserLoginForm, AddressForm
+from accounts.forms import UserRegistrationForm, UserLoginForm, CCRegistrationForm
+from accounts.models import User
+
 
 
 
@@ -46,7 +39,6 @@ def user_register(request):
 
 
 
-
 stripe.api_key = settings.STRIPE_SECRET
 
 
@@ -68,7 +60,7 @@ def register_cc(request):
             data = form.cleaned_data
             #form.save(data['stripe_id'], request.user)
 
-            user = User.objects.get(username=request.user)
+            user = get_object_or_404(User, username=request.user)
 
             # ----------------------------------------------------------
             ### NEED TO PUT IN SOME CHECKING HERE TO VALIDATE CARD IS OK
@@ -84,7 +76,6 @@ def register_cc(request):
 
             #save credit card to database for future sure checkouts
             user = User.objects.filter(username=request.user).update(stripe_custID = stripe_customer.id)
-         
 
 
             #Change to a thankyou for logging in
@@ -145,20 +136,26 @@ def logout(request):
     return redirect(reverse('index'))
 
 
+
+
 def address(request):
 
     if request.method == 'POST':
         form = AddressForm(request.POST)
         #data validated via JS
 
-        user = User.objects.get(username=request.user)      
-        user.address_line1 = request.POST['address_line1']
-        user.address_line2 = request.POST['address_line2']
-        user.county = request.POST['county']
-        user.postcode = request.POST['postcode']
-        user.save()
+        if form.is_valid():
+            user = get_object_or_404(User, username=request.user)
+            user.address_line1 = form.cleaned_data['address_line1']
+            user.address_line2 = form.cleaned_data['address_line2']
+            user.county = form.cleaned_data['county']
+            user.postcode = form.cleaned_data['postcode']
+            user.save()
 
-        messages.error(request, "Address successfully updated")
+            messages.error(request, "Address successfully updated")
+
+        else:
+            messages.error(request, "Please only use alph-numerics to complete address details")
 
     else:
         form = AddressForm()

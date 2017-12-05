@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from products.models import Product
 from accounts.models import User
 from orders.models import Order, OrderItem
@@ -11,30 +11,11 @@ from django.contrib import messages
 def orders_list(request):
 
 	#identify customer
-	customer = User.objects.get(username=request.user)
+	customer = get_object_or_404(User, username=request.user)
 	
-	#identify specific order ids for customer
-	customer_specific_order_ids = OrderItem.objects.filter(customer_id=customer).values('order_id').distinct()
+	all_customer_orders = OrderItem.objects.filter(customer_id=customer)
+	print("All customer orders")
+	for item in all_customer_orders:
+		item.product = get_object_or_404(Product, id=item.product_id)
 
-	#Timmy Help
-	global orders_dict
-	orders_dict = {}
-
-	#Process order items into customer specific order gorupings
-	for item in customer_specific_order_ids:
-		#Generate query set of order items for given order id 
-		order = OrderItem.objects.filter(order_id = item['order_id'])
-		#Put query item into a dictionary which can be passed to template
-		orders_dict.update({item['order_id']:order})
-
-
-	# Loop through the order groupings to give access to each order group
-	for key, order in orders_dict.items():
-		#For each order group, iterate through for invidual items and change product_id to product_name
-		for order_item in order:
-			order_item.product_id = (Product.objects.get(id=order_item.product_id))
-			#print("order date")
-			#print(order_item.order_date)
-			
-	
-	return render(request, "orders/orders.html", {"orders_dict": orders_dict})
+	return render(request, "orders/orders.html", {"all_customer_orders": all_customer_orders})

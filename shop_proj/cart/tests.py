@@ -6,6 +6,7 @@ from django.core.urlresolvers import resolve
 from django.shortcuts import render_to_response
 
 from cart.models import Cart
+from products.models import Product
 from cart.views import cart_add, cart_list 
 
 # Create your tests here.
@@ -41,7 +42,6 @@ class CartPageTests(TestCase):
 		list_cart_template_output = render_to_response("cart/cart.html").content
 		self.assertEqual(list_cart_template.content, list_cart_template_output)
 		
-
 	#Check page content
 	def test_cart_add_check_content_is_correct(self):
 		#Checking the right template is used
@@ -53,6 +53,12 @@ class CartPageTests(TestCase):
 
 
 
+class CartPageUnitTests(TestCase):
+	
+	#fixtures = ['products']
+
+	print("test test")
+	print(Product.objects.all())
 
 
 

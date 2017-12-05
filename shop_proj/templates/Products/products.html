@@ -1,9 +1,14 @@
-{% extends "base.html" %} {% block content %} {% load thumbnail %}
+{% extends "base.html" %} {% block content %} {% load thumbnail %} {% load templatetags%}
+
+
 <table class="table table-hover">
     <thead>
         <tr>
             <th>
-                <a href="{% url 'products' %}?name={{ name }}">&nbsp Name &nbsp<span class="fa fa-sort-alpha-desc" aria-hidden="true"></span></a>
+
+                <a href="{% url 'products' %}?{% query_transform name=name %}">&nbsp Name &nbsp<span class="fa fa-sort-alpha-desc" aria-hidden="true"></span></a>
+
+
             </th>
             <th>Thumb Nail</th>
             <th>Brief Description</th>
@@ -12,9 +17,8 @@
                     <select name="category" onchange="this.form.submit();">
                         <option>Categories</option>                        
                         <option value="all">All</option>
-                        {% for cat in category_ddl %}
-                        <option value="{{ cat.category }}">{{ cat.category }}</option>
-                        {% endfor %}
+                        <option value="test1 {% query_transform %}">cat1</option>
+                        <option value="test2 {% query_transform %}">cat2</option>
                     </select>
                 </form>
             </th>
