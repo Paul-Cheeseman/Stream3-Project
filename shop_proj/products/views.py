@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Product
 
 
@@ -45,3 +45,19 @@ def products(request):
 
 	return render(request, "products/products.html", {"products": products, "category_ddl": category_ddl, "price_range_ddl": price_range_ddl, "name": name})
 
+
+
+def product_detail(request):
+		if request.GET.get('product_name'):
+			print("Product Name:")
+			print(request.GET.get('product_name'))
+			product_name = request.GET.get('product_name')
+
+			#product_details = get_object_or_404(Product, name=product_name)
+			product = get_object_or_404(Product, name="Product 1")
+
+			
+
+
+
+		return render(request, "products/product_detail.html", {"product": product})

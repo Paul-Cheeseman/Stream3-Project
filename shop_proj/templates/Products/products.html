@@ -1,12 +1,21 @@
-{% extends "base.html" %} {% block content %} {% load thumbnail %} {% load templatetags%}
+{% extends "base.html" %} 
+
+{% load thumbnail %} 
+{% load staticfiles %}
+
+ 
+{% block head_js_products %}
+  <script type="text/javascript" src="{% static 'js/products.js' %}"></script>
+{% endblock %}
 
 
-<table class="table table-hover">
+{% block content %} 
+<table id="hover_select" class="table">
     <thead>
         <tr>
             <th>
 
-                <a href="{% url 'products' %}?{% query_transform name=name %}">&nbsp Name &nbsp<span class="fa fa-sort-alpha-desc" aria-hidden="true"></span></a>
+                <a href="{% url 'products'?name=name">&nbsp Name &nbsp<span class="fa fa-sort-alpha-desc" aria-hidden="true"></span></a>
 
 
             </th>
@@ -16,9 +25,10 @@
                 <form method="get" action="/products/">
                     <select name="category" onchange="this.form.submit();">
                         <option>Categories</option>                        
-                        <option value="all">All</option>
-                        <option value="test1 {% query_transform %}">cat1</option>
-                        <option value="test2 {% query_transform %}">cat2</option>
+                        <option value=categories>All</option>
+                        {% for item in category_ddl %}
+                        <option value="{{ item.category }}">{{ item.category }}</option>
+                        {% endfor %}
                     </select>
                 </form>
             </th>
@@ -38,7 +48,7 @@
         </tr>
     </thead>
     <tr></tr>
-    <tbody>
+    <tbody id="table-row-highlight">
         {% for product in products %}
         <tr>
             <td>{{ product.name }}</td>

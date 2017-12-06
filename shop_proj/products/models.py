@@ -10,6 +10,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 # Create your models here.
  
 class Product(models.Model):
+    #made unique so can use a key
     name = models.CharField(max_length=254, unique=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)

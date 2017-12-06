@@ -1,0 +1,25 @@
+{% extends "base.html" %} 
+
+{% load thumbnail %} 
+{% load staticfiles %}
+
+ 
+{% block head_js_products %}
+  <script type="text/javascript" src="{% static 'js/products.js' %}"></script>
+{% endblock %}
+
+
+
+###################################
+###################################
+Product Detail
+###################################
+###################################
+
+
+{% block content %} 
+
+
+The product ID is! <br><br>      {{product.id}}
+
+{% endblock %}

@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^cart_list', cart_views.cart_list, name='cart_list'),
     url(r'^cart_add', cart_views.cart_add, name='cart_add'),
     url(r'^products/$', product_views.products, name='products'),
+    url(r'^product_detail/$', product_views.product_detail, name='product_detail'),    
     url(r'^checkout/$', cart_views.checkout, name='checkout'),
     url(r'^address/$', accounts_views.address, name='address'),
     url(r'^orders/$', orders_views.orders_list, name='orders'),

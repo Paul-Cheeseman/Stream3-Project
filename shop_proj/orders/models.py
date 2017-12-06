@@ -7,7 +7,6 @@ from products.models import Product
 
 class Order(models.Model):
   name = models.CharField(max_length=100, default="None")	
-  total_cost = models.FloatField(default=0.0)
 
 class OrderItem(models.Model):
   order_date = models.DateTimeField(auto_now_add=True)

@@ -169,7 +169,6 @@ def checkout(request):
 
 					#Create order entries
 					new_order = Order()
-					new_order.total_cost = pence_cost/100 #Get back into £
 					new_order.save()
 					customer = get_object_or_404(User, username=request.user)
 					
