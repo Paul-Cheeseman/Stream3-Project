@@ -54,7 +54,7 @@
                 <div class="navbar-collapse collapse">
                     <!-- Start Navigation List -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="active" href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
                         <li><a href="/products/">Products</a></li>
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'register_cc' %}">Credit Card Register</a></li>
@@ -63,10 +63,10 @@
                         <li><a href="{% url 'orders' %}">Orders</a></li>
                         <li><a href="{% url 'logout' %}">Log Out</a></li>
                         {% else %}
-                        <li><a href="{% url 'login' %}">Login &nbsp<span class="fa fa-sign-in" aria-hidden="true"></span></a></li>
+                        <li><a href="{% url 'login' %}">Login</a></li>
                         <li><a href="{% url 'user_register' %}">Register</a></li>
                         {% endif %}
-                        <li><a href="{% url 'cart_list' %}">Cart &nbsp<span class="fa fa-shopping-cart" aria-hidden="true"></span></a></li>
+                        <li><a href="{% url 'cart_list' %}">Cart</a></li>
                         <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                     <!-- End Navigation List -->
@@ -77,7 +77,7 @@
     </header>
     <!-- End Header Section -->
     {% if messages %}
-    <section>class="alert alert-warning">
+    <section class="alert alert-warning">
         <div class="messages">
             {% for message in messages %} {{ message }} {% endfor %}
         </div>

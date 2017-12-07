@@ -10,6 +10,19 @@
 
 
 {% block content %} 
+<!-- Start Header Section -->
+<div class="page-header">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Our Product Range</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Header Section -->
 <table id="hover_select" class="table">
     <thead>
         <tr>
@@ -49,7 +62,7 @@
     </thead>
     <tr></tr>
     <tbody id="table-row-highlight">
-        {% for product in products %}
+        {% for product in products_paginated %}
         <tr>
             <td>{{ product.name }}</td>
             <td><img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}"></td>
@@ -70,4 +83,30 @@
         {% endfor %}
     </tbody>
 </table>
+
+
+
+{% if products_paginated.has_other_pages %}
+  <ul class="pagination">
+    {% if products_paginated.has_previous %}
+      <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in products_paginated.paginator.page_range %}
+      {% if products_paginated.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if products_paginated.has_next %}
+      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
 {% endblock %}
