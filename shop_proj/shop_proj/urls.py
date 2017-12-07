@@ -28,6 +28,9 @@ from django.conf.urls.static import static
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^$', cart_views.get_index, name='index'),
+
+    url(r'^new_index', cart_views.get_new_index, name='new_index'),
+
     url(r'^cart_list', cart_views.cart_list, name='cart_list'),
     url(r'^cart_add', cart_views.cart_add, name='cart_add'),
     url(r'^products/$', product_views.products, name='products'),

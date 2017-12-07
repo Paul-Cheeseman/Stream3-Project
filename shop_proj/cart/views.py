@@ -15,6 +15,10 @@ def get_index(request):
 	#just some rubbish to get site running to test something before tidying up
 	return render(request, "index.html")
 
+#just some rubbish to get site running to test something before tidying up
+def get_new_index(request):
+	#just some rubbish to get site running to test something before tidying up
+	return render(request, "index-new.html")
 
 
 def isNotNum(data):

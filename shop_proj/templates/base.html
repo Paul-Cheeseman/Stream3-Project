@@ -1,83 +1,119 @@
 {% load staticfiles %}
-<!DOCTYPE html>
+<!doctype html>
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><html lang="en" class="no-js"> <![endif]-->
 <html lang="en">
 
 <head>
+    <!-- Basic -->
+    <title>Sulfur | Home</title>
+    <!-- Define Charset -->
     <meta charset="utf-8">
-    <title>Our Simple Site</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/cerulean/bootstrap.min.css">
-
- 
-    
-    <!-- Moved to top so jQuery is available for stripe validation script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <!-- CND for icons -->
-    <script src="https://use.fontawesome.com/395dde387b.js"></script>
-
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-
+    <!-- Responsive Metatag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Bootstrap CSS  -->
+    <link rel="stylesheet" href="{% static 'theme/assets/bootstrap/css/bootstrap.min.css' %}" type="text/css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="{% static 'theme/assets/font-awesome/css/font-awesome.min.css' %}" type="text/css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="{% static 'theme/assets/css/owl.carousel.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'theme/assets/css/owl.theme.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'theme/assets/css/owl.transitions.css' %}" type="text/css">
+    <!-- Css3 Transitions Styles  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'theme/assets/css/animate.css' %}">
+    <!-- Lightbox CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'theme/assets/css/lightbox.css' %}">
+    <!-- Sulfur CSS Styles  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'theme/assets/css/style.css' %}">
+    <!-- Responsive CSS Style -->
+    <link rel="stylesheet" type="text/css" href="{% static 'theme/assets/css/responsive.css' %}">
+    <script src="{% static 'theme/assets/js/modernizrr.js' %}"></script>
+    <!-- Bespoke stylesheet -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
-
+    <!-- Moved to top so jQuery is available for stripe validation script, plus product table -->
+    <script src="{% static 'theme/assets/js/jquery-2.1.3.min.js' %}"></script>
+    <!-- Pulling in products jQuery to highlight table and enable product selection from table -->
     {% block head_js_products %}{% endblock %}
-
+    <!-- Pulling in JS for initial CC/stripe validation -->
     {% block head_js %}{% endblock %}
-
-
 </head>
 
 <body>
-
-    <div class="container">
-
-        <nav class="navbar navbar-inverse">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Our Simple Site</a>
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="  #myCollapsingList">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+    <header class="clearfix">
+        <!-- Start  Logo & Naviagtion  -->
+        <div class="navbar navbar-default navbar-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <!-- Stat Toggle Nav Link For Mobiles -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <i class="fa fa-bars"></i>
                     </button>
-            </div>
-            <ul id="myCollapsingList" class ="nav navbar-nav collapse navbar-collapse navbar-right">
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="/products/">Products</a></li>
-                {% if user.is_authenticated %}
-                <li><a href="{% url 'register_cc' %}">Credit Card Register</a></li>
-                <li><a href="{% url 'address' %}">Add Address</a></li>
-                <li><a href="{% url 'checkout' %}">Checkout</a></li>
-                <li><a href="{% url 'orders' %}">Orders</a></li>                
-                <li><a href="{% url 'logout' %}">Log Out</a></li>
-                {% else %}                
-                <li><a href="{% url 'login' %}">Login &nbsp<span class="fa fa-sign-in" aria-hidden="true"></span></a></li>
-                <li><a href="{% url 'user_register' %}">Register</a></li>
-                {% endif %}                
-                <li><a href="{% url 'cart_list' %}">Cart &nbsp<span class="fa fa-shopping-cart" aria-hidden="true"></span></a></li>
-
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-            </ul>
-        </nav>
-
-
-
-        <hr> {% if messages %}
-        <div class="alert alert-warning">
-            <div class="messages">
-                {% for message in messages %} {{ message }} {% endfor %}
+                    <!-- End Toggle Nav Link For Mobiles -->
+                    <a class="navbar-brand" href="index.html">Sulfur</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <!-- Start Navigation List -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="active" href="{% url 'index' %}">Home</a></li>
+                        <li><a href="/products/">Products</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'register_cc' %}">Credit Card Register</a></li>
+                        <li><a href="{% url 'address' %}">Add Address</a></li>
+                        <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                        <li><a href="{% url 'orders' %}">Orders</a></li>
+                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}">Login &nbsp<span class="fa fa-sign-in" aria-hidden="true"></span></a></li>
+                        <li><a href="{% url 'user_register' %}">Register</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'cart_list' %}">Cart &nbsp<span class="fa fa-shopping-cart" aria-hidden="true"></span></a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                    <!-- End Navigation List -->
+                </div>
             </div>
         </div>
-        {% endif %}
+        <!-- End Header Logo & Naviagtion -->
+    </header>
+    <!-- End Header Section -->
+    {% if messages %}
+    <section>class="alert alert-warning">
+        <div class="messages">
+            {% for message in messages %} {{ message }} {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    <section class="container">
+        {% block content %} {% endblock %}
+    </section>
+    <!-- Start Copyright Section -->
+    <footer id="copyright-section" class="copyright-section">
         <div class="container">
-            {% block content %} {% endblock %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        Copyright © 2014. All Rights Reserved.Based on a Design by <a href="http://www.themefisher.com">Themefisher</a> evolved through development by Big Cheese Productions.
+                    </div>
+                </div>
+            </div>
+            <!--/.row -->
         </div>
-        <hr>
-        <div class="footer">
-            <p>Made By Big Cheese Productions! </p>
-        </div>
-    </div>
+        <!-- /.container -->
+    </footer>
+    <!-- End Copyright Section -->
+    <!-- Sulfur JS File -->
+    <script src="{% static 'theme/assets/js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{% static 'theme/assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'theme/assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'theme/assets/js/jquery.appear.js' %}"></script>
+    <script src="{% static 'theme/assets/js/jquery.fitvids.js' %}"></script>
+    <script src="{% static 'theme/assets/js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'theme/assets/js/lightbox.min.js' %}"></script>
+    <script src="{% static 'theme/assets/js/count-to.js' %}"></script>
+    <script src="{% static 'theme/assets/js/styleswitcher.js' %}"></script>
+    <script src="{% static 'theme/assets/js/map.js' %}"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="{% static 'theme/assets/js/script.js' %}"></script>
 </body>
+
 </html>
