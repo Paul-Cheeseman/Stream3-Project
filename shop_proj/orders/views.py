@@ -19,6 +19,7 @@ def orders_list(request):
 		item.product = get_object_or_404(Product, id=item.product_id)
 
 
+
 	page = request.GET.get('page', 1)
 
 	#Paginate the customer orders to 15 per page (should cater for very big orders)

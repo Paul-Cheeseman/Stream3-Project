@@ -11,13 +11,17 @@ from paypal.standard.forms import PayPalPaymentsForm
  
 class Product(models.Model):
     #made unique so can use a key
-    name = models.CharField(max_length=254, unique=True)
+    name = models.CharField(max_length=30, unique=True)
     description = models.TextField()
+    size = models.CharField(max_length=3, default="xxx") #s, m, l
+    gender = models.CharField(max_length=1, default="X") #M or F    
+    age = models.CharField(max_length=1, default="X") #A (adult), C (Child)
+    colour = models.CharField(max_length=15, default="None") 
     price = models.DecimalField(max_digits=6, decimal_places=2)
     stock_level = models.IntegerField(default=0)
-    category = models.CharField(max_length=254)
+    category = models.CharField(max_length=30)
     photo = models.ImageField(upload_to = "img/")
-    photo_alt = models.CharField(max_length=254, default="img alt")
+    photo_alt = models.CharField(max_length=20, default="img alt")
 
 
 

@@ -25,7 +25,7 @@
 
     <tbody>
 
-    {% regroup customer_orders by order_date|date:"D M Y" as cust_orders_by_date %}
+    {% regroup customer_orders by order_date|date:"d D M Y" as cust_orders_by_date %}
 
 
         {% for orders_group in cust_orders_by_date %}

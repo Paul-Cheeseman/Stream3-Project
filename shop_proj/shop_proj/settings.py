@@ -190,10 +190,7 @@ THUMBNAIL_ALIASES = {
     '': {
             'list-small': {'size': (75, 40)},
             'list-medium': {'size': (150, 80)},
-            'list-large': {'size': (300, 160)},
-            'item-small': {'size': (75, 40)},
-            'item-medium': {'size': (150, 80)},
-            'item-large': {'size': (300, 160)}            
+            'list-large': {'size': (300, 160)}
     },
 }
 

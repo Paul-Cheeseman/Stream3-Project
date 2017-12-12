@@ -9,15 +9,8 @@
 {% endblock %}
 
 
-
-###################################
-###################################
-Product Detail
-###################################
-###################################
-
-
 {% block content %} 
+
 
 <!-- Start Header Section -->
 <div class="page-header">
@@ -33,6 +26,41 @@ Product Detail
 </div>
 <!-- End Header Section -->
 
-The product ID is! <br><br>      {{product.id}}
+<div class="col-sm-6">
+    
+    The img is..........<img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
+
+</div>
+
+<div class="col-sm-6">
+    
+    <div>
+        <p>The product description is.......... {{product.description}}</p>
+    </div>
+
+    <div>
+        <p>The product price is.......... {{product.price}}</p>
+    </div>    
+
+
+    <div>
+        <p>colour selection</p>
+    </div>    
+
+
+    <div>
+        <p>size selection</p>
+    </div>    
+
+
+
+</div>
+
+<div class="col-sm-3">
+    
+    The product size range is:
+
+
+</div>
 
 {% endblock %}

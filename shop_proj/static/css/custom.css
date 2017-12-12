@@ -1,4 +1,11 @@
 
 .row-gray {
-	background-color: blue;
+	background-color: rgb(212, 212, 212);
 }
+
+
+ .change-inline{
+ 	display: inline-block;
+ 	margin-right: 0.2em;
+ }
+

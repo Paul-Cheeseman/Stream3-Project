@@ -1,25 +1,28 @@
 $(document).ready(function() { 
-     console.log("running");
+
 
     $('#table-row-highlight tr').hover(function() {
-        	console.log("Hovering over table row");
+            //Change cursor to pointing finger to make it clear to user that they can click anywhere on row
+            $(this).css('cursor','pointer');
+            //Highlight active row for user
         	$(this).addClass("row-gray");
         }, function() {
-        	console.log("Not over table row");
+            //Remove active row highlight when row not hovered over
         	$(this).removeClass("row-gray");
-        	//$(this).removeClass("testgray");
     });
-    
 
     $('#table-row-highlight tr').click(function() {
-        console.log($(this).children(":first").text());
-
-		// Some JS to call page from table row
+		// Some JS to call page from product table row
 		window.location.href = "/product_detail/?product_name=" + $(this).children(":first").text();
     });
 
 
-
+    function URLclean(){
+        console.log("working?");
+        if (window.location.href.indexOf('?') > -1) {
+            window.location.href = window.location.pathname;
+        }
+    }
 
 
 });

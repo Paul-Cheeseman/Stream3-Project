@@ -5,13 +5,19 @@ This code is for a site that is required for the Code Institute end of Stream 3 
 
 
 ## Functionality of the project
- - 
+- List all functions of cart
+- Orders, can list and see
+- Pagination implemented
+- Set up perminant stripe access for customer via stripe API (stored perminant token in db)
+- The stock level limit (ALSO STOCK LEVEL MUST BE REDUCED ON ORDERS)
+- The database management with regard to expired annonymous session (PUT IN THE CODE)
+- The code to switch the annonymous session to signed in user (PUT IT IN!)
+- Safety, can't checkout without an address or credit card
+- Mention where I have put required JavaScript for project
+- Mention about it being "app-ified" - DO IT
+- Customer account removal
+- Responsive design etc, what were my additions?
 
-- 
-
-- 
-
-- 
 
 ## Project Coding
 #### Technologies used
@@ -27,17 +33,22 @@ This code is for a site that is required for the Code Institute end of Stream 3 
 nnnnnnnnnn
 
 #### 3rd party code used:
-- I used a default bootstrap responsive menu, although I have adapted it from its default design to make it more responsive. In this site the text shown on the menu will change size depending on the viewing device. In addition, where applicable, I changed the default Bootstrap div elements as HTML5 semantic elements for improved usability.
+- I used these on which to base my site, although I have altered in substantially.
+	https://themefisher.com/products/sulfur-free-simple-html-template/
+	MENTION THIS IS TO NOT REINVENT THE WHEEL, the base functionality is was I was after
+
+- I have used Easy Thumbnails (easy-thumbnails (2.5) https://easy-thumbnails.readthedocs.io/en/2.1/install/ and configured in to use particular sizes.
+
+ - I have used https://gist.github.com/benbacardi/d6cd0fb8c85e1547c3c60f95f5b2d5e1 to help with implementing multiple filter application for the Products page, as it requires remembering the previous URLS sent.
+
+- stripe (1.73.0), this is probably worth a mention by itself
 
 
-https://easy-thumbnails.readthedocs.io/en/2.1/install/
 Django (1.11.7)
 django-bootstrap-forms (0.1)
 django-forms-bootstrap (3.1.0)
 django-paypal (0.4.1)
-easy-thumbnails (2.5)
 Pillow (4.3.0)
-stripe (1.73.0)
 
 
 
@@ -65,10 +76,10 @@ I have tested the website, across different devices, different browsers and diff
 - Laptop Win10: Firefox, Chrome, Opera (resizing browser window to check scalability)
 - Desktop OS X Mavericks: Firefox, Chrome, Opera (resizing browser window to check scalability)
 
+- MENTION IN HERE THE UNIT TESTS THROUGH Django
+
 ### Functional Testing
 The key elements of the testing were the different aspects of the "user story", which in essence was checking that the functionality that the user would need to use to achieve their goal, in this case looking at my photos and finding out a bit about me) worked, so I checked: 
- - The navigation links
- - External link (on homepage)
- - The photo viewer
-- The contact form
+ - PUT IN THE TESTS!!!!
+
 
