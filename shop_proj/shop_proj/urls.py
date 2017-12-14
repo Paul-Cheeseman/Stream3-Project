@@ -17,10 +17,9 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from accounts import views as accounts_views
 #from shop import views as shop_views
-from paypal.standard.ipn import urls as paypal_urls
-from paypal_store import views as paypal_views
 from products import views as product_views
 from cart import views as cart_views
+from checkout import views as checkout_views
 from orders import views as orders_views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,23 +30,16 @@ urlpatterns = [
 
     url(r'^new_index', cart_views.get_new_index, name='new_index'),
 
-    url(r'^cart_list', cart_views.cart_list, name='cart_list'),
-    url(r'^cart_add', cart_views.cart_add, name='cart_add'),
-    url(r'^products/$', product_views.products, name='products'),
-    url(r'^product_detail/$', product_views.product_detail, name='product_detail'),    
-    url(r'^checkout/$', cart_views.checkout, name='checkout'),
-    url(r'^address/$', accounts_views.address, name='address'),
-    url(r'^orders/$', orders_views.orders_list, name='orders'),
+
+    url(r'^checkout', include('checkout.urls')),
+    url(r'^orders/', include('orders.urls')),
+    url(r'^cart/', include('cart.urls')),
+    url(r'^accounts/', include('accounts.urls')),
+    url(r'^purchase/', include('purchase.urls')),
+    url(r'^products/', include('products.urls')),
     
     url(r'^test', cart_views.cart_add, name='contact'),
-    url(r'^user_register/$', accounts_views.user_register, name='user_register'),
-    url(r'^register_cc/$', accounts_views.register_cc, name='register_cc'),    
 	url(r'^profile/$', accounts_views.profile, name='profile'),	
-	url(r'^login/$', accounts_views.login, name='login'),	
-	url(r'^logout/$', accounts_views.logout, name='logout'),	
-    url(r'^a-very-hard-to-guess-url/', include(paypal_urls)),
-    url(r'^paypal-return', paypal_views.paypal_return),
-    url(r'^paypal-cancel', paypal_views.paypal_cancel),	
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,0 +1,66 @@
+{% extends "base.html" %} 
+
+{% load thumbnail %} 
+{% load staticfiles %}
+
+ 
+{% block head_js_products %}
+  <script type="text/javascript" src="{% static 'js/products.js' %}"></script>
+{% endblock %}
+
+
+{% block content %} 
+
+
+<!-- Start Header Section -->
+<div class="page-header">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Product Detail</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Header Section -->
+
+<div class="col-sm-6">
+    
+    The img is..........<img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
+
+</div>
+
+<div class="col-sm-6">
+    
+    <div>
+        <p>The product description is.......... {{product.description}}</p>
+    </div>
+
+    <div>
+        <p>The product price is.......... {{product.price}}</p>
+    </div>    
+
+
+    <div>
+        <p>colour selection</p>
+    </div>    
+
+
+    <div>
+        <p>size selection</p>
+    </div>    
+
+
+
+</div>
+
+<div class="col-sm-3">
+    
+    The product size range is:
+
+
+</div>
+
+{% endblock %}

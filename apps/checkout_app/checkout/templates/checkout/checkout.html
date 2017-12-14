@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block content %}
+        <!-- Start Header Section -->
+        <div class="page-header">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Checkout</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Section -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Brief Description</th>
+            <th>Price</th>
+            <th>Amount</th>
+            <th>Total</th>            
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>&pound;{{ product.price }}</td>
+            <td>{{ product.amount }}</td>
+            <td>&pound;{{ product.cost }}</td>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td> Complete total </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>&pound;{{total_cost}}</td>            
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="form-horizontal">
+                    <form role="form" method="post" id="register-form" action="{% url 'checkout' %}">{% csrf_token %}
+                        <input name="purchase" type="hidden" value="Yes">
+                        <button class="{{ cc_reg }}"  type="submit">Purchase</button>
+                    </form>
+                </div>
+            </td>            
+        </tr>
+
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+recursive-exclude purchase *.pyc
+recursive-include purchase *.css
+recursive-include purchase *.html
+recursive-include purchase *.py

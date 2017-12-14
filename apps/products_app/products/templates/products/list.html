@@ -1,0 +1,161 @@
+{% extends "base.html" %} {% load thumbnail %} {% load staticfiles %} {% load templatetags %} {% block head_js_products %}
+<script type="text/javascript" src="{% static 'js/products.js' %}"></script>
+{% endblock %} {% block content %}
+
+
+
+<!-- Start Header Section -->
+<div class="page-header">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Our Product Range</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Header Section -->
+
+RESET = {{ reset}}
+{% if reset == "y" %}
+
+    <script>
+
+
+        URLclean();
+    </script>
+
+{% endif %}
+
+
+
+
+
+
+<div class="dropdown change-inline">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        Gender
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="{% url 'products' %}?{% query_transform gender="M" %}">Male</a></li>
+        <li><a href="{% url 'products' %}?{% query_transform gender="F" %}">Female</a></li>
+    </ul>
+</div>
+<div class="dropdown change-inline">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        Age
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="{% url 'products' %}?{% query_transform age="A" %}">Adult</a></li>
+        <li><a href="{% url 'products' %}?{% query_transform age="C" %}">Child</a></li>
+    </ul>
+</div>
+<div class="dropdown change-inline">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        Size
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="{% url 'products' %}?{% query_transform size="reset" %}">RESET</a></li>
+        {% for item in sizes_ddl %}
+        <li><a href="{% url 'products' %}?{% query_transform size=item.size %}">{{ item.size }}</a></li>
+        {% endfor %}
+</div>
+<div class="dropdown change-inline">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        Colour
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="{% url 'products' %}?{% query_transform colour="reset" %}">RESET</a></li>
+        {% for item in colour_ddl %}
+        <li><a href="{% url 'products' %}?{% query_transform colour=item.colour %}">{{ item.colour }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+<div>
+    <a href="{% url 'products' %}?{% query_transform resetall="y" %}" type="button" class="btn btn-danger pull-right" role="button">RESET ALL</a>
+</div>
+<table id="hover_select" class="table">
+    <thead>
+        <tr>
+            <th>
+                <a href="{% url 'products' %}?{% query_transform name=order %}" class="btn btn-default dropdown-toggle" type="button">Switch</a>
+            </th>
+            <th>Thumb Nail</th>
+            <th>
+                <th>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                            Category
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'products' %}?{% query_transform category="reset" %}">RESET</a></li>
+                            {% for item in category_ddl %}
+                            <li><a href="{% url 'products' %}?{% query_transform category=item.category %}">{{ item.category }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </th>
+                <th>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                            Price
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'products' %}?{% query_transform price="reset" %}">RESET</a></li>
+                            {% for price in price_range_ddl %}
+                            <li><a href="{% url 'products' %}?{% query_transform price=price %}">{{ price }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </th>
+                <th>Quantity
+                    <tr></tr>
+                </th>
+        </tr>
+    </thead>
+    <tr></tr>
+    <tbody id="table-row-highlight">
+        {% for product in products_paginated %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td><img src="{{ product.photo|thumbnail_url:'list-small' }}" alt="{{ product.photo_alt }}"></td>
+            <td>{{ product.description }}</td>
+            <td>{{product.category}}</a>
+            </td>
+            <td>&pound;{{ product.price }}</td>
+            <td>
+                <div class="form-horizontal">
+                    <form role="form" method="post" id="register-form" action="{% url 'cart_add' %}">{% csrf_token %}
+                        <input type="number" name="amount" id="search" value=0 min="0" max="{{product.stock_level}}" />
+                        <input name="product" type="hidden" value="{{product.id}}">
+                        <button class="btn btn-sm btn-success" type="submit">Update Cart</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if products_paginated.has_other_pages %}
+<ul class="pagination">
+    {% if products_paginated.has_previous %}
+    <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="disabled"><span>&laquo;</span></li>
+    {% endif %} {% for i in products_paginated.paginator.page_range %} {% if products_paginated.number == i %}
+    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+    </li>
+    {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %} {% endfor %} {% if products_paginated.has_next %}
+    <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+    {% else %}
+    <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+</ul>
+{% endif %} {% endblock %}

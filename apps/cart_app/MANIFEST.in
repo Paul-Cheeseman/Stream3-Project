@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+recursive-exclude cart *.pyc
+recursive-include cart *.css
+recursive-include cart *.html
+recursive-include cart *.py

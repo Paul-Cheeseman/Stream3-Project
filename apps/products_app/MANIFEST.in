@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+recursive-exclude products *.pyc
+recursive-include products *.css
+recursive-include products *.html
+recursive-include products *.py

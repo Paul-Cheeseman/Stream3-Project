@@ -54,8 +54,10 @@
                 <div class="navbar-collapse collapse">
                     <!-- Start Navigation List -->
                     <ul class="nav navbar-nav navbar-right">
+
+
                         <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="/products/">Products</a></li>
+                        <li><a href="{% url 'products' %}">Products</a></li>
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'register_cc' %}">Credit Card Register</a></li>
                         <li><a href="{% url 'address' %}">Add Address</a></li>

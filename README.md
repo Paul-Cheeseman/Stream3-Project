@@ -17,6 +17,12 @@ This code is for a site that is required for the Code Institute end of Stream 3 
 - Mention about it being "app-ified" - DO IT
 - Customer account removal
 - Responsive design etc, what were my additions?
+- Made the admin panels more user friendly by adjusting layout
+- Validation and defensive approach on admin panel, either predefined dropdown lists used to ensure consitentsy of input, plus the stock level is checked to ensure it is a value over 0
+
+
+- Licence open source, used:
+https://opensource.org/licenses/BSD-3-Clause
 
 
 ## Project Coding
@@ -42,6 +48,9 @@ nnnnnnnnnn
  - I have used https://gist.github.com/benbacardi/d6cd0fb8c85e1547c3c60f95f5b2d5e1 to help with implementing multiple filter application for the Products page, as it requires remembering the previous URLS sent.
 
 - stripe (1.73.0), this is probably worth a mention by itself
+
+
+Login/logout app, it is based on code supplied by the Code Institute https://www.codeinstitute.net/ but has been changed, outline how!
 
 
 Django (1.11.7)

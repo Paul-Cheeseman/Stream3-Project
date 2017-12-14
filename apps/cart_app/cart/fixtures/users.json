@@ -1,0 +1,122 @@
+[
+{
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$7anCNoZDdIju$KeDov/0NgOE9HqhHW943h7zC1OZlrF7mGwAqUPQoBQQ=",
+        "last_login": "2017-11-29T17:40:02.086Z",
+        "is_superuser": false,
+        "username": "test@testy.com",
+        "first_name": "",
+        "last_name": "",
+        "email": "test@testy.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-11-17T11:05:23.541Z",
+        "stripe_custID": "cus_BmnLnl40DQrBN8",
+        "cart": 1,
+        "address_line1": "fff",
+        "address_line2": "fff",
+        "county": "fff",
+        "postcode": "fff",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$3gPGApMOR9uu$XHRsPTEBLpCzFFxMFcFwD6cc3Ghq/RKjx8XYnPN82y4=",
+        "last_login": "2017-11-17T17:54:36.276Z",
+        "is_superuser": false,
+        "username": "McTester@test.com",
+        "first_name": "",
+        "last_name": "",
+        "email": "McTester@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-11-17T17:54:36.086Z",
+        "stripe_custID": "cus_BmnfulrkjxWczS",
+        "cart": 0,
+        "address_line1": "None",
+        "address_line2": "None",
+        "county": "None",
+        "postcode": "None",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$la8JANYhnejU$ZQ4IeKg1x6vQQjsT9XjWjoNF7JrSQEWOPMdPMKxsIy8=",
+        "last_login": "2017-11-21T12:45:09.000Z",
+        "is_superuser": false,
+        "username": "test1@test.com",
+        "first_name": "",
+        "last_name": "",
+        "email": "test1@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-11-20T11:14:46.006Z",
+        "stripe_custID": "cus_BnrahOfo2Dc3gv",
+        "cart": 0,
+        "address_line1": "ffff",
+        "address_line2": "fffff",
+        "county": "fffff",
+        "postcode": "fffff",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$KjkyLtKVI8YI$kcJqRqcXI7DL9z/2d7ptkdGuUOF+Nu6ImFDlOqbsL9k=",
+        "last_login": "2017-11-29T11:12:14.796Z",
+        "is_superuser": false,
+        "username": "test2@test.com",
+        "first_name": "",
+        "last_name": "",
+        "email": "test2@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-11-20T13:43:45.846Z",
+        "stripe_custID": "cus_Bns0gKXTHiBiK3",
+        "cart": 0,
+        "address_line1": "ffff",
+        "address_line2": "ffff",
+        "county": "ffff",
+        "postcode": "ffff",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$VmZbslThj324$dbv9LvVYg1ArtQONSKKyzTu2zRD+dFwbivfjf9p0nvI=",
+        "last_login": "2017-11-20T16:54:18.497Z",
+        "is_superuser": false,
+        "username": "test@testing.co.uk",
+        "first_name": "",
+        "last_name": "",
+        "email": "test@testing.co.uk",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-11-20T16:54:18.278Z",
+        "stripe_custID": "None",
+        "cart": 0,
+        "address_line1": "aaa",
+        "address_line2": "aaa",
+        "county": "aaa",
+        "postcode": "aaa",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
