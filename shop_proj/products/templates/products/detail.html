@@ -2,10 +2,12 @@
 
 {% load thumbnail %} 
 {% load staticfiles %}
+{% load templatetags %}
 
  
-{% block head_js_products %}
-  <script type="text/javascript" src="{% static 'js/products.js' %}"></script>
+{% block head_for_products %}
+  <script type="text/javascript" src="{% static 'products/js/products.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'products/css/products.css' %}">
 {% endblock %}
 
 
@@ -28,39 +30,75 @@
 
 <div class="col-sm-6">
     
-    The img is..........<img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
+    <img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
 
 </div>
 
 <div class="col-sm-6">
     
     <div>
-        <p>The product description is.......... {{product.description}}</p>
+        <h2 class="product-detail-header"><strong>{{product.name}}</strong></h2>
+
+        <h3 class="product-detail-header">Price {{product.price}}</h3>
+
+        <h5><strong>Description:</strong></h5>
+        <p class="product-detail-description">{{product.description}}</p>
+    </div>    
+
+
+<h4>Order Options:</h4>
+<div class="btn-group btn-group-justified filter-options product-detail-order-opt">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Gender <span class="gender-selection caret"></span></button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Male</a></li>
+        <li><a href="#">Female</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Age <span class="age-selection caret"></span></button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Adult</a></li>
+        <li><a href="#">Child</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Size <span class="size-selection caret"></span></button>
+    <ul class="dropdown-menu" role="menu">
+        {% for item in sizes_ddl %}
+        <li><a href="#">{{ item.size }}</a></li>
+        {% endfor %}
+    </ul>
+  </div>
+
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Colour <span class="colour-selection caret"></span></button>
+    <ul class="dropdown-menu" role="menu">
+        {% for item in colour_ddl %}
+        <li><a href="#">{{ item.colour }}</a></li>
+        {% endfor %}
+    </ul>
+  </div>
+</div>    
+
+<h4>Order Amount:</h4>
+    <div class="form-horizontal">
+       <form role="form" method="post" id="register-form" action="{% url 'cart_add' %}">{% csrf_token %}
+            <input type="number" name="amount" id="search" value=0 min="0" max="{{product.stock_level}}" />
+            <input name="product" type="hidden" value="{{product.id}}">
+            <button class="btn btn-sm btn-success" type="submit">Add</button>
+        </form>
     </div>
 
-    <div>
-        <p>The product price is.......... {{product.price}}</p>
-    </div>    
-
-
-    <div>
-        <p>colour selection</p>
-    </div>    
-
-
-    <div>
-        <p>size selection</p>
-    </div>    
-
-
 
 </div>
 
-<div class="col-sm-3">
-    
-    The product size range is:
-
-
-</div>
 
 {% endblock %}

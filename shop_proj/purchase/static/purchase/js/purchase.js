@@ -18,8 +18,6 @@ $(function() {
         if (status === 200) {
           console.log(status, response);
   
-          console.log("worked");
-
           $("#credit-card-errors").hide();
           $("#id_stripe_id").val(response.id);
           form.submit();
@@ -29,8 +27,6 @@ $(function() {
           $("#credit-card-errors").show();
           $("#validate_card_btn").attr("disabled", false);
         
-          console.log("failed");
-
         }
       });
       return false;    

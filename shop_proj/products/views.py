@@ -125,9 +125,14 @@ def product_detail(request):
 			print(request.GET.get('product_name'))
 			product_name = request.GET.get('product_name')
 
-			#product_details = get_object_or_404(Product, name=product_name)
-			product = get_object_or_404(Product, name=product_name)
+		#product_details = get_object_or_404(Product, name=product_name)
+		product = get_object_or_404(Product, name=product_name)
+
+		#Get data for dynamically populated drop downs
+		#-----------------------------------------------
+		category_ddl = Product.objects.values('category').distinct()
+		colour_ddl = Product.objects.values('colour').distinct().order_by('colour')
+		sizes_ddl = Product.objects.values('size').distinct()
 
 
-
-		return render(request, "products/detail.html", {"product": product})
+		return render(request, "products/detail.html", {"product": product, "category_ddl": category_ddl, "colour_ddl": colour_ddl, "sizes_ddl": sizes_ddl})

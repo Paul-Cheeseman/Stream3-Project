@@ -29,13 +29,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'theme/assets/css/responsive.css' %}">
     <script src="{% static 'theme/assets/js/modernizrr.js' %}"></script>
     <!-- Bespoke stylesheet -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/shop_proj.css' %}">
     <!-- Moved to top so jQuery is available for stripe validation script, plus product table -->
     <script src="{% static 'theme/assets/js/jquery-2.1.3.min.js' %}"></script>
     <!-- Pulling in products jQuery to highlight table and enable product selection from table -->
-    {% block head_js_products %}{% endblock %}
+    {% block head_for_products %}{% endblock %}
     <!-- Pulling in JS for initial CC/stripe validation -->
-    {% block head_js %}{% endblock %}
+    {% block head_for_purchase %}{% endblock %}
 </head>
 
 <body>
@@ -113,8 +113,6 @@
     <script src="{% static 'theme/assets/js/lightbox.min.js' %}"></script>
     <script src="{% static 'theme/assets/js/count-to.js' %}"></script>
     <script src="{% static 'theme/assets/js/styleswitcher.js' %}"></script>
-    <script src="{% static 'theme/assets/js/map.js' %}"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script src="{% static 'theme/assets/js/script.js' %}"></script>
 </body>
 

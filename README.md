@@ -42,6 +42,13 @@ nnnnnnnnnn
 - I used these on which to base my site, although I have altered in substantially.
 	https://themefisher.com/products/sulfur-free-simple-html-template/
 	MENTION THIS IS TO NOT REINVENT THE WHEEL, the base functionality is was I was after
+	 - I have not used Map functionality, needed some JS links removed and a function call commented out
+	 - I have used by on tables and buttons (products page)
+	 - I have used by own forms (address/cc)
+	 - I have put in own button disable functionality (checkout)
+	 - I have put in own table row highlight (css)
+	 - I have added ability to select a row of table for product to show product detail page, plus changing pointer to finger to help users
+
 
 - I have used Easy Thumbnails (easy-thumbnails (2.5) https://easy-thumbnails.readthedocs.io/en/2.1/install/ and configured in to use particular sizes.
 
@@ -49,6 +56,8 @@ nnnnnnnnnn
 
 - stripe (1.73.0), this is probably worth a mention by itself
 
+
+jQuery code within the stripe.js file within the purchase app, is code supplied by the Code Institute https://www.codeinstitute.net/
 
 Login/logout app, it is based on code supplied by the Code Institute https://www.codeinstitute.net/ but has been changed, outline how!
 

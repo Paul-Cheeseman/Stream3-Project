@@ -2,7 +2,8 @@
 
 $(document).ready(function ($) {
 
-     jQuery('#map').CustomMap();
+//Not using Map
+ //jQuery('#map').CustomMap();
 
 
      ////------- Testimonials Carousel
