@@ -20,6 +20,33 @@
 </div>
 <!-- End Header Section -->
 
+
+
+<section>
+{% if messages %}
+    {% for message in messages %} 
+        {% if message.tags == "error"%}
+        <div class="alert alert-danger">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>
+        {% elif message.tags == "success"%}
+        <div class="alert alert-success">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>        
+        {% elif message.tags == "info"%}
+        <div class="alert alert-warning">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>                
+        {% endif %}
+   {% endfor %}
+{% endif %}
+</section>
 <!-- If reset has been pressed, run URLClean to remove previous URL query string(s) -->
 {% if reset == "y" %}
     <script>
@@ -28,6 +55,7 @@
 {% endif %}
 
 <h4>Filtering Options:</h4>
+
 <div class="btn-group btn-group-justified filter-options">
   <div class="btn-group">
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -104,7 +132,7 @@
     </ul>
   </div>
 
-    <a href="{% url 'products' %}?{% query_transform resetall="y" %}" class="btn btn-primary">REST ALL</a>
+    <a href="{% url 'products' %}?{% query_transform resetall="y" %}" class="btn btn-primary btn-primary-inverse">RESET ALL</a>
 
 </div>
 
@@ -119,9 +147,6 @@
             <th>Thumb Nail</th>
             <th class="hidden-xs hidden-sm">Description<th>Category</th>
             <th>Price</th>
-            <th  class="hidden-xs">Quantity
-                    <tr></tr>
-                </th>
         </tr>
     </thead>
     <tr></tr>

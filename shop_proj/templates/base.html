@@ -1,8 +1,11 @@
 {% load staticfiles %}
+{% load templatetags %}
+
 <!doctype html>
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><html lang="en" class="no-js"> <![endif]-->
 <html lang="en">
+
 
 <head>
     <!-- Basic -->
@@ -32,6 +35,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/shop_proj.css' %}">
     <!-- Moved to top so jQuery is available for stripe validation script, plus product table -->
     <script src="{% static 'theme/assets/js/jquery-2.1.3.min.js' %}"></script>
+    
+
+    <script type="text/javascript" src="{% static 'js/shop_proj.js' %}"></script>
     <!-- Pulling in products jQuery to highlight table and enable product selection from table -->
     {% block head_for_products %}{% endblock %}
     <!-- Pulling in JS for initial CC/stripe validation -->
@@ -39,6 +45,7 @@
 </head>
 
 <body>
+
  <header class="clearfix">
         <!-- Start  Logo & Naviagtion  -->
         <div class="navbar navbar-default navbar-top">
@@ -56,14 +63,14 @@
                     <ul class="nav navbar-nav navbar-right">
 
 
-                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'profile' %}">Home</a></li>
                         <li><a href="{% url 'products' %}">Products</a></li>
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'register_cc' %}">Credit Card Register</a></li>
                         <li><a href="{% url 'address' %}">Add Address</a></li>
                         <li><a href="{% url 'checkout' %}">Checkout</a></li>
                         <li><a href="{% url 'orders' %}">Orders</a></li>
-                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        <li id="logout_btn"><a href="#">Log Out</a></li>
                         {% else %}
                         <li><a href="{% url 'login' %}">Login</a></li>
                         <li><a href="{% url 'user_register' %}">Register</a></li>
@@ -76,18 +83,17 @@
             </div>
         </div>
         <!-- End Header Logo & Naviagtion -->
+
+
     </header>
     <!-- End Header Section -->
-    {% if messages %}
-    <section class="alert alert-warning">
-        <div class="messages">
-            {% for message in messages %} {{ message }} {% endfor %}
-        </div>
-    </section>
-    {% endif %}
+
     <section class="container">
         {% block content %} {% endblock %}
-    </section>
+    
+
+
+    <section class="container">
     <!-- Start Copyright Section -->
     <footer id="copyright-section" class="copyright-section">
         <div class="container">
@@ -102,6 +108,7 @@
         </div>
         <!-- /.container -->
     </footer>
+    </section>
     <!-- End Copyright Section -->
     <!-- Sulfur JS File -->
     <script src="{% static 'theme/assets/js/jquery-migrate-1.2.1.min.js' %}"></script>
@@ -114,6 +121,9 @@
     <script src="{% static 'theme/assets/js/count-to.js' %}"></script>
     <script src="{% static 'theme/assets/js/styleswitcher.js' %}"></script>
     <script src="{% static 'theme/assets/js/script.js' %}"></script>
+
+    <!-- Code for Pop-Up alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>    
 </body>
 
 </html>

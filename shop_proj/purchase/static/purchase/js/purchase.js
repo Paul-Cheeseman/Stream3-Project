@@ -1,3 +1,5 @@
+
+/* Code supplied by Code Institute */
   
 $(function() {
 

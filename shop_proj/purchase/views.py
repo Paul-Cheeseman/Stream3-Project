@@ -29,7 +29,7 @@ def address(request):
             user.postcode = form.cleaned_data['postcode']
             user.save()
 
-            messages.error(request, "Address successfully updated")
+            messages.success(request, "Address successfully updated")
 
         else:
             messages.error(request, "Please only use alph-numerics to complete address details")
@@ -76,7 +76,8 @@ def register_cc(request):
             user = User.objects.filter(username=request.user).update(stripe_custID = stripe_customer.id)
 
 
-            #Change to a thankyou for logging in
+            messages.success(request, "Credit Card successfully updated")
+
             return redirect(reverse('profile'))
 
 

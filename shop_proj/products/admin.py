@@ -11,5 +11,16 @@ class ProductAdmin(admin.ModelAdmin):
 	list_filter = ('category', 'stock_level')
 	list_display = ('name', 'description', 'price')
 
+
+	def get_actions(self, request):
+		#Disable delete
+		actions = super(ProductAdmin, self).get_actions(request)
+		del actions['delete_selected']
+		return actions
+
+	def has_delete_permission(self, request, obj=None):
+		#Disable delete
+		return False
+
 # Register the admin class with the associated model
 admin.site.register(Product, ProductAdmin)

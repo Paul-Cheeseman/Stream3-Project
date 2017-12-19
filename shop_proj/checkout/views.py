@@ -15,25 +15,24 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @login_required(login_url='/login/') 
 def checkout(request):
 
-	messages.error(request, "Msgs on")
 	#assume credit card not record until proven otherwise
 	cc_reg = "btn btn-sm btn-success disabled"
 
 	user = get_object_or_404(User, username=request.user)
 
+	#Timmy Help???
+	global total_cost
+	total_cost = 0
+
+
 	#if basket present
 	if 'cart' in request.session:
-		messages.error(request, ", got cart")
 		#Select all records from Cart_Item for current id
 		items_in_cart = CartItem.objects.filter(cart_id=request.session['cart'])		
 
 		#for each cart item, use the stored product_id to retrive product details from product table
 		products = Product.objects.filter(id__in=[item.product_id for item in items_in_cart])
 		#getting amount ordered of each product so can auto-fill cart list
-
-		#Timmy Help
-		global total_cost
-		total_cost = 0
 
 		for item in products:
 			cartItem_amount = get_object_or_404(CartItem, product_id=item.id, cart_id=request.session['cart'])
@@ -45,7 +44,6 @@ def checkout(request):
 		#Don't process is customer has a cart but nothing in it, tell them
 		#if anything in basket?
 		if items_in_cart.exists():
-			messages.error(request, ", items in cart")
 			#if credit card stored?
 			if user.stripe_custID == "None":
 				messages.error(request, "Please register a credit card before attempting purchase")
@@ -55,7 +53,6 @@ def checkout(request):
 
 			else:
 				cc_reg = "btn btn-sm btn-success"
-				messages.error(request, ", got Credit card")
 
 				#if POST
 				if 'purchase' in request.POST:
@@ -66,8 +63,9 @@ def checkout(request):
   						currency="gbp",
   						customer=user.stripe_custID,
 					)
-					messages.error(request, "Payment Made! - Go to orders Page, delete cart etc")
+					messages.success(request, "Payment Made! - Go to orders Page, delete cart etc")
 
+					cc_reg = "btn btn-sm btn-success disabled"
 
 					#Create order entries
 					customer = get_object_or_404(User, username=request.user)
@@ -100,7 +98,7 @@ def checkout(request):
 					get_object_or_404(Cart, id=request.session['cart']).delete()
 					del request.session['cart']
 
-					return render(request, "checkout/checkout.html")					
+					return render(request, "checkout/checkout.html", {"cc_reg": cc_reg})					
 	
 
 				else:
@@ -111,10 +109,10 @@ def checkout(request):
 
 		else:
 			messages.error(request, "Nothing in your cart, please add an item before attempting purchase")
-			return render(request, "checkout/checkout.html", {"cc_reg": cc_reg})
+			return render(request, "checkout/checkout.html", {"cc_reg": cc_reg,  "total_cost": total_cost})
 
 	else:
 		messages.error(request, "You don't have a cart yet, please create one by adding an item before attempting purchase")
-		return render(request, "checkout/checkout.html", {"cc_reg": cc_reg})
+		return render(request, "checkout/checkout.html", {"cc_reg": cc_reg,  "total_cost": total_cost})
 	#Need name, address etc for customer, if not redirect to profile page
 	#Passing user details across

@@ -1,1 +1,65 @@
 
+/* To over ride the defaulth theme version */
+.page-header {
+    margin-top: 10px;
+}
+
+
+.btn-primary-inverse {
+    background: #fff;
+    color: #ff432e;
+    font-size: 16px;
+    padding: 8px 15px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.btn-primary-inverse:hover {
+    color: #fff;
+    background: #ff432e;
+    border-left: 2px solid #fff;
+    font-size: 16px;
+    padding: 8px 15px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.dropdown-menu>li>a:hover {
+   background: #ff432e;
+   color: #fff;
+   font-size: 1.25em;
+}
+
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #ff432e;
+    white-space: nowrap;
+}
+
+
+
+#about-section {
+    padding-top: 5px;
+}
+
+
+
+
+.swal-overlay {
+    background-color: rgba(255, 67, 46, 0.7);
+}
+
+
+.swal-button--confirm {
+    background-color: rgb(3, 201, 99);
+    color: #000;
+}
+

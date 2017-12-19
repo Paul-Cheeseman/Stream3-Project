@@ -121,8 +121,6 @@ def products(request):
 
 def product_detail(request):
 		if request.GET.get('product_name'):
-			print("Product Name:")
-			print(request.GET.get('product_name'))
 			product_name = request.GET.get('product_name')
 
 		#product_details = get_object_or_404(Product, name=product_name)

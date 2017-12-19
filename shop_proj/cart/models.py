@@ -23,7 +23,6 @@ class Cart(models.Model):
 		self.save()
 		request['cart'] = self.id	
 
-
 	#Check if the cart has ANY items in it
 	def items_in_cart(self):
 		cart_queryset = CartItem.objects.filter(cart_id=self)
@@ -92,7 +91,6 @@ class Cart(models.Model):
 
 
 	def del_cart(self, request):
-
 		#remove all cart items from db
 		items_in_cart = CartItem.objects.filter(cart_id=self.id)
 		for item in items_in_cart:

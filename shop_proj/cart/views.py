@@ -42,27 +42,43 @@ def cart_add(request):
 		if isNotNum(amount_req):
 			amount_req = 0
 
+
+
+
 		if 'cart' not in request.session:
 			cart = Cart()
 			cart.create_cart(request.session)
 
 			#check, if amount is 0, don't add to cart
-			if amount_req != 0:
+			if int(amount_req) == 0:
+				messages.info(request, "No changes to cart made")          
+			else:
+				messages.success(request, "Item added to cart")            
 				cart.add_to_cart(product_id, amount_req)
 
 		else:
 			#put this here to reduce repeating code
 			cart = Cart.get_cart(request.session['cart'])
 
-			if int(amount_req) == 0:
+			print(cart.item_in_cart(product_id))
+
+			if int(amount_req) == 0 & (cart.item_in_cart(product_id) !=None):
 				cart.remove_from_cart(product_id)
+				messages.success(request, "Item removed from cart")          
+
+			elif int(amount_req) == 0:
+				messages.info(request, "No changes to cart made")          
+
 
 			else:
 				#Check to see if product already in cart, if so update value
 				if cart.item_in_cart(product_id):
 					cart.update_cart(product_id, amount_req)
+					messages.success(request, "Item quantity in cart updated")            
 				else:
 					cart.add_to_cart(product_id, amount_req)
+					messages.success(request, "Item added to cart")            
+
 
 	products = Product.objects.all()
 
@@ -91,7 +107,7 @@ def cart_add(request):
 		products_paginated = paginator.page(paginator.num_pages)
 
 
-	return render(request, "products/products.html", {"products_paginated": products_paginated, "category_ddl": category_ddl, "price_range_ddl": price_range_ddl, "colour_ddl": colour_ddl, "sizes_ddl": sizes_ddl})
+	return render(request, "products/list.html", {"products_paginated": products_paginated, "category_ddl": category_ddl, "price_range_ddl": price_range_ddl, "colour_ddl": colour_ddl, "sizes_ddl": sizes_ddl})
 
 
 def cart_list(request):
@@ -103,14 +119,12 @@ def cart_list(request):
 		delete_button_show = True
 
 		if 'delete' in request.POST:
-			print("Delete activated!")
 			#remove items from CartItem table
 
 			cart.del_cart(request)
-			messages.error(request, "As requested Cart Deleted!")
 			#prevent the HTML for the delete button being generated
 			delete_button_show = False
-
+			messages.error(request, "Cart deleted")
 
 		#Determine is the page is initially loading or user is submitting form
 		if 'product' in request.POST and 'amount' in request.POST:
@@ -119,14 +133,15 @@ def cart_list(request):
 			cart.update_cart(product_id, amount_req)
 
 			if not cart.items_in_cart():
+				messages.info(request, "No items in cart")
 				cart.del_cart(request)
-				messages.error(request, "Cart Removed as no items within it!")
 				delete_button_show = False
 
 		products = cart.add_quantity()
 
 	else:
 		products = {}
+		messages.info(request, "No items in cart")
 		#prevent the HTML for the delete button being generated	
 		delete_button_show = False
 

@@ -14,6 +14,35 @@
         </div>
         <!-- End Header Section -->
 
+<section>
+{% if messages %}
+    {% for message in messages %} 
+        {% if message.tags == "error"%}
+        <div class="alert alert-danger">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>
+        {% elif message.tags == "success"%}
+        <div class="alert alert-success">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>        
+        {% elif message.tags == "info"%}
+        <div class="alert alert-warning">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>                
+        {% endif %}
+   {% endfor %}
+{% endif %}
+</section>
+
+
+
+
 <table class="table table-hover">
     <thead>
         <tr>

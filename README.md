@@ -20,6 +20,8 @@ This code is for a site that is required for the Code Institute end of Stream 3 
 - Made the admin panels more user friendly by adjusting layout
 - Validation and defensive approach on admin panel, either predefined dropdown lists used to ensure consitentsy of input, plus the stock level is checked to ensure it is a value over 0
 
+ - It will be a rule of using the app(s) that the products are never deleted, this si so that the ordering system has access to all historical products and also so that any retrieved cart is ensured to have the product to reference, even if in stock or not. SO THE ADMIN PANEL HAS BEEN PREVENTED FROM DELETING PRODUCTS to ensure the app runs smoothly
+
 
 - Licence open source, used:
 https://opensource.org/licenses/BSD-3-Clause
@@ -49,6 +51,10 @@ nnnnnnnnnn
 	 - I have put in own table row highlight (css)
 	 - I have added ability to select a row of table for product to show product detail page, plus changing pointer to finger to help users
 
+These are examples of not re-inventing the wheel!
+
+- for alert on logout:
+https://sweetalert.js.org/guides/
 
 - I have used Easy Thumbnails (easy-thumbnails (2.5) https://easy-thumbnails.readthedocs.io/en/2.1/install/ and configured in to use particular sizes.
 

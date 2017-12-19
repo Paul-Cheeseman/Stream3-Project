@@ -30,10 +30,9 @@ class User(AbstractUser):
     # number of custom attribute to our user class
  
     stripe_custID = models.CharField(max_length=100, default="None") 
-    cart = models.IntegerField(default=0)
     address_line1 = models.CharField(max_length=100, default="None") 
     address_line2 = models.CharField(max_length=100, default="None")
     county = models.CharField(max_length=100, default="None")
     postcode = models.CharField(max_length=8, default="None")
-
+    saved_cart = models.ForeignKey('cart.Cart', default=0)
     objects = AccountUserManager()

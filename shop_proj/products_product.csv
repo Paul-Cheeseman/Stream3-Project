@@ -1,8 +1,0 @@
-id,name,description,price,stock_level,category,photo,photo_alt,age,colour,size,gender
-1,Product 1,"Product 1, small, male, adult, black, t-shirt",5.99,15,Te,img/31832194513_5a979c61bf_o_isYB0cT.jpg,Product 1,A,Black,S,M
-2,Product 2,"Product 2, large, male, adult, black, t-shirt",7.99,12,Te,img/31832194513_5a979c61bf_o_BZEYn9t.jpg,Product 2,A,Black,L,M
-3,Product 3,"Product 3, medium, male, child, green, shirt",1.43,18,Sh,img/31832194513_5a979c61bf_o_bjHNiSn.jpg,Product 3,C,Green,M,M
-4,Product 4,"Product 4, large, female, adult, red, skirt",4.99,8,Sk,img/31832194513_5a979c61bf_o_jNIXM7O.jpg,Product 4,A,Red,L,F
-5,Product 5,"Product 5, large, female, adult, blue, skirt",7.99,10,Sk,img/31832194513_5a979c61bf_o_E1kdnXZ.jpg,Product 5,A,Blue,L,F
-6,Product 6,"Product 6, medium, female, child, black, trousers",5.88,7,Tr,img/31832194513_5a979c61bf_o_8Di7ehN.jpg,Product 6,C,Black,M,F
-7,Product 7,Prod 7,0.27,6,Trousers,img/31832194513_5a979c61bf_o_vTBKx7O.jpg,Product 7,Adult,Black,Small,Male
