@@ -70,14 +70,17 @@ def login(request):
                         #check the associated product to see if its stock level is above the quantity
                         cart_queryset = Product.objects.filter(id=item.product_id, stock_level__gte=item.amount)
                         if  cart_queryset.exists():
-                            print("")
+                            print("stock level is OK for item")
                             #Do nothing, the amount in stock can still cover order
 
                         else:
+                            print("stock level too low for item")
                             #remove cartItems from cart which their is now not enough stock to fulfill
-                            CartItem.objects.filter(cart_id=cart, id=item.product_id).delete()
+                            print(CartItem.objects.filter(cart_id=cart.id, product_id=item.product_id)) 
+                            CartItem.objects.filter(cart_id=cart, product_id=item.product_id).delete()
                             #msg user
                             cart_amended = True
+
 
                 
                 if cart_amended:
@@ -110,30 +113,29 @@ def logout(request):
             user.saved_cart_id = cart
             user.save()
 
-    else:
-
-        user = User.objects.get(username=request.user)
+    elif request.GET.get('cart_store') == "no":
 
        #set session cart from stored cart
-        cart = Cart.get_cart(request.session['cart']) 
-        cart_contents = cart.items_in_cart()
-
-        if cart_contents:
-            #delete all items in cart
-            for item in cart_contents:
-                #remove cartItems from cart which their is now not enough stock to fulfill
-                cart.remove_from_cart(item.product_id)
+        if request.session.get('cart'):
+            #destroy cart session variable
 
 
-        #set back to 0 so on login no attempt at retrieving a stored cart is made
-        user.saved_cart_id = 0
-        user.save()
+            cart = Cart.get_cart(request.session['cart']) 
+            cart_contents = cart.items_in_cart()
+
+            if cart_contents:
+                #delete all items in cart
+                for item in cart_contents:
+                    #remove cartItems from cart which their is now not enough stock to fulfill
+                    cart.remove_from_cart(item.product_id)
 
 
-        
-    if request.session.get('cart'):
-        #destroy cart session variable
-        del request.session['cart']
+            #set back to 0 so on login no attempt at retrieving a stored cart is made
+            user = User.objects.get(username=request.user)
+            user.saved_cart_id = 0
+            user.save()
+
+            del request.session['cart']
 
     #log user out
     auth.logout(request)

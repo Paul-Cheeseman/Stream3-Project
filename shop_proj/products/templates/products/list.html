@@ -1,11 +1,14 @@
-{% extends "base.html" %} {% load thumbnail %} {% load staticfiles %} {% load templatetags %} {% block head_for_products %}
-<script type="text/javascript" src="{% static 'products/js/products.js' %}"></script>
+{% extends "base.html" %} 
+{% load thumbnail %} 
+{% load staticfiles %} 
+{% load templatetags %} 
+
+{% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'products/css/products.css' %}">
 {% endblock %} 
 
 
 {% block content %}
-
 <!-- Start Header Section -->
 <div class="page-header">
     <div class="overlay">
@@ -47,12 +50,6 @@
    {% endfor %}
 {% endif %}
 </section>
-<!-- If reset has been pressed, run URLClean to remove previous URL query string(s) -->
-{% if reset == "y" %}
-    <script>
-        URLclean();
-    </script>
-{% endif %}
 
 <h4>Filtering Options:</h4>
 
@@ -132,8 +129,8 @@
     </ul>
   </div>
 
-    <a href="{% url 'products' %}?{% query_transform resetall="y" %}" class="btn btn-primary btn-primary-inverse">RESET ALL</a>
 
+    <a href="{% url 'products' %}" class="btn btn-primary btn-primary-inverse">RESET ALL</a>
 </div>
 
 
@@ -180,3 +177,9 @@
     {% endif %}
 </ul>
 {% endif %} {% endblock %}
+
+
+{% block extra_footer %}
+<script type="text/javascript" src="{% static 'products/js/products.js' %}"></script>
+{% endblock %} 
+

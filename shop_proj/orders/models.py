@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from products.models import Product
+from datetime import datetime
 
 # Create your models here.
 
@@ -12,10 +13,15 @@ class Order(models.Model):
   county = models.CharField(max_length=100, default="None")
   postcode = models.CharField(max_length=100, default="None")
   order_date = models.DateTimeField(auto_now_add=True)
-  total = models.DecimalField(max_digits=6, decimal_places=2)
+  total = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
   class Meta:
     ordering = ['order_date']
+
+  @property
+  def day(self):
+    return datetime.strftime(self.order_date, "%d-%b-%Y")
+
 
 class OrderItem(models.Model):
   order = models.ForeignKey('orders.Order')

@@ -8,6 +8,7 @@ from cart.models import Cart, CartItem
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import redirect
 
 #just some rubbish to get site running to test something before tidying up
 def get_index(request):
@@ -17,7 +18,8 @@ def get_index(request):
 #just some rubbish to get site running to test something before tidying up
 def get_new_index(request):
 	#just some rubbish to get site running to test something before tidying up
-	return render(request, "index-new.html")
+	return render(request, "index.html")
+
 
 
 def isNotNum(data):
@@ -38,6 +40,8 @@ def cart_add(request):
 		product_id = int(request.POST['product'])
 		amount_req = request.POST['amount']
 
+		product = get_object_or_404(Product, id=product_id)
+
 		#cater for null/blank value
 		if isNotNum(amount_req):
 			amount_req = 0
@@ -53,8 +57,21 @@ def cart_add(request):
 			if int(amount_req) == 0:
 				messages.info(request, "No changes to cart made")          
 			else:
+
+				#if product is in stock, set variable to enable add button
+					#if the product is product deficite, set variable with amount of stock level to 
+					#max level can be put in, update with msg saying contact compnay if need more ASAP
+					#go back to product detail page (for that product), need to call it correctly!
+				#if Product.in_stock(product_id)
+				stock_level_warning = product.stock_level_deficite(amount_req)
+				print("Stock level warning")		
+				print(stock_level_warning)		
+
+
 				messages.success(request, "Item added to cart")            
 				cart.add_to_cart(product_id, amount_req)
+
+
 
 		else:
 			#put this here to reduce repeating code
@@ -71,6 +88,21 @@ def cart_add(request):
 
 
 			else:
+
+				#if product is in stock, set variable to enable add button
+					#if the product is product deficite, set variable with amount of stock level to 
+					#max level can be put in, update with msg saying contact compnay if need more ASAP
+					#go back to product detail page (for that product), need to call it correctly!
+				#if Product.in_stock(product_id)
+				stock_level_warning = product.stock_level_deficite(amount_req)
+				print("Stock level warning")		
+				print(stock_level_warning)		
+				if stock_level_warning:
+					messages.error(request, "Only {0} left in stock, contact support".format(stock_level_warning))            
+
+					return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock()})
+
+
 				#Check to see if product already in cart, if so update value
 				if cart.item_in_cart(product_id):
 					cart.update_cart(product_id, amount_req)

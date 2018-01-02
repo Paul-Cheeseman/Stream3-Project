@@ -60,4 +60,17 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    #returns true if 1 or more units of product in stock
+    def in_stock(self):
+        return self.stock_level > 0
+
+    def stock_level_deficite(self, amount_req):
+        print("Posted amount")
+        print(amount_req)
+        print("stock level")
+        print(self.stock_level)
+        if int(amount_req) > self.stock_level:
+            return self.stock_level
+        else:
+            return None
 

@@ -20,12 +20,3 @@ $(document).ready(function() {
 
 });
 
-
-    function URLclean(){
-        console.log("working?");
-        if (window.location.href.indexOf('?') > -1) {
-            window.location.href = window.location.pathname;
-        }
-    }
-
-

@@ -1,19 +1,15 @@
 {% extends "base.html" %} 
-
 {% load thumbnail %} 
-{% load staticfiles %}
-{% load templatetags %}
-
- 
-{% block head_for_products %}
-  <script type="text/javascript" src="{% static 'products/js/products.js' %}"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'products/css/products.css' %}">
-{% endblock %}
+{% load staticfiles %} 
+{% load templatetags %} 
 
 
-{% block content %} 
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'products/css/products.css' %}"> 
+{% endblock %} 
 
 
+{% block content %}
 <!-- Start Header Section -->
 <div class="page-header">
     <div class="overlay">
@@ -26,38 +22,53 @@
         </div>
     </div>
 </div>
+
 <!-- End Header Section -->
 
-<div class="col-sm-6">
-    
-    <img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
 
+<div class="col-sm-6">
+    <img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
 </div>
 
 <div class="col-sm-6">
-    
     <div>
         <h2 class="product-detail-header"><strong>{{product.name}}</strong></h2>
-
-        <h3 class="product-detail-header">Price {{product.price}}</h3>
-
+        <h3 class="product-detail-header">Price &pound;{{product.price}}</h3>
+        {% if not in_stock %}
+        <h3 class="product-detail-header out-of_stock_clr">Currently out of Stock</h3>
+        {% endif%}
+        {% if stock_level_warning %}
+        <h3 class="product-detail-header">Currently only {{ stock_level }} in Stock</h3>
+        {% endif%}        
         <h5><strong>Description:</strong></h5>
         <p class="product-detail-description">{{product.description}}</p>
-    </div>    
-
-
-
-<h4>Order Amount:</h4>
-    <div class="form-horizontal">
-       <form role="form" method="post" id="register-form" action="{% url 'cart_add' %}">{% csrf_token %}
-            <input type="number" name="amount" id="search" value=0 min="0" max="{{product.stock_level}}" />
-            <input name="product" type="hidden" value="{{product.id}}">
-            <button class="btn btn-sm btn-success" type="submit">Add</button>
-        </form>
     </div>
 
-
+<section>
+{% if messages %}
+    {% for message in messages %} 
+        {% if message.tags == "error"%}
+        <div class="alert alert-danger">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>
+        {% endif %}
+   {% endfor %}
+{% endif %}
+</section>
+    
+    <h4>Order Amount:</h4>
+    <div class="form-horizontal">
+        <form role="form" method="post" action="{% url 'cart_add' %}">{% csrf_token %}
+            <input type="number" name="amount" id="search" value=0 min="0" />
+            <input name="product" type="hidden" value="{{product.id}}">
+            <button {% if in_stock %} class="btn btn-sm btn-success" {% else %} class="btn btn-sm btn-success disabled" {% endif %}type="submit">Add</button>
+        </form>
+    </div>
 </div>
+{% endblock %} 
 
-
+{% block extra_footer %}
+<script type="text/javascript" src="{% static 'products/js/products.js' %}"></script>
 {% endblock %}

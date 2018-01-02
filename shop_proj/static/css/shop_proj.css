@@ -63,3 +63,17 @@
     color: #000;
 }
 
+/* To override the default theme background image */
+.banner {
+    text-align: center;
+    color: #fff;
+    background: url(../../media/img/sewingmachine.jpg) no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+ 

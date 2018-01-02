@@ -16,3 +16,7 @@
 .product-detail-order-opt{
 	margin-bottom: 2em;
 }
+
+.out-of_stock_clr{
+	color: rgb(255, 67, 46);	
+}

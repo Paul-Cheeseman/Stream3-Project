@@ -10,16 +10,10 @@ from .models import Product
 #Change to list all 
 def products(request):
 
-	#Variable used to trigger jQuery URL clear down in template (to ensure fresh start for customer)
-	reset = "n"	
-
-
 	if request.GET.get('resetall') == "y":
 
 		#Determines descending/ascending order of products by name
 		order = ""
-		#Variable used to trigger jQuery URL clear down in template (to ensure fresh start for customer)
-		reset = "y"	
 
 		product_filter = Product.objects.all()
 
@@ -113,24 +107,17 @@ def products(request):
 		products_paginated = paginator.page(paginator.num_pages)
 
 
-	return render(request, "products/list.html", {"products_paginated": products_paginated, "category_ddl": category_ddl, "price_range_ddl": price_range_ddl, "colour_ddl": colour_ddl, "sizes_ddl": sizes_ddl, "order": order, "reset": reset})
+	return render(request, "products/list.html", {"products_paginated": products_paginated, "category_ddl": category_ddl, "price_range_ddl": price_range_ddl, "colour_ddl": colour_ddl, "sizes_ddl": sizes_ddl, "order": order,})
 
 
 
 
 
 def product_detail(request):
-		if request.GET.get('product_name'):
-			product_name = request.GET.get('product_name')
+	if request.GET.get('product_name'):
+		product_name = request.GET.get('product_name')
 
 		#product_details = get_object_or_404(Product, name=product_name)
 		product = get_object_or_404(Product, name=product_name)
 
-		#Get data for dynamically populated drop downs
-		#-----------------------------------------------
-		category_ddl = Product.objects.values('category').distinct()
-		colour_ddl = Product.objects.values('colour').distinct().order_by('colour')
-		sizes_ddl = Product.objects.values('size').distinct()
-
-
-		return render(request, "products/detail.html", {"product": product, "category_ddl": category_ddl, "colour_ddl": colour_ddl, "sizes_ddl": sizes_ddl})
+		return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock()})

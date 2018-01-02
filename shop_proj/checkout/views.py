@@ -41,7 +41,8 @@ def checkout(request):
 			total_cost = total_cost + item.cost
 
 			pence_cost = int(total_cost * 100)
-		#Don't process is customer has a cart but nothing in it, tell them
+		
+		#Don't process if customer has a cart but nothing in it, tell them
 		#if anything in basket?
 		if items_in_cart.exists():
 			#if credit card stored?
@@ -57,13 +58,35 @@ def checkout(request):
 				#if POST
 				if 'purchase' in request.POST:
 					
+
+					#Go through and check stock levels are still OK pre purchase
+					#i.e has another customer made a purchase and reduced available stock levels below what can be fulfilled?
+					for item in products:
+						#Need to get current stock level
+						current_product = get_object_or_404(Product, id=item.id)
+						if item.amount > current_product.stock_level:
+							item.amount = current_product.stock_level
+							messages.error(request, "Recent purchases mean we can no longer currently meet you order with our existing stock, your order has been updated to reflect current stock levels")
+
+
+							#Need to amend cartItem to store new amount value, so that if purchase not made 
+							#but cart stored, the item is not deleted (on signing back in) unless 
+							#stock levels has actually gone below the amended amount 
+							cart_item = get_object_or_404(items_in_cart, product_id=item.id)
+							cart_item.amount = current_product.stock_level
+							cart_item.save()
+
+							return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost})
+
+
+
 					#make payment
 					charge = stripe.Charge.create(
   						amount=pence_cost,
   						currency="gbp",
   						customer=user.stripe_custID,
 					)
-					messages.success(request, "Payment Made! - Go to orders Page, delete cart etc")
+					messages.success(request, "Payment Successful")
 
 					cc_reg = "btn btn-sm btn-success disabled"
 
@@ -72,16 +95,18 @@ def checkout(request):
 					new_order = Order(address_line1=user.address_line1, address_line2=user.address_line1, county=user.county, postcode=user.postcode, total=(pence_cost/100), customer_id=customer.id)
 					new_order.save()
 					
-
 					for item in products:
 						print("item cost post order!")
 						print(item.cost)
 						new_orderItem = OrderItem(order_id=new_order.id, product=item, quantity=item.amount, price=item.price)
 						new_orderItem.save()
 
-
-
-
+						#Reduce the stock level
+						#The amount won't be bigger than current stock levels due to pre-purchase stock
+						#level checks (so no need to check here)
+						current_product = get_object_or_404(Product, id=item.id)
+						current_product.stock_level = current_product.stock_level - item.amount
+						current_product.save()
 
 					#remove cartItems from database and cart from session
 					cartItems_to_rem = CartItem.objects.filter(cart_id=request.session['cart'])

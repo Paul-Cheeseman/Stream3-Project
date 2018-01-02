@@ -16,6 +16,9 @@ This code is for a site that is required for the Code Institute end of Stream 3 
 - Mention where I have put required JavaScript for project
 - Mention about it being "app-ified" - DO IT
 - Customer account removal
+- If stock level has reduced since last log in, if a customer has a stored cart, the item is removed from the cart and customer informed.
+
+
 - Responsive design etc, what were my additions?
 - Made the admin panels more user friendly by adjusting layout
 - Validation and defensive approach on admin panel, either predefined dropdown lists used to ensure consitentsy of input, plus the stock level is checked to ensure it is a value over 0
@@ -50,6 +53,8 @@ nnnnnnnnnn
 	 - I have put in own button disable functionality (checkout)
 	 - I have put in own table row highlight (css)
 	 - I have added ability to select a row of table for product to show product detail page, plus changing pointer to finger to help users
+
+Timmy (Mentor) supplied some of the code for orders (To get date/order-id and totals)
 
 These are examples of not re-inventing the wheel!
 
