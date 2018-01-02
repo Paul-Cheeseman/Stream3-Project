@@ -59,13 +59,14 @@ def cart_add(request):
 			else:
 
 				#if product is in stock, set variable to enable add button
-					#if the product is product deficite, set variable with amount of stock level to 
-					#max level can be put in, update with msg saying contact compnay if need more ASAP
-					#go back to product detail page (for that product), need to call it correctly!
+				#if the product is product deficite, set variable with amount of stock level to 
+				#max level can be put in, update with msg saying contact compnay if need more ASAP
+				#go back to product detail page (for that product), need to call it correctly!
 				#if Product.in_stock(product_id)
 				stock_level_warning = product.stock_level_deficite(amount_req)
-				print("Stock level warning")		
-				print(stock_level_warning)		
+				if stock_level_warning:
+					messages.error(request, "Only {0} left in stock, contact support".format(stock_level_warning))            
+					return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock()})
 
 
 				messages.success(request, "Item added to cart")            
@@ -95,11 +96,8 @@ def cart_add(request):
 					#go back to product detail page (for that product), need to call it correctly!
 				#if Product.in_stock(product_id)
 				stock_level_warning = product.stock_level_deficite(amount_req)
-				print("Stock level warning")		
-				print(stock_level_warning)		
 				if stock_level_warning:
 					messages.error(request, "Only {0} left in stock, contact support".format(stock_level_warning))            
-
 					return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock()})
 
 
