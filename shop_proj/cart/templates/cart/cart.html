@@ -1,5 +1,13 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 {% load thumbnail %}
+{% load staticfiles %} 
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'cart/css/cart.css' %}">
+{% endblock %} 
+
+
         <!-- Start Header Section -->
         <div class="page-header">
             <div class="overlay">
@@ -43,7 +51,7 @@
 
 
 
-<table class="table table-hover">
+<table class="table table-responsive">
     <thead>
         <tr>
             <th>Name</th>
@@ -54,7 +62,7 @@
             <th>Quantity</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="table-row-highlight">
         {% for product in products %}
         <tr>
             <td>{{ product.name }}</td>
@@ -87,3 +95,8 @@
 {% endif %}
 
 {% endblock %}
+
+
+{% block extra_footer %}
+<script type="text/javascript" src="{% static 'cart/js/cart.js' %}"></script>
+{% endblock %} 

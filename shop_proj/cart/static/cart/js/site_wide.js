@@ -1,11 +1,20 @@
 $(document).ready(function() {
 
-	/*  This code has been imported from the Cart App, but needs to be here for ease of access for
-		all the pages. Trying to reference the code when it is within the Cart App ststic file 
-		gets rather confusing with STATIC file references (trying to call the JS file from within 
-		Carts STATIC dir from a template (main) which is referencing a site wide STATIC dir. */
 
-	$('#logout_btn').click(function() {
+    /*  This code needs to be put in the generic project app if it is to be applied to logout. 
+        This is on the assumption that logout will be used on each page, the code is kepted 
+        commented out here so that it stays with the app, even when it is imported, and uncommented!, 
+        in the main project static JS file 
+
+
+        Kept in a seperate file to clearly delinate between code that needs to be site wide and code 
+        in cart.js that can be local to the app.
+    */
+
+
+
+    /* 
+    $('#logout_btn').click(function() {
         window.location.href = "/accounts/logout/?cart_store=no";
     });
 
@@ -41,4 +50,6 @@ $(document).ready(function() {
                 }
             });
     });
+    */
+    
 });
