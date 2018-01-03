@@ -34,6 +34,13 @@ def isNotNum(data):
 #Change to list all 
 def cart_add(request):
 
+	#variable to determine is restriction is needed to put on HTML input (on product detail page)
+	#Done this way as deemed clear for customer to get msg and then have restriction applied
+	#than to just limit the form input to stock level max with no indication as to what limit
+	#is being applied (although it maybe apparent to some)
+	stock_control_max_limit = 0
+
+
 	#Only process if add URL requested from products page (which will pass these vars)
 	if 'product' in request.POST and 'amount' in request.POST:
 
@@ -63,10 +70,11 @@ def cart_add(request):
 				#max level can be put in, update with msg saying contact compnay if need more ASAP
 				#go back to product detail page (for that product), need to call it correctly!
 				#if Product.in_stock(product_id)
-				stock_level_warning = product.stock_level_deficite(amount_req)
-				if stock_level_warning:
-					messages.error(request, "Only {0} left in stock, contact support".format(stock_level_warning))            
-					return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock()})
+				product = get_object_or_404(Product, id=product_id)
+				stock_control_max_limit = product.stock_level_deficite(amount_req)
+				if stock_control_max_limit:
+					messages.error(request, "Only {0} {1} left in stock, contact support".format(stock_control_max_limit, product.name))
+					return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock(), "stock_control_max_limit": stock_control_max_limit})
 
 
 				messages.success(request, "Item added to cart")            
@@ -100,10 +108,11 @@ def cart_add(request):
 					#max level can be put in, update with msg saying contact compnay if need more ASAP
 					#go back to product detail page (for that product), need to call it correctly!
 				#if Product.in_stock(product_id)
-				stock_level_warning = product.stock_level_deficite(amount_req)
-				if stock_level_warning:
-					messages.error(request, "Only {0} left in stock, contact support".format(stock_level_warning))            
-					return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock()})
+				product = get_object_or_404(Product, id=product_id)
+				stock_control_max_limit = product.stock_level_deficite(amount_req)
+				if stock_control_max_limit:
+					messages.error(request, "Only {0} {1} left in stock, contact support".format(stock_control_max_limit, product.name))
+					return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock(), "stock_control_max_limit": stock_control_max_limit})
 
 
 				#Check to see if product already in cart, if so update value
@@ -142,7 +151,7 @@ def cart_add(request):
 		products_paginated = paginator.page(paginator.num_pages)
 
 
-	return render(request, "products/list.html", {"products_paginated": products_paginated, "category_ddl": category_ddl, "price_range_ddl": price_range_ddl, "colour_ddl": colour_ddl, "sizes_ddl": sizes_ddl})
+	return render(request, "products/list.html", {"products_paginated": products_paginated, "category_ddl": category_ddl, "price_range_ddl": price_range_ddl, "colour_ddl": colour_ddl, "sizes_ddl": sizes_ddl, "stock_control_max_limit": stock_control_max_limit})
 
 
 def cart_list(request):

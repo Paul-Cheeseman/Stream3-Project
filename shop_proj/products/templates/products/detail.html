@@ -37,9 +37,6 @@
         {% if not in_stock %}
         <h3 class="product-detail-header out-of_stock_clr">Currently out of Stock</h3>
         {% endif%}
-        {% if stock_level_warning %}
-        <h3 class="product-detail-header">Currently only {{ stock_level }} in Stock</h3>
-        {% endif%}        
         <h5><strong>Description:</strong></h5>
         <p class="product-detail-description">{{product.description}}</p>
     </div>
@@ -58,10 +55,32 @@
 {% endif %}
 </section>
     
+
+          YIPPPEEEE {{ stock_control_max_limit }}
+
+
     <h4>Order Amount:</h4>
     <div class="form-horizontal">
         <form role="form" method="post" action="{% url 'cart_add' %}">{% csrf_token %}
-            <input type="number" name="amount" id="search" value=0 min="0" />
+            <input type="number" name="amount" id="search" 
+
+
+
+                     {% if stock_control_max_limit > 0  %}
+                            value={{product.stock_level}} 
+                        {% else %}
+                            value=0 
+                        {% endif %}
+
+                        min="0" 
+
+                        {% if stock_control_max_limit > 0  %}
+                            max="{{product.stock_level}}" 
+                        {% endif %}
+            />
+
+
+
             <input name="product" type="hidden" value="{{product.id}}">
             <button {% if in_stock %} class="btn btn-sm btn-success" {% else %} class="btn btn-sm btn-success disabled" {% endif %}type="submit">Add</button>
         </form>
