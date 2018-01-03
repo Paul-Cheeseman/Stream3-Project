@@ -27,22 +27,6 @@
     transition: all 0.3s;
 }
 
-.dropdown-menu>li>a:hover {
-   background: #ff432e;
-   color: #fff;
-   font-size: 1.25em;
-}
-
-.dropdown-menu>li>a {
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: 400;
-    line-height: 1.42857143;
-    color: #ff432e;
-    white-space: nowrap;
-}
-
 
 
 #about-section {

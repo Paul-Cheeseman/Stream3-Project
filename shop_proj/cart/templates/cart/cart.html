@@ -77,7 +77,20 @@
             <td>
                 <div class="form-horizontal">
                     <form role="form" method="post" id="register-form" action="{% url 'cart_list' %}">{% csrf_token %}
-                        <input type="number" name="amount" id="search" value={{product.amount}} min="0" max="{{product.stock_level}}" />
+                        <input type="number" name="amount" id="search" 
+
+                        {% if stock_control_max_limit > 0  %}
+                            value={{product.stock_level}} 
+                        {% else %}
+                            value={{product.amount}} 
+                        {% endif %}
+
+                        min="0" 
+
+                        {% if stock_control_max_limit > 0  %}
+                            max="{{product.stock_level}}" 
+                        {% endif %}
+                        />
                         <input name="product" type="hidden" value="{{product.id}}">
                         <button class="btn btn-sm btn-success"  type="submit">Update Cart</button>
                     </form>

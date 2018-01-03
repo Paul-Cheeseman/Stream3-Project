@@ -146,6 +146,13 @@ def cart_add(request):
 
 
 def cart_list(request):
+
+	#variable to determine is restriction is needed to put on HTML input
+	#Done this way as deemed clear for customer to get msg and then have restriction applied
+	#than to just limit the form input to stock level max with no indication as to what limit
+	#is being applied (although it maybe apparent to some)
+	stock_control_max_limit = 0
+
 	if 'cart' in request.session:
 		print("Cart detected")
 		cart = Cart.get_cart(request.session['cart'])
@@ -167,6 +174,19 @@ def cart_list(request):
 			amount_req = request.POST['amount']
 			cart.update_cart(product_id, amount_req)
 
+
+			#if product is in stock, set variable to enable add button
+				#if the product is product deficite, set variable with amount of stock level to 
+					#max level can be put in, update with msg saying contact compnay if need more ASAP
+					#go back to product detail page (for that product), need to call it correctly!
+				#if Product.in_stock(product_id)
+			product = get_object_or_404(Product, id=product_id)
+			stock_level_warning = product.stock_level_deficite(amount_req)
+			if stock_level_warning:
+				messages.error(request, "Only {0} {1} left in stock, contact support".format(stock_level_warning, product.name))
+				stock_control_max_limit = stock_level_warning
+
+
 			if not cart.items_in_cart():
 				messages.info(request, "No items in cart")
 				cart.del_cart(request)
@@ -181,5 +201,5 @@ def cart_list(request):
 		#prevent the HTML for the delete button being generated	
 		delete_button_show = False
 
-	return render(request, "cart/cart.html", {"products": products, "delete_button_show": delete_button_show})
+	return render(request, "cart/cart.html", {"products": products, "delete_button_show": delete_button_show, "stock_control_max_limit": stock_control_max_limit})
 

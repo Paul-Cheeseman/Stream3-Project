@@ -16,6 +16,18 @@
         </div>
         <!-- End Header Section -->
 
+{% if messages %}
+    {% for message in messages %} 
+        {% if message.tags == "error"%}
+        <div class="alert alert-danger">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>
+        {% endif %}
+   {% endfor %}
+{% endif %}
+
 
     <form role="form" method="post" action="{% url 'user_register' %}">
         {% csrf_token %}

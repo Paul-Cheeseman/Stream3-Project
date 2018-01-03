@@ -15,16 +15,23 @@ from cart.models import Cart, CartItem
 
 def user_register(request):
     if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
+
+        if User.objects.filter(username=request.POST.get('email')).exists():
+            messages.error(request, "This username already exists")
+
+            form = UserRegistrationForm()
  
-            user = auth.authenticate(email=request.POST.get('email'),
+        else:
+            form = UserRegistrationForm(request.POST)
+            if form.is_valid():
+                form.save()
+ 
+                user = auth.authenticate(email=request.POST.get('email'),
                                      password=request.POST.get('password1'))
- 
-            auth.login(request, user)
-            messages.error(request, "You have successfully logged in")            
-            return redirect(reverse('profile'))
+
+                auth.login(request, user)
+                messages.success(request, "You have successfully logged in")            
+                return redirect(reverse('profile'))
  
     else:
         form = UserRegistrationForm()
