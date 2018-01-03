@@ -55,28 +55,37 @@ def checkout(request):
 			else:
 				cc_reg = "btn btn-sm btn-success"
 
-				#if POST
+				#if POST some is trying to buy product
 				if 'purchase' in request.POST:
 					
-
+					total_cost = 0
 					#Go through and check stock levels are still OK pre purchase
 					#i.e has another customer made a purchase and reduced available stock levels below what can be fulfilled?
+					refresh_checkout = False
 					for item in products:
 						#Need to get current stock level
 						current_product = get_object_or_404(Product, id=item.id)
 						if item.amount > current_product.stock_level:
+							refresh_checkout = True
+							print("Refresh triggered")
 							item.amount = current_product.stock_level
-							messages.error(request, "Recent purchases mean we can no longer currently meet you order with our existing stock, your order has been updated to reflect current stock levels")
+							item.cost = item.amount * item.price
+
+						total_cost = total_cost + item.cost
 
 
-							#Need to amend cartItem to store new amount value, so that if purchase not made 
-							#but cart stored, the item is not deleted (on signing back in) unless 
-							#stock levels has actually gone below the amended amount 
-							cart_item = get_object_or_404(items_in_cart, product_id=item.id)
-							cart_item.amount = current_product.stock_level
-							cart_item.save()
+					if refresh_checkout == True:
+						print("Refresh ENGAGE!")
+						messages.error(request, "Recent purchases mean we can no longer currently meet you order with our existing stock, your order has been updated to reflect current stock levels")
 
-							return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost})
+						#Need to amend cartItem to store new amount value, so that if purchase not made 
+						#but cart stored, the item is not deleted (on signing back in) unless 
+						#stock levels has actually gone below the amended amount 
+						cart_item = get_object_or_404(items_in_cart, product_id=item.id)
+						cart_item.amount = current_product.stock_level
+						cart_item.save()
+
+						return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost})
 
 
 
@@ -123,8 +132,8 @@ def checkout(request):
 					get_object_or_404(Cart, id=request.session['cart']).delete()
 					del request.session['cart']
 
-					return render(request, "checkout/checkout.html", {"cc_reg": cc_reg})					
-	
+					return render(request, "orders/orders.html")					
+					#return reverse('orders')
 
 				else:
 					cc_reg = "btn btn-sm btn-success"

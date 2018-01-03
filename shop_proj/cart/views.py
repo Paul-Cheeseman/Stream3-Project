@@ -75,8 +75,13 @@ def cart_add(request):
 
 
 		else:
-			#put this here to reduce repeating code
-			cart = Cart.get_cart(request.session['cart'])
+
+			if 'cart' not in request.session:
+				cart = Cart()
+				cart.create_cart(request.session)
+
+			else:
+				cart = Cart.get_cart(request.session['cart'])
 
 			print(cart.item_in_cart(product_id))
 
@@ -170,6 +175,7 @@ def cart_list(request):
 		products = cart.add_quantity()
 
 	else:
+
 		products = {}
 		messages.info(request, "No items in cart")
 		#prevent the HTML for the delete button being generated	

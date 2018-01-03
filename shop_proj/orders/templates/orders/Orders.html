@@ -13,6 +13,20 @@
             </div>
         </div>
         <!-- End Header Section -->
+
+
+{% if messages %}
+    {% for message in messages %} 
+        {% if message.tags == "success"%}
+        <div class="alert alert-success">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>        
+        {% endif %}
+   {% endfor %}
+{% endif %}        
+
 <table class="table table-hover">
     <thead>
         <tr>

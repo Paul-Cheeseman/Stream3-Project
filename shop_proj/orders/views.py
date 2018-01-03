@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Sum, F
 from datetime import datetime
-
+from django.core.urlresolvers import reverse
 
 # Create your views here.
 def orders_list(request):

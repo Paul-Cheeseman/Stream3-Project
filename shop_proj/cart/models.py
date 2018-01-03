@@ -21,7 +21,7 @@ class Cart(models.Model):
 	#the value stored in the session variable to reference the cart
 	def create_cart(self, request):
 		self.save()
-		request['cart'] = self.id	
+		request['cart'] = self.id
 
 	#Check if the cart has ANY items in it
 	def items_in_cart(self):
