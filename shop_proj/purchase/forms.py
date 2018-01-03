@@ -31,7 +31,7 @@ class CCRegistrationForm(forms.Form):
 
 
 class AddressForm(forms.Form):
-    alpha_num = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only use alpha-numeric characters for address information.')
+    alpha_num = RegexValidator(r'^[A-Za-z0-9 ]*$')
     address_line1 = forms.CharField(validators=[alpha_num])
     address_line2 = forms.CharField(validators=[alpha_num])
     county = forms.CharField(validators=[alpha_num])

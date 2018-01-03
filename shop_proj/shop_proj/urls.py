@@ -28,7 +28,6 @@ urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^$', cart_views.get_index, name='index'),
 
-    url(r'^new_index', cart_views.get_new_index, name='new_index'),
 
 
     url(r'^checkout', include('checkout.urls')),

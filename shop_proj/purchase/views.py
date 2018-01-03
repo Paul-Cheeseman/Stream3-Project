@@ -32,7 +32,7 @@ def address(request):
             messages.success(request, "Address successfully updated")
 
         else:
-            messages.error(request, "Please only use alph-numerics to complete address details")
+            messages.error(request, "Please only use alpha-numerics to complete address details")
 
     else:
         form = AddressForm()

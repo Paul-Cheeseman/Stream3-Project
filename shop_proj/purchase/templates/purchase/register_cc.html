@@ -12,7 +12,12 @@
   </script>
   <script type="text/javascript" src="{% static 'purchase/js/purchase.js' %}"></script>
 
+<link rel="stylesheet" type="text/css" href="{% static 'purchase/css/purchase.css' %}"> 
+
+
 {% endblock %}
+
+
 
 {% block content %}
 <!-- Start Header Section -->
@@ -35,11 +40,12 @@
         </div>
     </section>
     {% endif %}
-  <form role="form" method="post" id="register-form" action="{% url 'register_cc' %}">
+
     <div id="credit-card-errors" style="display:none">
-      <div class="alert-message block-message error" id="stripe-error-message"></div>
+      <h3 class="alert-message block-message error" id="stripe-error-message"></div>
     </div>
- 
+
+  <form role="form" method="post" id="register-form" action="{% url 'register_cc' %}">
     <legend>Create a new account</legend>
     {% csrf_token %}
     {{ form|as_bootstrap }}
