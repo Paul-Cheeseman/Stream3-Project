@@ -24,7 +24,6 @@
 <!-- End Header Section -->
 
 
-
 <section>
 {% if messages %}
     {% for message in messages %} 
@@ -55,20 +54,20 @@
 
 <div class="btn-group btn-group-justified filter-options">
   <div class="btn-group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn gender btn-primary dropdown-toggle" data-toggle="dropdown">
     Gender <span class="caret"></span></button>
-    <ul class="dropdown-menu" role="menu">
-        <li><a href="{% url 'products' %}?{% query_transform gender="M" %}">Male</a></li>
-        <li><a href="{% url 'products' %}?{% query_transform gender="F" %}">Female</a></li>
+    <ul class="dropdown-menu gender" role="menu">
+        <li><a href="{% url 'products' %}?{% query_transform gender="Male" %}">Male</a></li>
+        <li><a href="{% url 'products' %}?{% query_transform gender="Female" %}">Female</a></li>
     </ul>
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn age btn-primary dropdown-toggle" data-toggle="dropdown">
     Age <span class="caret"></span></button>
-    <ul class="dropdown-menu" role="menu">
-        <li><a href="{% url 'products' %}?{% query_transform age="A" %}">Adult</a></li>
-        <li><a href="{% url 'products' %}?{% query_transform age="C" %}">Child</a></li>
+    <ul class="dropdown-menu age" role="menu">
+        <li><a href="{% url 'products' %}?{% query_transform age="Adult" %}">Adult</a></li>
+        <li><a href="{% url 'products' %}?{% query_transform age="Child" %}">Child</a></li>
     </ul>
   </div>
 
@@ -130,7 +129,7 @@
   </div>
 
 
-    <a href="{% url 'products' %}" class="btn btn-primary btn-primary-inverse">RESET ALL</a>
+    <a href="{% url 'products' %}" class="btn resetall btn-primary btn-primary-inverse">RESET ALL</a>
 </div>
 
 

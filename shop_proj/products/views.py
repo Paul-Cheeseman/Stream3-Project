@@ -22,6 +22,11 @@ def products(request):
 
 		product_filter = Product.objects.all()
 
+		print("PROJECTS ALL")
+		print(product_filter)
+
+
+
 		if request.GET.get('category'):
 			if request.GET.get('category') != "reset":
 				cat_filter = request.GET.get('category')
@@ -83,6 +88,10 @@ def products(request):
 			get_age = request.GET.get('age')
 			product_filter = product_filter.filter(age=get_age)
 
+			print("AGE GET")
+			print(product_filter)
+			print("AGE TEST")
+			print(product_filter)
 
 	#Get data for dynamically populated drop downs
 	#-----------------------------------------------
