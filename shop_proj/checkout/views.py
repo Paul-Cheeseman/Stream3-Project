@@ -12,7 +12,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 #User has to be logged in to checkout
-@login_required(login_url='/login/') 
+@login_required() 
 def checkout(request):
 
 	#assume credit card not record until proven otherwise

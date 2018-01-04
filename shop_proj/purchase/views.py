@@ -15,7 +15,7 @@ from purchase.forms import AddressForm, CCRegistrationForm
 
 
 
-@login_required(login_url='/login/') 
+@login_required() 
 def address(request):
     if request.method == 'POST':
         form = AddressForm(request.POST)
@@ -42,7 +42,7 @@ def address(request):
     return render(request, 'purchase/address.html', args)
 
 
-@login_required(login_url='/login/') 
+@login_required() 
 def register_cc(request):
     #The form sent to server
     if request.method == 'POST':

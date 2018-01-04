@@ -49,9 +49,6 @@
 {% endif %}
 </section>
 
-
-
-
 <table class="table table-striped">
     <thead>
         <tr>
@@ -81,12 +78,18 @@
             <td>&pound;{{delivery_cost}}.00</td>
         </tr>
 
+
+        <tr>
+            <td class="delivery_cavet"><em>Each product has a &pound;2 delivery charge, if you contact us to arrange to pick up the items yourself, this charge will be refunded.</em></td>
+        </tr>
+
+
         <tr class="border_top_solid">
-            <td><strong>Complete total</strong></td>
+            <td class="delivery_total">Complete total</strong></td>
             <td></td>
             <td></td>
             <td></td>
-            <td><strong>&pound;{{total_cost}}</strong></td>            
+            <td class="delivery_total">&pound;{{total_cost}}</strong></td>            
         </tr>
 
         <tr>

@@ -103,7 +103,7 @@
 {% if delete_button_show  %}
 <form action="{% url 'cart_list' %}" method="post"> {% csrf_token %}
     <input name="delete" type="hidden">
-    <button class="btn btn-sm btn-danger"  type="submit">DELETE Cart</button>
+    <button class="btn btn-danger pull-right"  type="submit">DELETE Cart</button>
 </form>
 {% endif %}
 

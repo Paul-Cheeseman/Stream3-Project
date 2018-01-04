@@ -5,10 +5,10 @@ $(document).ready(function() {
             //Change cursor to pointing finger to make it clear to user that they can click anywhere on row
             $(this).css('cursor','pointer');
             //Highlight active row for user
-            $(this).addClass("row-gray");
+            $(this).addClass("row-orange");
         }, function() {
             //Remove active row highlight when row not hovered over
-            $(this).removeClass("row-gray");
+            $(this).removeClass("row-orange");
     });
 
    

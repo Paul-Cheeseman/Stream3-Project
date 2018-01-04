@@ -6,3 +6,11 @@ tr.border_top_solid {
     border-top:1pt solid black;
 }
 
+.delivery_cavet{
+	font-size: 0.8em;
+}
+
+.delivery_total{
+	font-size: 1.1em;	
+	font-weight: bold;
+}

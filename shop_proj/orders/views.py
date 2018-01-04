@@ -8,8 +8,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Sum, F
 from datetime import datetime
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+@login_required()
 def orders_list(request):
 
 	#identify customer
@@ -19,8 +22,6 @@ def orders_list(request):
 	orders = Order.objects.filter(customer_id=customer)
 	
 	groups = {}
-
-
 
 
 

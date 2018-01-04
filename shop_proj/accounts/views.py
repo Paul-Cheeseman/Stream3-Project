@@ -77,22 +77,18 @@ def login(request):
                         #check the associated product to see if its stock level is above the quantity
                         cart_queryset = Product.objects.filter(id=item.product_id, stock_level__gte=item.amount)
                         if  cart_queryset.exists():
-                            print("stock level is OK for item")
+                            print()
                             #Do nothing, the amount in stock can still cover order
 
                         else:
-                            print("stock level too low for item")
-                            #remove cartItems from cart which their is now not enough stock to fulfill
-                            print(CartItem.objects.filter(cart_id=cart.id, product_id=item.product_id)) 
-                            CartItem.objects.filter(cart_id=cart, product_id=item.product_id).delete()
-                            #msg user
                             cart_amended = True
 
 
                 
-                if cart_amended:
-                    messages.error(request, "Your old cart has had at least one item removed due to a reduction in stock levels")
-
+                    if cart_amended:
+                        messages.error(request, "Your old cart has had at least one item removed due to a reduction in stock levels")
+                    else:
+                        messages.info(request, "The cart you stored at the end of your previous sesison has been restored")
                 return redirect(reverse('profile'))
             else:
                 form.add_error(None, "Your email or password was not recognised")
@@ -108,7 +104,7 @@ def login(request):
 
 
 
-@login_required(login_url='/login/')
+@login_required()
 def logout(request):
 
     if request.GET.get('cart_store') == "yes":
