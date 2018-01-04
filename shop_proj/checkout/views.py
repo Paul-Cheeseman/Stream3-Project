@@ -23,7 +23,8 @@ def checkout(request):
 	#Timmy Help???
 	global total_cost
 	total_cost = 0
-
+	total_amount = 0	
+	delivery_cost = 0
 
 	#if basket present
 	if 'cart' in request.session:
@@ -39,9 +40,16 @@ def checkout(request):
 			item.amount = cartItem_amount.amount
 			item.cost = item.amount * item.price
 			total_cost = total_cost + item.cost
-
+			
+			total_amount = total_amount + item.amount
+			
 			pence_cost = int(total_cost * 100)
-		
+
+		#£2.5 deliver charge per item
+		delivery_cost = total_amount * 2
+		total_cost = total_cost + delivery_cost
+
+
 		#Don't process if customer has a cart but nothing in it, tell them
 		#if anything in basket?
 		if items_in_cart.exists():
@@ -59,6 +67,9 @@ def checkout(request):
 				if 'purchase' in request.POST:
 					
 					total_cost = 0
+					total_amount = 0	
+					delivery_cost = 0
+
 					#Go through and check stock levels are still OK pre purchase
 					#i.e has another customer made a purchase and reduced available stock levels below what can be fulfilled?
 					refresh_checkout = False
@@ -67,16 +78,18 @@ def checkout(request):
 						current_product = get_object_or_404(Product, id=item.id)
 						if item.amount > current_product.stock_level:
 							refresh_checkout = True
-							print("Refresh triggered")
 							item.amount = current_product.stock_level
 							item.cost = item.amount * item.price
 
 						total_cost = total_cost + item.cost
+						total_amount = total_amount + item.amount
 
-
+					#£2.5 deliver charge per item
+					delivery_cost = total_amount * 2
+					total_cost = total_cost + delivery_cost
+					
 					if refresh_checkout == True:
-						print("Refresh ENGAGE!")
-						messages.error(request, "Recent purchases mean we can no longer currently meet you order with our existing stock, your order has been updated to reflect current stock levels")
+						messages.error(request, "Other recent customer purchases mean we can no longer currently meet you order with our existing stock, your order has been updated to reflect current stock levels")
 
 						#Need to amend cartItem to store new amount value, so that if purchase not made 
 						#but cart stored, the item is not deleted (on signing back in) unless 
@@ -85,7 +98,7 @@ def checkout(request):
 						cart_item.amount = current_product.stock_level
 						cart_item.save()
 
-						return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost})
+						return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost, "total_amount": total_amount, "delivery_cost": delivery_cost})
 
 
 
@@ -138,15 +151,15 @@ def checkout(request):
 				else:
 					cc_reg = "btn btn-sm btn-success"
 
-			return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost})
+			return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost, "total_amount": total_amount, "delivery_cost": delivery_cost})
 
 
 		else:
 			messages.error(request, "Nothing in your cart, please add an item before attempting purchase")
-			return render(request, "checkout/checkout.html", {"cc_reg": cc_reg,  "total_cost": total_cost})
+			return render(request, "checkout/checkout.html", {"cc_reg": cc_reg,  "total_cost": total_cost, "total_amount": total_amount, "delivery_cost": delivery_cost})
 
 	else:
 		messages.error(request, "You don't have a cart yet, please create one by adding an item before attempting purchase")
-		return render(request, "checkout/checkout.html", {"cc_reg": cc_reg,  "total_cost": total_cost})
+		return render(request, "checkout/checkout.html", {"cc_reg": cc_reg,  "total_cost": total_cost, "total_amount": total_amount, "delivery_cost": delivery_cost})
 	#Need name, address etc for customer, if not redirect to profile page
 	#Passing user details across

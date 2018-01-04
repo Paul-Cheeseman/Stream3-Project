@@ -17,7 +17,7 @@ def user_register(request):
     if request.method == 'POST':
 
         if User.objects.filter(username=request.POST.get('email')).exists():
-            messages.error(request, "This username already exists")
+            messages.error(request, "The username {0} already exists, please choose another one".format(request.POST.get('email')))
 
             form = UserRegistrationForm()
  
@@ -91,7 +91,7 @@ def login(request):
 
                 
                 if cart_amended:
-                    messages.error(request, "Your old cart has had at least one item removed due to a change in stock levels")
+                    messages.error(request, "Your old cart has had at least one item removed due to a reduction in stock levels")
 
                 return redirect(reverse('profile'))
             else:

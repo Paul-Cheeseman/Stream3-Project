@@ -1,5 +1,5 @@
 	
-.row-gray {
+.row-orange {
 	background-color: rgba(255, 67, 46, 0.2);
 }
 
@@ -19,4 +19,8 @@
 
 .out-of_stock_clr{
 	color: rgb(255, 67, 46);	
+}
+
+.selected-filter{
+	color: rgb(0, 0, 0);	
 }

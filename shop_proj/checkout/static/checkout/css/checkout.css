@@ -1,0 +1,8 @@
+tr.border_top_dashed {
+  border-top:1pt dashed black;
+}
+
+tr.border_top_solid {
+    border-top:1pt solid black;
+}
+

@@ -1,4 +1,13 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% load staticfiles %} 
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'checkout/css/checkout.css' %}"> 
+{% endblock %} 
+
+
+{% block content %}
+
         <!-- Start Header Section -->
         <div class="page-header">
             <div class="overlay">
@@ -64,12 +73,20 @@
             </td>
         </tr>
         {% endfor %}
-        <tr>
-            <td> Complete total </td>
+        <tr class="border_top_dashed">
+            <td>Delivery Total</td>
+            <td></td>
+            <td></td>
+            <td>{{total_amount}}</td>
+            <td>&pound;{{delivery_cost}}.00</td>
+        </tr>
+
+        <tr class="border_top_solid">
+            <td><strong>Complete total</strong></td>
             <td></td>
             <td></td>
             <td></td>
-            <td>&pound;{{total_cost}}</td>            
+            <td><strong>&pound;{{total_cost}}</strong></td>            
         </tr>
 
         <tr>

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.contrib import messages
 from .models import Product
 
 
@@ -22,29 +22,22 @@ def products(request):
 
 		product_filter = Product.objects.all()
 
-		print("PROJECTS ALL")
-		print(product_filter)
-
-
 
 		if request.GET.get('category'):
-			if request.GET.get('category') != "reset":
-				cat_filter = request.GET.get('category')
-				product_filter = Product.objects.filter(category=cat_filter)
+			cat_filter = request.GET.get('category')
+			product_filter = Product.objects.filter(category=cat_filter)
 
 
 		if request.GET.get('price'):
 			price = request.GET.get('price')
-			if price != "reset":
-
-				if not product_filter.exists():
-					product_filter = Product.objects
-				if price == "Below 2":
-					product_filter = product_filter.filter(price__lt = 2.00)
-				elif price == "Between 2-4":
-					product_filter = product_filter.filter(price__lte = 4.00).filter(price__gte = 2.00)
-				elif price == "Above 4":
-					product_filter = product_filter.filter(price__gt = 4)				
+			if not product_filter.exists():
+				product_filter = Product.objects
+			if price == "Below 2":
+				product_filter = product_filter.filter(price__lt = 2.00)
+			elif price == "Between 2-4":
+				product_filter = product_filter.filter(price__lte = 4.00).filter(price__gte = 2.00)
+			elif price == "Above 4":
+				product_filter = product_filter.filter(price__gt = 4)				
 
 		if request.GET.get('name') == "reverse":
 			product_filter = product_filter.order_by('-name')
@@ -60,38 +53,22 @@ def products(request):
 
 		if request.GET.get('colour'):
 			get_colour = request.GET.get('colour')
-
-			if get_colour == 'reset':
-				#Get all the different colours specified within the product set
-				colour_list = Product.objects.values('colour').distinct()
-				#list all items that have a colour in list, in effect just resetting filter condition to 'all'
-				product_filter = Product.objects.filter(colour__in=colour_list)
-			else:
-
-				product_filter = product_filter.filter(colour=get_colour)
-
+			product_filter = product_filter.filter(colour=get_colour)
 
 
 		if request.GET.get('size'):
 			get_size = request.GET.get('size')
-			if get_size == 'reset':
-				#Get all the different colours specified within the product set
-				size_list = Product.objects.values('size').distinct()
-				#list all items that have a colour in list, in effect just resetting filter condition to 'all'
-				product_filter = Product.objects.filter(size__in=size_list)
-			else:
-				product_filter = product_filter.filter(size=get_size)
-
+			product_filter = product_filter.filter(size=get_size)
 
 
 		if request.GET.get('age'):
 			get_age = request.GET.get('age')
 			product_filter = product_filter.filter(age=get_age)
 
-			print("AGE GET")
-			print(product_filter)
-			print("AGE TEST")
-			print(product_filter)
+
+
+		if not product_filter.exists():
+			messages.info(request, "No products to display - you've filter them all out!")
 
 	#Get data for dynamically populated drop downs
 	#-----------------------------------------------
