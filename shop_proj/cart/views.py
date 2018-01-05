@@ -75,6 +75,9 @@ def cart_add(request):
 				messages.success(request, "Item added to cart")            
 				cart.add_to_cart(product_id, amount_req)
 
+				if not request.user.is_authenticated:
+					messages.error(request, "Please be aware you will need to login (or register) to complete your order")					
+
 
 
 		else:

@@ -3,11 +3,9 @@ from __future__ import unicode_literals
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.context_processors import csrf
 from django.conf import settings
-
-
 from accounts.forms import UserRegistrationForm, UserLoginForm
 from accounts.models import User
 from products.models import Product
@@ -89,6 +87,24 @@ def login(request):
                         messages.error(request, "Your old cart has had at least one item removed due to a reduction in stock levels")
                     else:
                         messages.info(request, "The cart you stored at the end of your previous sesison has been restored")
+                
+                #Inform User that Address and/or Credit Card are required before oder can be completed
+                user_test = user = get_object_or_404(User, username=request.user)
+                if user_test.stripe_custID == "None" or (user_test.address_line1 == "None" and user_test.postcode == "None"):
+
+                    cc_address_reg_msg = ""
+
+                    if user_test.stripe_custID == "None" and user_test.address_line1 == "None" and user_test.postcode == "None":
+                        cc_address_reg_msg = "credit card and address"
+                    elif user_test.stripe_custID == "None":
+                        cc_address_reg_msg = "a credit card"
+                    else:
+                        cc_address_reg_msg = "an address"
+
+                    messages.info(request, "Please be aware you will need {0} registered before you can complete any orders".format(cc_address_reg_msg))
+                    #messages.error(request, "The username {0} already exists, please choose another one".format(request.POST.get('email')))
+
+
                 return redirect(reverse('profile'))
             else:
                 form.add_error(None, "Your email or password was not recognised")
