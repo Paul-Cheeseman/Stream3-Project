@@ -76,7 +76,7 @@
             <td>&pound;{{ product.price }}</td>
             <td>
                 <div class="form-horizontal">
-                    <form role="form" method="post" id="register-form" action="{% url 'cart_list' %}">{% csrf_token %}
+                    <form method="post" id="register-form" action="{% url 'cart_list' %}">{% csrf_token %}
                         <input type="number" name="amount" id="search" 
 
                         {% if stock_control_max_limit > 0  %}
@@ -111,5 +111,5 @@
 
 
 {% block extra_footer %}
-<script type="text/javascript" src="{% static 'cart/js/cart.js' %}"></script>
+<script src="{% static 'cart/js/cart.js' %}"></script>
 {% endblock %} 

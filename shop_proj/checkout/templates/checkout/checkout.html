@@ -80,7 +80,7 @@
 
 
         <tr>
-            <td class="delivery_cavet"><em>Each product has a &pound;2 delivery charge, if you contact us to arrange to pick up the items yourself, this charge will be refunded.</em></td>
+            <td colspan="5" class="delivery_cavet"><em>Each product has a &pound;2 delivery charge, if you contact us to arrange to pick up the items yourself, this charge will be refunded.</em></td>
         </tr>
 
 
@@ -99,7 +99,7 @@
             <td></td>
             <td>
                 <div class="form-horizontal">
-                    <form role="form" method="post" id="register-form" action="{% url 'checkout' %}">{% csrf_token %}
+                    <form method="post" id="register-form" action="{% url 'checkout' %}">{% csrf_token %}
                         <input name="purchase" type="hidden" value="Yes">
                         <button class="{{ cc_reg }}"  type="submit">Purchase</button>
                     </form>

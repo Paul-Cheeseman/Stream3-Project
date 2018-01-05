@@ -30,7 +30,8 @@ def address(request):
             user.save()
 
             messages.success(request, "Address successfully updated")
-
+            return redirect(reverse('profile'))
+            
         else:
             messages.error(request, "Please only use alpha-numerics to complete address details")
 

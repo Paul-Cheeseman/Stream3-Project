@@ -4,13 +4,13 @@
  
 
 {% block extra_head %}
-  <script src="https://js.stripe.com/v2/" type="text/javascript"></script>
-  <script type="text/javascript">
+  <script src="https://js.stripe.com/v2/"></script>
+  <script>
       //<![CDATA[
       Stripe.publishableKey = '{{ publishable }}';
       //]]>
   </script>
-  <script type="text/javascript" src="{% static 'purchase/js/purchase.js' %}"></script>
+  <script src="{% static 'purchase/js/purchase.js' %}"></script>
 
 <link rel="stylesheet" type="text/css" href="{% static 'purchase/css/purchase.css' %}"> 
 
@@ -42,15 +42,17 @@
     {% endif %}
 
     <div id="credit-card-errors" style="display:none">
-      <h3 class="alert-message block-message error" id="stripe-error-message"></div>
+      <div class="alert-message block-message error" id="stripe-error-message"></div>
     </div>
 
-  <form role="form" method="post" id="register-form" action="{% url 'register_cc' %}">
-    <legend>Create a new account</legend>
-    {% csrf_token %}
-    {{ form|as_bootstrap }}
-    <div class="form-group">
-      <input class="btn btn-primary" id="validate_card_btn" name="commit" type="submit" value="Validate Credit Card">
-    </div>
+  <form method="post" id="register-form" action="{% url 'register_cc' %}">
+    <fieldset>
+      <legend>Create a new account</legend>
+      {% csrf_token %}
+      {{ form|as_bootstrap }}
+      <div class="form-group">
+        <input class="btn btn-primary" id="validate_card_btn" name="commit" type="submit" value="Validate Credit Card">
+      </div>
+    </fieldset>
   </form>
 {% endblock %}

@@ -15,8 +15,8 @@ This code is for a site that is required for the Code Institute end of Stream 3 
 - Safety, can't checkout without an address or credit card
 - Mention where I have put required JavaScript for project
 - Mention about it being "app-ified" - DO IT
-- Customer account removal
 - If stock level has reduced since last log in, if a customer has a stored cart, the item is removed from the cart and customer informed.
+- If at checkout and stock levels have changed, adjustments made to stock and delivery and highlighted to customer
 
 
 - Responsive design etc, what were my additions?
@@ -96,6 +96,9 @@ This can be evidenced through my GIT history.
 
 ### Testing code quality
 I validated the HTML used through https://validator.w3.org
+
+I rendered each page in a browser, saved the page, then copied the HTML into the validator
+My aim was to ensure no errors, some warnings persist, some of these were layout issues (sections not having headings, WHY) and also a 3rd party script (SweetAlert) raised a warning.
 
 ### Testing Responsive Design:
 I have tested the website, across different devices, different browsers and different Operating Systems, to ensure that the site adapts cleanly/neatly to the different device criteria, summary of what I tested is below (limited to what I had available):

@@ -31,11 +31,16 @@
 {% endif %}
 </section>
 <!-- End Header Section -->
-<form role="form" method="post" id="register-form" action="{% url 'address' %}">
-    <legend>Enter Address</legend>
-    {% csrf_token %} {{ form|as_bootstrap }}
-    <div class="form-group">
-        <input class="btn btn-success" id="address_input" name="commit" type="submit" value="Update Address">
-    </div>
+<form method="post" id="register-form" action="{% url 'address' %}">
+    <fieldset>
+        <legend>Enter Address</legend>
+        {% csrf_token %} 
+        {{ form|as_bootstrap }}
+        <div class="form-group">
+            <input class="btn btn-success" id="address_input" name="commit" type="submit" value="Update Address">
+        </div>
+     </fieldset>
 </form>
+
+
 {% endblock %}

@@ -2,7 +2,9 @@
 
 #credit-card-errors {
     color: #ff3333;
-    margin-bottom: 1em
+    margin-bottom: 1em;
+    font-size: 1.50em;
+    font-weight: bold;
 }
 
 

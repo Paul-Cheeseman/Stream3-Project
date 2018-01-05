@@ -140,7 +140,6 @@
             <th>Price</th>
         </tr>
     </thead>
-    <tr></tr>
     <tbody id="table-row-highlight">
         {% for product in products_paginated %}
         <tr>
@@ -174,6 +173,6 @@
 
 
 {% block extra_footer %}
-<script type="text/javascript" src="{% static 'products/js/products.js' %}"></script>
+<script src="{% static 'products/js/products.js' %}"></script>
 {% endblock %} 
 
