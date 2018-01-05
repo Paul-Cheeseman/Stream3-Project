@@ -19,70 +19,45 @@ def orders_list(request):
 	customer = get_object_or_404(User, username=request.user)
 	
 	#get all customer orders
-	orders = Order.objects.filter(customer_id=customer)
+	order_list = Order.objects.filter(customer_id=customer)
 	
-	groups = {}
+
+	for order in order_list:
+		order.date = order.order_date.date()
+		order.time = order.order_date.time().strftime('%H:%M:%S')
+
+	#Paginating output (if required)
+	page = request.GET.get('page', 1)
+
+	#Paginate the orders to 2 per page
+	paginator = Paginator(order_list, 3)
+
+	try:
+		customer_orders = paginator.page(page)
+	except PageNotAnInteger:
+		customer_orders = paginator.page(1)
+	except EmptyPage:
+		customer_orders = paginator.page(paginator.num_pages)
+
+	return render(request, "orders/detail.html", {"customer_orders": customer_orders})
 
 
 
-
-	# Create a new data structure that maps date/day to
-	# all the orders for this user on that particular
-	# day as well as a running total 
-	for order in orders:
-
-		if order.day not in groups:
-		# Create the initial entry for this day
-			groups[order.day] = {
-				"total": 0,
-				"daily_orders": {"OrderID": order.id, "OrderItems": []}
-			}
-
-		if order.day in groups:
-			#print("order.day")
-			#print(order.day)
-
-
-			
-			############This is being overwritten, not creating a new OrderID entry
-
-
-			#for each cart item, use the stored order_id to retrive orderItem from orderItem table
-			order_items = OrderItem.objects.filter(order_id=order.id)
-
-			for order_item in order_items:
-				groups[order.day]["daily_orders"]["OrderID"] = order.id
-				groups[order.day]["daily_orders"]["OrderItems"].append(order_item)
-			
-			# Add the prices for all order items to total
-			for item in orders:
-				groups[order.day]["total"] += item.total
-
-
-
-	print("Groups")
-	print(groups)
-
-
-	#Paginate the customer orders to 15 per page (should cater for very big orders)
-	#paginator = Paginator(all_customer_items, 15)
-	#try:
-	#	customer_orders = paginator.page(page)
-	#except PageNotAnInteger:
-	#	customer_orders = paginator.page(1)
-	#except EmptyPage:
-	#	customer_orders = paginator.page(paginator.num_pages)
-
-	return render(request, "orders/orders.html", {"groups": groups})
-
-
-
-
-
-
-
-
-
+@login_required()
+def orders_detail(request):
 	
+	if request.GET.get('id'):
 	
-	
+		#order items
+		order = OrderItem.objects.filter(order_id=request.GET.get('id'))
+
+		overall_total = 0
+
+		for item in order:
+			item.product = get_object_or_404(Product, id=item.product_id)
+			item.total = item.quantity * item.price
+			overall_total = overall_total + item.total
+
+	return render(request, "orders/detail.html", {"order": order, "overall_total": overall_total})
+
+
