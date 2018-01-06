@@ -81,7 +81,7 @@ def orders_detail(request):
 
 		for item in order:
 			product = get_object_or_404(Product, id=item.product_id)
-			item.total = item.quantity * item.price
+			item.total = item.quantity * product.price
 			item.name = product.name
 			item.description = product.description
 			overall_quantity = overall_quantity + item.quantity
