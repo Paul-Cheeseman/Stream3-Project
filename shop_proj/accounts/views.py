@@ -88,7 +88,7 @@ def login(request):
                     if cart_amended:
                         messages.error(request, "Your old cart has had at least one item removed due to a reduction in stock levels")
                     else:
-                        messages.info(request, "The cart you stored at the end of your previous sesison has been restored")
+                        messages.info(request, "The cart you stored at the end of your previous session has been restored")
                 
                 #Inform User that Address and/or Credit Card are required before oder can be completed
                 user = get_object_or_404(User, username=request.user)

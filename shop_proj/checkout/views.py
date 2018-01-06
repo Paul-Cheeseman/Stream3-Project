@@ -150,6 +150,13 @@ def checkout(request):
 					Cart.objects.filter(id=request.session['cart']).delete()
 					del request.session['cart']
 
+					#If the cart was from a stored version, remove it
+					if user.saved_cart_id != 0:
+						user.saved_cart_id = 0
+						user.save()
+
+
+
 					return redirect("orders")					
 
 				else:
