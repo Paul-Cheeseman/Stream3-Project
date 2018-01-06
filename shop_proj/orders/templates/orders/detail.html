@@ -22,40 +22,45 @@
         <!-- End Header Section -->
 
 
-{% if messages %}
-    {% for message in messages %} 
-        {% if message.tags == "success"%}
-        <div class="alert alert-success">
-            <div class="messages">
-               {{ message }} 
-            </div>
-        </div>        
-        {% endif %}
-   {% endfor %}
-{% endif %}        
 
+<h3> ORDER ID: {{order_id}} </h3>
 
 <table class="table table-responsive">
     <thead>
        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Cost</th>            
-        </tr>
+          <th>Name</th>
+          <th>Brief Description</th>
+          <th>Price</th>
+          <th>Amount</th>
+          <th>Total</th>            
+      </tr>
     </thead>
     <tbody>
         {% for orderItem in order %}
         <tr>
-            <td>{{orderItem.product}}</td>
-            <td>{{orderItem.quantity}}</td>
+            <td>{{orderItem.name}}</td>
+            <td>{{orderItem.description}}</td>
             <td>&pound;{{orderItem.price}}</td>
+            <td>{{orderItem.quantity}}</td>
             <td>&pound;{{orderItem.total}}</td>            
         </tr>
         {% endfor %}
-        <tr>
-            <td>Total</td><td></td><td></td><td>&pound;{{overall_total}}</td>
+        <tr class="border_top_dashed">
+            <td>Delivery Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>&pound;{{delivery_cost}}.00</td>
         </tr>
+        <tr class="border_top_solid">
+            <td class="delivery_total">Complete total</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="delivery_total">&pound;{{complete_total}}</strong></td>            
+        </tr>
+
+
     </tbody>
 </table>
 

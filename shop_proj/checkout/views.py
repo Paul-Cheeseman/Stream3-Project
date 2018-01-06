@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import stripe
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.shortcuts import redirect
 
 #User has to be logged in to checkout
 @login_required() 
@@ -45,7 +45,7 @@ def checkout(request):
 			
 			pence_cost = int(total_cost * 100)
 
-		#£2.5 deliver charge per item
+		#£2 deliver charge per item
 		delivery_cost = total_amount * 2
 		total_cost = total_cost + delivery_cost
 
@@ -70,23 +70,43 @@ def checkout(request):
 					total_amount = 0	
 					delivery_cost = 0
 
+
+
 					#Go through and check stock levels are still OK pre purchase
 					#i.e has another customer made a purchase and reduced available stock levels below what can be fulfilled?
 					refresh_checkout = False
+
 					for item in products:
 						#Need to get current stock level
 						current_product = get_object_or_404(Product, id=item.id)
+						print("Current Product")
+						print(current_product)
+						print(item.amount)
+						print(current_product.stock_level)
+
 						if item.amount > current_product.stock_level:
 							refresh_checkout = True
+							#Get the object that hold this amount value
+							cartItem = get_object_or_404(CartItem, product_id=item.id, cart_id=request.session['cart'])
+							#set it to the stock leve value (so that 'refresh_checkout' won't be true 2nd time around)
+							cartItem.amount = current_product.stock_level
+							#save it to database
+							cartItem.save()
+							#Also change value of item being iterated over
 							item.amount = current_product.stock_level
-							item.cost = item.amount * item.price
 
-						total_cost = total_cost + item.cost
-						total_amount = total_amount + item.amount
+						item.cost = item.amount * item.price
+						#total_cost = total_cost + item.total
+						#total_amount = total_amount + item.amount
 
-					#£2.5 deliver charge per item
+					#£2 deliver charge per item
 					delivery_cost = total_amount * 2
 					total_cost = total_cost + delivery_cost
+
+					print("refresh_checkout")
+					print(refresh_checkout)
+
+
 					
 					if refresh_checkout == True:
 						messages.error(request, "Other recent customer purchases mean we can no longer currently meet you order with our existing stock, your order has been updated to reflect current stock levels")
@@ -145,7 +165,7 @@ def checkout(request):
 					get_object_or_404(Cart, id=request.session['cart']).delete()
 					del request.session['cart']
 
-					return render(request, "orders/orders.html")					
+					return redirect("orders")					
 					#return reverse('orders')
 
 				else:

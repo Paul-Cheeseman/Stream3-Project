@@ -24,8 +24,8 @@
 
 {% if messages %}
     {% for message in messages %} 
-        {% if message.tags == "success"%}
-        <div class="alert alert-success">
+        {% if message.tags == "info"%}
+        <div class="alert alert-warning">
             <div class="messages">
                {{ message }} 
             </div>

@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Sum, F
 from datetime import datetime
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -20,7 +21,10 @@ def orders_list(request):
 	
 	#get all customer orders
 	order_list = Order.objects.filter(customer_id=customer)
-	
+
+	if not order_list.exists():
+		messages.info(request, "You currently have no orders to view")          
+
 
 	for order in order_list:
 		order.date = order.order_date.date()
@@ -39,25 +43,42 @@ def orders_list(request):
 	except EmptyPage:
 		customer_orders = paginator.page(paginator.num_pages)
 
-	return render(request, "orders/detail.html", {"customer_orders": customer_orders})
+	return render(request, "orders/list.html", {"customer_orders": customer_orders})
 
 
 
 @login_required()
 def orders_detail(request):
-	
+
+
+	order = 0
+	order_id = 0
+
 	if request.GET.get('id'):
 	
+		order_id = request.GET.get('id')
+
 		#order items
-		order = OrderItem.objects.filter(order_id=request.GET.get('id'))
+		order = OrderItem.objects.filter(order_id=order_id)
 
 		overall_total = 0
+		delivery_cost = 0
+		complete_total = 0
+		overall_quantity = 0
 
 		for item in order:
-			item.product = get_object_or_404(Product, id=item.product_id)
+			product = get_object_or_404(Product, id=item.product_id)
 			item.total = item.quantity * item.price
+			item.name = product.name
+			item.description = product.description
+			overall_quantity = overall_quantity + item.quantity
 			overall_total = overall_total + item.total
 
-	return render(request, "orders/detail.html", {"order": order, "overall_total": overall_total})
+		#£2 deliver charge per item
+		delivery_cost = overall_quantity * 2
+		complete_total = overall_total + delivery_cost
+
+
+	return render(request, "orders/detail.html", {"order": order, "overall_total": overall_total, "delivery_cost": delivery_cost, "complete_total": complete_total, "order_id": order_id})
 
 

@@ -29,6 +29,7 @@ def user_register(request):
 
                 auth.login(request, user)
                 messages.success(request, "You have successfully logged in")            
+                messages.info(request, "Please be aware you will need a credit card and address registered before you can complete any orders")
                 return redirect(reverse('profile'))
  
     else:
@@ -80,6 +81,7 @@ def login(request):
 
                         else:
                             cart_amended = True
+                            cart.remove_from_cart(item.product_id)
 
 
                 
@@ -89,14 +91,14 @@ def login(request):
                         messages.info(request, "The cart you stored at the end of your previous sesison has been restored")
                 
                 #Inform User that Address and/or Credit Card are required before oder can be completed
-                user_test = user = get_object_or_404(User, username=request.user)
-                if user_test.stripe_custID == "None" or (user_test.address_line1 == "None" and user_test.postcode == "None"):
+                user = get_object_or_404(User, username=request.user)
+                if user.stripe_custID == "None" or (user.address_line1 == "None" and user.postcode == "None"):
 
                     cc_address_reg_msg = ""
 
-                    if user_test.stripe_custID == "None" and user_test.address_line1 == "None" and user_test.postcode == "None":
+                    if user.stripe_custID == "None" and user.address_line1 == "None" and user.postcode == "None":
                         cc_address_reg_msg = "credit card and address"
-                    elif user_test.stripe_custID == "None":
+                    elif user.stripe_custID == "None":
                         cc_address_reg_msg = "a credit card"
                     else:
                         cc_address_reg_msg = "an address"

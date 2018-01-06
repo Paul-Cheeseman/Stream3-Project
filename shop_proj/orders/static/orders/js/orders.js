@@ -11,11 +11,18 @@ $(document).ready(function() {
         	$(this).removeClass("row-orange");
     });
 
-    $('.order_id').click(function() {
+    $('#table-row-highlight tr').click(function() {
 		// Some JS to call page from product table row
-        window.location.href = "/orders/detail/?id=" + $(this).text();
-        console.log(this);
+        window.location.href = "/orders/detail/?id=" + $(this).find('.order_id').text();
+        //console.log($(this).find('.order_id').text());
+
+        
+
+
     });
+
+
+
 
 
 });
