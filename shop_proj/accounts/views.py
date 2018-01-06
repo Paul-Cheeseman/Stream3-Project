@@ -134,22 +134,17 @@ def logout(request):
             user.saved_cart_id = cart
             user.save()
 
+
+
+
     elif request.GET.get('cart_store') == "no":
 
        #set session cart from stored cart
         if request.session.get('cart'):
             #destroy cart session variable
 
-
-            cart = Cart.get_cart(request.session['cart']) 
-            cart_contents = cart.items_in_cart()
-
-            if cart_contents:
-                #delete all items in cart
-                for item in cart_contents:
-                    #remove cartItems from cart which their is now not enough stock to fulfill
-                    cart.remove_from_cart(item.product_id)
-
+            #This should remove the cart and its associated cart items from database 
+            Cart.objects.get(id=request.session['cart']).delete()
 
             #set back to 0 so on login no attempt at retrieving a stored cart is made
             user = User.objects.get(username=request.user)

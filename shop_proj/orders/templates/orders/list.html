@@ -24,15 +24,15 @@
 
 {% if messages %}
     {% for message in messages %} 
-        {% if message.tags == "info"%}
-        <div class="alert alert-warning">
+        {% if message.tags == "success"%}
+        <div class="alert alert-success">
             <div class="messages">
                {{ message }} 
             </div>
-        </div>        
-        {% endif %}
+        </div> 
+        {% endif %}        
    {% endfor %}
-{% endif %}        
+{% endif %}            
 
 
 <table class="table table-responsive">

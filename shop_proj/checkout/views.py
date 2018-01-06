@@ -150,23 +150,12 @@ def checkout(request):
 						current_product.stock_level = current_product.stock_level - item.amount
 						current_product.save()
 
-					#remove cartItems from database and cart from session
-					cartItems_to_rem = CartItem.objects.filter(cart_id=request.session['cart'])
-
-					for item in cartItems_to_rem:
-						#item_to_go = CartItem.objects.get(cart_id=request.session['cart'])
-						#item_to_go.delete()
-						item.delete()
-
-
-					#remove cart from database and session
-					print("cart id:")
-					print(request.session['cart'])
-					get_object_or_404(Cart, id=request.session['cart']).delete()
+					#"When Django deletes an object, by default it emulates the behavior of the SQL constraint ON DELETE CASCADE – in other words, any objects which had foreign keys pointing at the object to be deleted will be deleted along with it. "
+					#So this command should remove the cart and associated cart items from database
+					Cart.objects.filter(id=request.session['cart']).delete()
 					del request.session['cart']
 
 					return redirect("orders")					
-					#return reverse('orders')
 
 				else:
 					cc_reg = "btn btn-sm btn-success"

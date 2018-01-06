@@ -34,5 +34,5 @@ class User(AbstractUser):
     address_line2 = models.CharField(max_length=100, default="None")
     county = models.CharField(max_length=100, default="None")
     postcode = models.CharField(max_length=8, default="None")
-    saved_cart = models.ForeignKey('cart.Cart', default=0)
+    saved_cart_id = models.IntegerField(default=0)
     objects = AccountUserManager()

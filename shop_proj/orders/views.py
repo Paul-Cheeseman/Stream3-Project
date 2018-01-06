@@ -13,8 +13,11 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+print("Made it here!!!")
+
 @login_required()
 def orders_list(request):
+	print("EVEN Made it here!!!")
 
 	#identify customer
 	customer = get_object_or_404(User, username=request.user)
