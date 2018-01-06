@@ -68,7 +68,7 @@ def products(request):
 
 
 		if not product_filter.exists():
-			messages.info(request, "No products to display - you've filter them all out!")
+			messages.info(request, "No products to display - you've filtered them all out!")
 
 	#Get data for dynamically populated drop downs
 	#-----------------------------------------------

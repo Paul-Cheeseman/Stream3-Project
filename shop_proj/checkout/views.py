@@ -66,9 +66,9 @@ def checkout(request):
 				#if POST some is trying to buy product
 				if 'purchase' in request.POST:
 					
-					total_cost = 0
-					total_amount = 0	
-					delivery_cost = 0
+					total_cost_refresh = 0
+					total_amount_refresh = 0	
+					delivery_cost_refresh = 0
 
 
 
@@ -79,11 +79,6 @@ def checkout(request):
 					for item in products:
 						#Need to get current stock level
 						current_product = get_object_or_404(Product, id=item.id)
-						print("Current Product")
-						print(current_product)
-						print(item.amount)
-						print(current_product.stock_level)
-
 						if item.amount > current_product.stock_level:
 							refresh_checkout = True
 							#Get the object that hold this amount value
@@ -96,12 +91,12 @@ def checkout(request):
 							item.amount = current_product.stock_level
 
 						item.cost = item.amount * item.price
-						#total_cost = total_cost + item.total
-						#total_amount = total_amount + item.amount
+						total_cost_refresh = total_cost_refresh + (item.amount * item.price)
+						total_amount_refresh = total_amount_refresh + item.amount
 
 					#£2 deliver charge per item
-					delivery_cost = total_amount * 2
-					total_cost = total_cost + delivery_cost
+					delivery_cost_refresh = total_amount_refresh * 2
+					total_cost_refresh = total_cost_refresh + delivery_cost_refresh
 
 					print("refresh_checkout")
 					print(refresh_checkout)
@@ -118,7 +113,7 @@ def checkout(request):
 						cart_item.amount = current_product.stock_level
 						cart_item.save()
 
-						return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost, "total_amount": total_amount, "delivery_cost": delivery_cost})
+						return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost_refresh, "total_amount": total_amount_refresh, "delivery_cost": delivery_cost_refresh})
 
 
 
@@ -134,7 +129,7 @@ def checkout(request):
 
 					#Create order entries
 					customer = get_object_or_404(User, username=request.user)
-					new_order = Order(address_line1=user.address_line1, address_line2=user.address_line1, county=user.county, postcode=user.postcode, total=(pence_cost/100), customer_id=customer.id)
+					new_order = Order(address_line1=user.address_line1, address_line2=user.address_line2, county=user.county, postcode=user.postcode, total=(pence_cost/100), customer_id=customer.id)
 					new_order.save()
 					
 					for item in products:

@@ -159,51 +159,55 @@ def cart_list(request):
 	#than to just limit the form input to stock level max with no indication as to what limit
 	#is being applied (although it maybe apparent to some)
 	stock_control_max_limit = 0
+	products = {}
 
 	if 'cart' in request.session:
 		print("Cart detected")
 		cart = Cart.get_cart(request.session['cart'])
 
-		#default setting to show cart delete button on form when have a cart
-		delete_button_show = True
 
-		if 'delete' in request.POST:
-			#remove items from CartItem table
-
+		if not cart.items_in_cart():
+			messages.info(request, "No items in cart")
 			cart.del_cart(request)
-			#prevent the HTML for the delete button being generated
 			delete_button_show = False
-			messages.error(request, "Cart deleted")
-
-		#Determine is the page is initially loading or user is submitting form
-		if 'product' in request.POST and 'amount' in request.POST:
-			product_id = int(request.POST['product'])
-			amount_req = request.POST['amount']
-			cart.update_cart(product_id, amount_req)
 
 
-			#if product is in stock, set variable to enable add button
+		else: 
+
+			#default setting to show cart delete button on form when have a cart
+			delete_button_show = True
+
+			if 'delete' in request.POST:
+				#remove items from CartItem table
+
+				cart.del_cart(request)
+				#prevent the HTML for the delete button being generated
+				delete_button_show = False
+				messages.error(request, "Cart deleted")
+
+			#Determine is the page is initially loading or user is submitting form
+			if 'product' in request.POST and 'amount' in request.POST:
+				product_id = int(request.POST['product'])
+				amount_req = request.POST['amount']
+				cart.update_cart(product_id, amount_req)
+				messages.success(request, "Item quantity in cart updated")
+
+				#if product is in stock, set variable to enable add button
 				#if the product is product deficite, set variable with amount of stock level to 
 					#max level can be put in, update with msg saying contact compnay if need more ASAP
 					#go back to product detail page (for that product), need to call it correctly!
 				#if Product.in_stock(product_id)
-			product = get_object_or_404(Product, id=product_id)
-			stock_level_warning = product.stock_level_deficite(amount_req)
-			if stock_level_warning:
-				messages.error(request, "Only {0} {1} left in stock, contact support".format(stock_level_warning, product.name))
-				stock_control_max_limit = stock_level_warning
+				product = get_object_or_404(Product, id=product_id)
+				stock_level_warning = product.stock_level_deficite(amount_req)
+				if stock_level_warning:
+					messages.error(request, "Only {0} {1} left in stock, contact support".format(stock_level_warning, product.name))
+					stock_control_max_limit = stock_level_warning
 
 
-			if not cart.items_in_cart():
-				messages.info(request, "No items in cart")
-				cart.del_cart(request)
-				delete_button_show = False
-
-		products = cart.add_quantity()
+			products = cart.add_quantity()
 
 	else:
 
-		products = {}
 		messages.info(request, "No items in cart")
 		#prevent the HTML for the delete button being generated	
 		delete_button_show = False

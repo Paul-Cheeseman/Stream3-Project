@@ -30,6 +30,13 @@
                {{ message }} 
             </div>
         </div> 
+        {% elif message.tags == "info"%}
+        <div class="alert alert-warning">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>                   
+
         {% endif %}        
    {% endfor %}
 {% endif %}            
