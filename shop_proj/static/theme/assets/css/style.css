@@ -366,25 +366,7 @@ a.navbar-brand {
 }
 
 
-.navbar-default .navbar-nav .dropdown {
-    position: absolute;
-    left: 0;
-    top: 97%;
-    width: 180px;
-	background-color: #fff;
-    border-top: 3px solid #FF432E;
-    visibility: hidden;
-    z-index: 2;
-	opacity: 0;
-	transition: opacity 0.3s ease-in-out;
-    -moz-transition: opacity 0.3s ease-in-out;
-    -webkit-transition: opacity 0.3s ease-in-out;
-    -o-transition: opacity 0.3s ease-in-out;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-	-o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
+
 
 .navbar-default .navbar-nav > li.drop:hover .dropdown {
     visibility: visible;

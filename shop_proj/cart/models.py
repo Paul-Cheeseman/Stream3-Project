@@ -29,6 +29,14 @@ class Cart(models.Model):
 		if cart_queryset.exists():
 			return cart_queryset
 
+
+	#Return amount of items in cart
+	def amount_items_in_cart(self):
+		amount_of_items = CartItem.objects.filter(cart_id=self).count()
+		return amount_of_items
+
+
+
 	#Check if the cart has a specific item in it
 	def item_in_cart(self, product_id):
 		cart_queryset = CartItem.objects.filter(cart_id=self, product_id=product_id)

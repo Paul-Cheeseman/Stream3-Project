@@ -62,4 +62,45 @@ footer {
     background-size: cover;
 }
 
- 
+#service-section {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+#about-section {
+    padding-top: 10px;
+    padding-bottom: 40px;
+}
+
+.section-title {
+    margin-bottom: 20px;
+}
+
+.services-post {
+    margin-bottom: 20px;
+}
+
+
+
+.fa-stack{
+  width: 5px;
+  height: 2px;  
+  right: 15%;
+  top:40%;
+}
+
+.fa-stack[data-count]:after{
+  position:absolute;
+  content: attr(data-count);
+  font-size:30%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  background:rgba(255,0,0,.85);
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+  z-index: 1;
+
+}

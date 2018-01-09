@@ -47,12 +47,12 @@ nnnnnnnnnn
 - I used these on which to base my site, although I have altered in substantially.
 	https://themefisher.com/products/sulfur-free-simple-html-template/
 	MENTION THIS IS TO NOT REINVENT THE WHEEL, the base functionality is was I was after
-	 - I have not used Map functionality, needed some JS links removed and a function call commented out
 	 - I have used by on tables and buttons (products page)
 	 - I have used by own forms (address/cc)
 	 - I have put in own button disable functionality (checkout)
 	 - I have put in own table row highlight (css)
 	 - I have added ability to select a row of table for product to show product detail page, plus changing pointer to finger to help users
+	 - I have added selection on tables, also jQuery to store the values seletced locally so that they are retained as shown filter/search selections
 
 Timmy (Mentor) supplied some of the code for orders (To get date/order-id and totals)
 

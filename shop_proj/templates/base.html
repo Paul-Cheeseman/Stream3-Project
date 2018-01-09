@@ -1,5 +1,5 @@
 {% load staticfiles %}
-{% load templatetags %}
+{% load cart_templatetags %}
 
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
@@ -33,6 +33,10 @@
     <script src="{% static 'theme/assets/js/modernizrr.js' %}"></script>
     <!-- Bespoke stylesheet -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/shop_proj.css' %}">
+    
+    <!-- Icon Stylesheet to compliment font-awesome (t-shirt img) -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Linecons/style.css' %}">
+
     <!-- Moved to top so jQuery is available for stripe validation script -->
     <script src="{% static 'theme/assets/js/jquery-2.1.3.min.js' %}"></script>
     <!-- Shop_Proj specific JavaScript for whole site-->
@@ -45,8 +49,6 @@
 
 <body>
 
- <header class="clearfix">
-        <!-- Start  Logo & Naviagtion  -->
         <div class="navbar navbar-default navbar-top">
             <div class="container">
                 <div class="navbar-header">
@@ -60,22 +62,29 @@
                 <div class="navbar-collapse collapse">
                     <!-- Start Navigation List -->
                     <ul class="nav navbar-nav navbar-right">
-
                         <li><a href="{% url 'profile' %}">Home</a></li>
                         <li><a href="{% url 'products' %}">Products</a></li>
-                        {% if user.is_authenticated %}
-                        <li><a href="{% url 'register_cc' %}">Credit Card Register</a></li>
-                        <li><a href="{% url 'address' %}">Add Address</a></li>
-                        <li><a href="{% url 'checkout' %}">Checkout</a></li>
-                        <li><a href="{% url 'orders' %}">Orders</a></li>
+    
 
+                        {% if user.is_authenticated %}
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'register_cc' %}">Credit Card</a></li>
+                                <li><a href="{% url 'address' %}">Add Address</a></li>
+                                <li><a href="{% url 'orders' %}">Orders</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'checkout' %}">Checkout</a></li>
                         <li {% if request.session.cart %}id="logout_btn_save"{% else %}id="logout_btn"{% endif%}><a href="#">Log Out</a></li>
 
                         {% else %}
                         <li><a href="{% url 'login' %}">Login</a></li>
                         <li><a href="{% url 'user_register' %}">Register</a></li>
                         {% endif %}
-                        <li><a href="{% url 'cart_list' %}">Cart</a></li>
+                        <li><a href="{% url 'cart_list' %}">Cart<span class="fa-stack fa-2x" data-count="{% cart_item_amount %}"></span></a></li>
+
                         <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                     <!-- End Navigation List -->
