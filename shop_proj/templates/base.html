@@ -83,7 +83,10 @@
                         <li><a href="{% url 'login' %}">Login</a></li>
                         <li><a href="{% url 'user_register' %}">Register</a></li>
                         {% endif %}
-                        <li><a href="{% url 'cart_list' %}">Cart<span class="fa-stack fa-2x" data-count="{% cart_item_amount %}"></span></a></li>
+
+                        {% cart_item_amount as cart_item_amount_var%}
+
+                        <li><a href="{% url 'cart_list' %}">Cart{% if cart_item_amount_var > 0 %}<span class="fa-stack fa-2x" data-count="{% cart_item_amount %}"></span>{% endif %}</a></li>
 
                         <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
