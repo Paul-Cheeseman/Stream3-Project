@@ -12,8 +12,10 @@ from django.shortcuts import redirect
 
 #
 def get_index(request):
-	#just some rubbish to get site running to test something before tidying up
 	return render(request, "index.html")
+
+def get_contact(request):
+	return render(request, "contact.html")
 
 
 

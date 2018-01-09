@@ -89,7 +89,7 @@ footer {
   top:40%;
 }
 
-.fa-stack[data-count]:after{
+.fa-stack[data-count].logged-out:after{
   position:absolute;
   content: attr(data-count);
   font-size:30%;
@@ -103,4 +103,45 @@ footer {
   font-weight:bold;
   z-index: 1;
 
+}
+
+
+.fa-stack[data-count].logged-in:after{
+  position:absolute;
+  content: attr(data-count);
+  font-size:30%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  background: green;
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+  z-index: 1;
+
+}
+
+
+
+.fa-user{
+  position:absolute;
+  font-size:100%;
+  padding:.6em;
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+  z-index: 1;
+  width: 5px;
+  right: -10%;
+  top:35%;
+}
+
+.fa-user.logged-in{
+  color: green;
+}
+
+
+.fa-user.logged-out{
+  color: rgb(210, 0, 0);
 }

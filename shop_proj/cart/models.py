@@ -32,8 +32,12 @@ class Cart(models.Model):
 
 	#Return amount of items in cart
 	def amount_items_in_cart(self):
-		amount_of_items = CartItem.objects.filter(cart_id=self).count()
-		return amount_of_items
+		items = CartItem.objects.filter(cart_id=self)
+		count = 0
+		
+		for item in items:
+			count = count + item.amount
+		return count
 
 
 

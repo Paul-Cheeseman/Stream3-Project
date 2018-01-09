@@ -76,17 +76,20 @@
                                 <li><a href="{% url 'orders' %}">Orders</a></li>
                             </ul>
                         </li>
+                        <li><a href="{% url 'cart_list' %}">Cart{% if cart_item_amount_var > 0 %}<span class="fa-stack fa-2x logged-out" data-count="{% cart_item_amount %}"></span>{% endif %}</a></li>
+
                         <li><a href="{% url 'checkout' %}">Checkout</a></li>
-                        <li {% if request.session.cart %}id="logout_btn_save"{% else %}id="logout_btn"{% endif%}><a href="#">Log Out</a></li>
+                        <li {% if request.session.cart %}id="logout_btn_save"{% else %}id="logout_btn"{% endif%}><a href="#">Log Out<span class="fa fa-user fa-2x logged-in"></span></a></li>
 
                         {% else %}
-                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'login' %}">Login<span class="fa fa-user fa-2x logged-out"></span></a></li>
                         <li><a href="{% url 'user_register' %}">Register</a></li>
+
                         {% endif %}
 
                         {% cart_item_amount as cart_item_amount_var%}
 
-                        <li><a href="{% url 'cart_list' %}">Cart{% if cart_item_amount_var > 0 %}<span class="fa-stack fa-2x" data-count="{% cart_item_amount %}"></span>{% endif %}</a></li>
+                        <li><a href="{% url 'cart_list' %}">Cart{% if cart_item_amount_var > 0 %}<span class="fa-stack fa-2x logged-in" data-count="{% cart_item_amount %}"></span>{% endif %}</a></li>
 
                         <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>

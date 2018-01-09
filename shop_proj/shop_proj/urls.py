@@ -25,20 +25,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-	url(r'^admin/', admin.site.urls),
-	url(r'^$', cart_views.get_index, name='index'),
-
-
-
-    url(r'^checkout', include('checkout.urls')),
-    url(r'^orders/', include('orders.urls')),
-    url(r'^cart/', include('cart.urls')),
-    url(r'^accounts/', include('accounts.urls')),
-    url(r'^purchase/', include('purchase.urls')),
-    url(r'^products/', include('products.urls')),
-    
-    url(r'^test', cart_views.cart_add, name='contact'),
-	url(r'^profile/$', accounts_views.profile, name='profile'),	
+  url(r'^admin/', admin.site.urls),
+  url(r'^$', cart_views.get_index, name='index'),
+  url(r'^checkout', include('checkout.urls')),
+  url(r'^orders/', include('orders.urls')),
+  url(r'^cart/', include('cart.urls')),
+  url(r'^accounts/', include('accounts.urls')),
+  url(r'^purchase/', include('purchase.urls')),
+  url(r'^products/', include('products.urls')),
+  url(r'^contact', cart_views.get_contact, name='contact'),
+  url(r'^profile/$', accounts_views.profile, name='profile'),	
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
