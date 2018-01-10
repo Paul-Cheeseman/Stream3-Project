@@ -66,29 +66,44 @@ def login(request):
 
                 if user.saved_cart_id != 0:
                     
-                    #set session cart from stored cart
-                    request.session['cart'] = user.saved_cart_id
-                    cart = Cart.get_cart(request.session['cart']) 
-                    cart_contents = cart.items_in_cart()
 
-                    #for item in
-                    for item in cart_contents:
-                        #check the associated product to see if its stock level is above the quantity
-                        cart_queryset = Product.objects.filter(id=item.product_id, stock_level__gte=item.amount)
-                        if  cart_queryset.exists():
-                            print()
-                            #Do nothing, the amount in stock can still cover order
+                    if 'cart' in request.session:
+                        
+                        #hold cart num
+                        hold_cart_num = request.session['cart']
+                        #get stored cart and remove
+                        cart = Cart.get_cart(user.saved_cart_id) 
+                        cart.del_cart(request)
+                        #use current cart
+                        request.session['cart'] = hold_cart_num
+                        #let user know
+                        messages.info(request, "Your current cart has replaced the cart you stored on your last visit")
+    
+                    else:
 
-                        else:
-                            cart_amended = True
-                            cart.remove_from_cart(item.product_id)
+                        #set session cart from stored cart
+                        request.session['cart'] = user.saved_cart_id
+                        cart = Cart.get_cart(request.session['cart']) 
+                        cart_contents = cart.items_in_cart()
+
+                        #for item in
+                        for item in cart_contents:
+                            #check the associated product to see if its stock level is above the quantity
+                            cart_queryset = Product.objects.filter(id=item.product_id, stock_level__gte=item.amount)
+                            if  cart_queryset.exists():
+                                print()
+                                #Do nothing, the amount in stock can still cover order
+
+                            else:
+                                cart_amended = True
+                                cart.remove_from_cart(item.product_id)
 
 
                 
-                    if cart_amended:
-                        messages.error(request, "Your old cart has had at least one item removed due to a reduction in stock levels")
-                    else:
-                        messages.info(request, "The cart you stored at the end of your previous session has been restored")
+                        if cart_amended:
+                            messages.error(request, "Your old cart has had at least one item removed due to a reduction in stock levels")
+                        else:
+                            messages.info(request, "The cart you stored at the end of your previous session has been restored")
                 
                 #Inform User that Address and/or Credit Card are required before oder can be completed
                 user = get_object_or_404(User, username=request.user)

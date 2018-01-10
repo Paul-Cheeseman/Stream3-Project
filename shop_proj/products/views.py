@@ -10,6 +10,7 @@ from .models import Product
 #Change to list all 
 def products(request):
 
+
 	if request.GET.get('resetall') == "y":
 
 		#Determines descending/ascending order of products by name

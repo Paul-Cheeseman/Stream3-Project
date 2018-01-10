@@ -145,3 +145,7 @@ footer {
 .fa-user.logged-out{
   color: rgb(210, 0, 0);
 }
+
+.li_t-shirt.large{
+  font-size: 1.75em;
+}

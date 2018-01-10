@@ -17,13 +17,6 @@ $(document).ready(function() {
 
     });
 
-/*
-  $(".dropdown-menu li a").click(function(){
-    window.alert("Hi");
-    //$(".btn:first-child").text($(this).text());
-    //$(".btn:first-child").val($(this).text());
-  });
-*/
 
     $(".dropdown-menu.gender li a").click(function(){
         $(".btn.gender:first-child").text($(this).text());
@@ -80,7 +73,7 @@ $(document).ready(function() {
 
 
 
-    $(".btn.resetall").click(function(){
+    $(".resetall-products").click(function(){
         localStorage.removeItem("gender");
         localStorage.removeItem("age");
         localStorage.removeItem("ordering");

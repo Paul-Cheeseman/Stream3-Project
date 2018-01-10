@@ -41,4 +41,20 @@ $(document).ready(function() {
                 }
             });
     });
+
+
+    /*
+        This is a required duplicate of jQuery from the Products app, so the filter bar gets reset to default when the 
+        products menu link clicked.
+    */
+    $(".resetall-products").click(function(){
+        localStorage.removeItem("gender");
+        localStorage.removeItem("age");
+        localStorage.removeItem("ordering");
+        localStorage.removeItem("price");
+        localStorage.removeItem("category");
+        localStorage.removeItem("colour");
+        localStorage.removeItem("size");
+    });
+
 });
