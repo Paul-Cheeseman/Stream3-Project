@@ -54,8 +54,10 @@
 
 <div class="btn-group btn-group-justified filter-options">
   <div class="btn-group">
-    <button type="button" class="btn gender btn-primary dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn gender btn-primary dropdown-toggle hidden-xs" data-toggle="dropdown">
     Gender <span class="caret"></span></button>
+    <button type="button" class="btn gender btn-primary dropdown-toggle hidden-sm hidden-md hidden-lg hidden-xl" data-toggle="dropdown">
+    Gen <span class="caret"></span></button>    
     <ul class="dropdown-menu gender" role="menu">
         <li><a href="{% url 'products' %}?{% query_transform gender="Male" %}">Male</a></li>
         <li><a href="{% url 'products' %}?{% query_transform gender="Female" %}">Female</a></li>
@@ -83,8 +85,11 @@
 
 
   <div class="btn-group">
-    <button type="button" class="btn colour btn-primary dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn colour btn-primary dropdown-toggle hidden-xs" data-toggle="dropdown">
     Colour <span class="caret"></span></button>
+    <button type="button" class="btn colour btn-primary dropdown-toggle hidden-sm hidden-md hidden-lg hidden-xl" data-toggle="dropdown">
+    Col <span class="caret"></span></button>
+
     <ul class="dropdown-menu colour" role="menu">
         {% for item in colour_ddl %}
         <li><a href="{% url 'products' %}?{% query_transform colour=item.colour %}">{{ item.colour }}</a></li>
@@ -94,8 +99,10 @@
 
 
   <div class="btn-group">
-    <button type="button" class="btn category btn-primary dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn category btn-primary dropdown-toggle hidden-xs" data-toggle="dropdown">
     Category <span class="caret"></span></button>
+    <button type="button" class="btn category btn-primary dropdown-toggle hidden-sm hidden-md hidden-lg hidden-xl" data-toggle="dropdown">
+    Cat <span class="caret"></span></button>    
     <ul class="dropdown-menu category" role="menu">
         {% for item in category_ddl %}
         <li><a href="{% url 'products' %}?{% query_transform category=item.category %}">{{ item.category }}</a></li>
@@ -105,8 +112,10 @@
 
 
   <div class="btn-group">
-    <button type="button" class="btn price btn-primary dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn price btn-primary dropdown-toggle hidden-xs" data-toggle="dropdown">
     Price <span class="caret"></span></button>
+    <button type="button" class="btn price btn-primary dropdown-toggle hidden-sm hidden-md hidden-lg hidden-xl" data-toggle="dropdown">
+    &pound; <span class="caret"></span></button>    
     <ul class="dropdown-menu price" role="menu">
         {% for price in price_range_ddl %}
         <li><a href="{% url 'products' %}?{% query_transform price=price %}">{{ price }}</a></li>
@@ -115,7 +124,7 @@
   </div>
 
 
-  <div class="btn-group">
+  <div class="btn-group hidden-xs">
     <button type="button" class="btn ordering btn-primary dropdown-toggle" data-toggle="dropdown">
     Ordering <span class="caret"></span></button>
     <ul class="dropdown-menu ordering" role="menu">
@@ -124,7 +133,8 @@
     </ul>
   </div>
 
-    <a href="{% url 'products' %}" class="btn resetall-products btn-primary btn-primary-inverse">RESET ALL</a>
+    <a href="{% url 'products' %}" class="btn resetall-products btn-primary btn-primary-inverse hidden-xs">RESET ALL</a>
+    <a href="{% url 'products' %}" class="btn resetall-products btn-primary btn-primary-inverse hidden-sm hidden-md hidden-lg hidden-xl"><i class="fa fa-refresh" aria-hidden="true"></i></a>    
 </div>
 
 
@@ -136,7 +146,8 @@
         <tr>
             <th>Product Name</th>
             <th>Thumb Nail</th>
-            <th class="hidden-xs hidden-sm">Description<th>Category</th>
+            <th class="hidden-xs hidden-sm">Description</th>
+            <th>Category</th>
             <th>Price</th>
         </tr>
     </thead>

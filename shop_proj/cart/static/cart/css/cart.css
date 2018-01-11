@@ -2,3 +2,8 @@
 .row-orange {
 	background-color: rgba(255, 67, 46, 0.2);
 }
+
+
+#search{
+	width: 40px;
+}

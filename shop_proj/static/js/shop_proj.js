@@ -58,3 +58,18 @@ $(document).ready(function() {
     });
 
 });
+
+
+
+     //For Google Maps
+     function initMap() {
+        var fleet = {lat: 50.7879964, lng: -1.0840458};
+         var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: fleet 
+        });
+        var marker = new google.maps.Marker({
+            position: fleet,
+            map: map
+        });
+     }

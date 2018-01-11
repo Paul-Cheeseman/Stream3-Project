@@ -62,8 +62,8 @@
         <tr>
             <th>Name</th>
             <th>Thumb Nail</th>
-            <th>Brief Description</th>
-            <th>Category</th>            
+            <th class="hidden-xs hidden-sm">Brief Description</th>
+            <th class="hidden-xs" >Category</th>            
             <th>Price</th>
             <th>Quantity</th>
         </tr>
@@ -77,8 +77,8 @@
 
             <td><img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}"></td>
 
-            <td>{{ product.description }}</td>
-            <td>{{product.category}}</a></td>
+            <td class="hidden-xs hidden-sm">{{ product.description }}</td>
+            <td class="hidden-xs">{{product.category}}</a></td>
             <td>&pound;{{ product.price }}</td>
             <td>
                 <div class="form-horizontal">
@@ -98,7 +98,7 @@
                         {% endif %}
                         />
                         <input name="product" type="hidden" value="{{product.id}}">
-                        <button class="btn btn-sm btn-success"  type="submit">Update Cart</button>
+                        <button class="btn btn-sm btn-success"  type="submit">Update</button>
                     </form>
                 </div>
             </td>

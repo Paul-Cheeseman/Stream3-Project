@@ -24,3 +24,7 @@
 .selected-filter{
 	color: rgb(0, 0, 0);	
 }
+
+#search{
+	width: 40px;
+}

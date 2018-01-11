@@ -1,8 +1,4 @@
 
-/* To over ride the defaulth theme version */
-.page-header {
-    margin-top: 10px;
-}
 
 .btn-primary-inverse {
     background: #fff;
@@ -85,7 +81,6 @@ footer {
 .fa-stack{
   width: 5px;
   height: 2px;  
-  right: 15%;
   top:40%;
 }
 
@@ -133,7 +128,7 @@ footer {
   font-weight:bold;
   z-index: 1;
   width: 5px;
-  right: -10%;
+  left: 45px;
   top:35%;
 }
 
@@ -148,4 +143,75 @@ footer {
 
 .li_t-shirt.large{
   font-size: 1.75em;
+}
+
+
+ #map {
+  height: 20em;
+  background-color: grey;
+ }
+
+
+ .service-centre{
+  text-align: center;
+  margin-bottom: 2em;
+  margin-bottom: 3em;
+ }
+
+
+
+.navbar-default .navbar-brand {
+    font-size: 25px;
+  }
+
+
+/* To over ride the defaulth theme version */
+.page-header {
+    margin-top: 10px;
+    padding: 15px 0;
+}
+
+
+
+/*
+
+*/
+@media (min-width: 768px) {
+
+.navbar-default .navbar-brand {
+    font-size: 40px;
+  }
+
+}
+/* To over ride the defaulth theme version */
+.page-header {
+    margin-top: 10px;
+    padding: 40px 0;    
+}
+
+
+.fa-user.logged-out{
+  position:absolute;
+  font-size:100%;
+  padding:.6em;
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+  z-index: 1;
+  width: 5px;
+  left: 35px;
+  top:35%;
+}
+
+.fa-user.logged-in{
+  position:absolute;
+  font-size:100%;
+  padding:.6em;
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+  z-index: 1;
+  width: 5px;
+  left: 47px;
+  top:35%;
 }

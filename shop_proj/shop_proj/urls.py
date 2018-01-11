@@ -35,6 +35,8 @@ urlpatterns = [
   url(r'^products/', include('products.urls')),
   url(r'^contact', cart_views.get_contact, name='contact'),
   url(r'^profile/$', accounts_views.profile, name='profile'),	
+  url(r'^services', cart_views.get_services, name='services'),
+
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

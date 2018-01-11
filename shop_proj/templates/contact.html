@@ -13,5 +13,27 @@
     </div>
 </div>
 <!-- End Header Section -->
-    <h2>Yipeee! Its the about contact</h2>
+
+<!-- Embedded as per -->
+<section class="col-sm-6">
+    <h2>Contact Details</h2>
+    <h4><Strong>Address:</strong>21 Albert Rd, Portsmouth, Southsea PO5 2SB</h4>
+    <h4><Strong>Phone:</strong>023 9242 1942</h4>
+</section>
+
+<section class="col-sm-6">
+    <h2>Our Location:</h2>
+    <div id="map">
+     </div>
+</section>
+
+
 {% endblock %}
+
+{% block extra_footer %}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5r-mFuGlcKY1QraqB4LYIAiLbfM5kKE&callback=initMap">
+</script>
+{% endblock %} 
+
+
+

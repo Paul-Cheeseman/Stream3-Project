@@ -17,6 +17,8 @@ def get_index(request):
 def get_contact(request):
 	return render(request, "contact.html")
 
+def get_services(request):
+	return render(request, "services.html")
 
 
 def isNotNum(data):
@@ -74,7 +76,7 @@ def cart_add(request):
 					return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock(), "stock_control_max_limit": stock_control_max_limit})
 
 
-				messages.success(request, "Item added to cart")            
+				#messages.success(request, "Item added to cart")            
 				cart.add_to_cart(product_id, amount_req)
 
 				if not request.user.is_authenticated:
@@ -95,10 +97,10 @@ def cart_add(request):
 
 			if int(amount_req) == 0 & (cart.item_in_cart(product_id) !=None):
 				cart.remove_from_cart(product_id)
-				messages.success(request, "Item removed from cart")          
+				#messages.success(request, "Item removed from cart")          
 
-			elif int(amount_req) == 0:
-				messages.info(request, "No changes to cart made")          
+			#elif int(amount_req) == 0:
+				#messages.info(request, "No changes to cart made")          
 
 
 			else:
@@ -118,10 +120,10 @@ def cart_add(request):
 				#Check to see if product already in cart, if so update value
 				if cart.item_in_cart(product_id):
 					cart.update_cart(product_id, amount_req)
-					messages.success(request, "Item quantity in cart updated")            
+					#messages.success(request, "Item quantity in cart updated")            
 				else:
 					cart.add_to_cart(product_id, amount_req)
-					messages.success(request, "Item added to cart")            
+					#messages.success(request, "Item added to cart")            
 
 
 	products = Product.objects.all()
@@ -185,14 +187,14 @@ def cart_list(request):
 				cart.del_cart(request)
 				#prevent the HTML for the delete button being generated
 				delete_button_show = False
-				messages.error(request, "Cart deleted")
+				#messages.error(request, "Cart deleted")
 
 			#Determine is the page is initially loading or user is submitting form
 			if 'product' in request.POST and 'amount' in request.POST:
 				product_id = int(request.POST['product'])
 				amount_req = request.POST['amount']
 				cart.update_cart(product_id, amount_req)
-				messages.success(request, "Item quantity in cart updated")
+				#messages.success(request, "Item quantity in cart updated")
 
 				#if product is in stock, set variable to enable add button
 				#if the product is product deficite, set variable with amount of stock level to 
