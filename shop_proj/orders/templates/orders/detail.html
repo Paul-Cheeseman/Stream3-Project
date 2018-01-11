@@ -29,7 +29,7 @@
     <thead>
        <tr>
           <th>Name</th>
-          <th>Brief Description</th>
+          <th class="hidden-xs">Brief Description</th>
           <th>Price</th>
           <th>Amount</th>
           <th>Total</th>            
@@ -39,7 +39,7 @@
         {% for orderItem in order %}
         <tr>
             <td>{{orderItem.name}}</td>
-            <td>{{orderItem.description}}</td>
+            <td class="hidden-xs">{{orderItem.description}}</td>
             <td>&pound;{{orderItem.price}}</td>
             <td>{{orderItem.quantity}}</td>
             <td>&pound;{{orderItem.total}}</td>            
@@ -47,14 +47,14 @@
         {% endfor %}
         <tr class="border_top_dashed">
             <td>Delivery Total</td>
-            <td></td>
+            <td class="hidden-xs"></td>
             <td></td>
             <td></td>
             <td>&pound;{{delivery_cost}}.00</td>
         </tr>
         <tr class="border_top_solid">
             <td class="delivery_total">Complete total</strong></td>
-            <td></td>
+            <td class="hidden-xs"></td>
             <td></td>
             <td></td>
             <td class="delivery_total">&pound;{{complete_total}}</strong></td>            

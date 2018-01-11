@@ -1,4 +1,4 @@
-
+/* Over riding default theme button colouring*/
 
 .btn-primary-inverse {
     background: #fff;
@@ -10,6 +10,9 @@
     -o-transition: all 0.3s;
     transition: all 0.3s;
 }
+
+
+/* Over riding default theme button colouring*/
 
 .btn-primary-inverse:hover {
     color: #fff;
@@ -25,13 +28,18 @@
 
 
 
+/* Spacing for about page */
+
 #about-section {
     padding-top: 5px;
 }
 
+
+/* Over riding default theme footer size*/
+
 footer {
     margin-bottom: 15px;
-    margin-top: 15px;    
+    margin-top: 15px;
 }
 
 
@@ -45,7 +53,9 @@ footer {
     color: #000;
 }
 
+
 /* To override the default theme background image */
+
 .banner {
     text-align: center;
     color: #fff;
@@ -58,19 +68,27 @@ footer {
     background-size: cover;
 }
 
+.section-title {
+    margin-bottom: 20px;
+}
+
+
+
+/* for service page */
+
 #service-section {
     padding-top: 10px;
     padding-bottom: 20px;
 }
+
+
+/* for about page */
 
 #about-section {
     padding-top: 10px;
     padding-bottom: 40px;
 }
 
-.section-title {
-    margin-bottom: 20px;
-}
 
 .services-post {
     margin-bottom: 20px;
@@ -78,94 +96,121 @@ footer {
 
 
 
-.fa-stack{
-  width: 5px;
-  height: 2px;  
-  top:40%;
-}
+/* position of font awesome badge-icon (for cart), for small devices */
 
-.fa-stack[data-count].logged-out:after{
-  position:absolute;
-  content: attr(data-count);
-  font-size:30%;
-  padding:.6em;
-  border-radius:999px;
-  line-height:.75em;
-  color: white;
-  background:rgba(255,0,0,.85);
-  text-align:center;
-  min-width:2em;
-  font-weight:bold;
-  z-index: 1;
-
-}
-
-
-.fa-stack[data-count].logged-in:after{
-  position:absolute;
-  content: attr(data-count);
-  font-size:30%;
-  padding:.6em;
-  border-radius:999px;
-  line-height:.75em;
-  color: white;
-  background: green;
-  text-align:center;
-  min-width:2em;
-  font-weight:bold;
-  z-index: 1;
-
+.fa-stack {
+    width: 5px;
+    height: 2px;
+    top: 40%;
 }
 
 
 
-.fa-user{
-  position:absolute;
-  font-size:100%;
-  padding:.6em;
-  text-align:center;
-  min-width:2em;
-  font-weight:bold;
-  z-index: 1;
-  width: 5px;
-  left: 45px;
-  top:35%;
-}
+/* font awesome badge-icon for cart, for a logged out user */
 
-.fa-user.logged-in{
-  color: green;
-}
-
-
-.fa-user.logged-out{
-  color: rgb(210, 0, 0);
-}
-
-.li_t-shirt.large{
-  font-size: 1.75em;
+.fa-stack[data-count].logged-out:after {
+    position: absolute;
+    content: attr(data-count);
+    font-size: 30%;
+    padding: .6em;
+    border-radius: 999px;
+    line-height: .75em;
+    color: white;
+    background: rgba(255, 0, 0, .85);
+    text-align: center;
+    min-width: 2em;
+    font-weight: bold;
+    z-index: 1;
 }
 
 
- #map {
-  height: 20em;
-  background-color: grey;
- }
+/* font awesome badge-icon for cart, for a logged in user */
+
+.fa-stack[data-count].logged-in:after {
+    position: absolute;
+    content: attr(data-count);
+    font-size: 30%;
+    padding: .6em;
+    border-radius: 999px;
+    line-height: .75em;
+    color: white;
+    background: green;
+    text-align: center;
+    min-width: 2em;
+    font-weight: bold;
+    z-index: 1;
+}
 
 
- .service-centre{
-  text-align: center;
-  margin-bottom: 2em;
-  margin-bottom: 3em;
- }
+
+/* font awesome user-icon for small devices */
+
+.fa-user {
+    position: absolute;
+    font-size: 100%;
+    padding: .6em;
+    text-align: center;
+    min-width: 2em;
+    font-weight: bold;
+    z-index: 1;
+    width: 5px;
+    left: 45px;
+    top: 35%;
+}
 
 
+/* font awesome user-icon for logged in user */
+
+.fa-user.logged-in {
+    color: green;
+}
+
+
+/* font awesome user-icon for logged out user */
+
+.fa-user.logged-out {
+    color: rgb(210, 0, 0);
+}
+
+
+/* Linecon t-shirt icon */
+
+.li_t-shirt.large {
+    font-size: 1.75em;
+}
+
+
+/* Google map on contact page */
+
+#map {
+    height: 20em;
+    background-color: grey;
+    margin: 1.25em;
+    border-radius: 5px;
+}
+
+
+
+/* Aligning/spacing text on services page */
+
+.service-centre {
+    text-align: center;
+    margin-bottom: 2em;
+    margin-bottom: 3em;
+}
+
+
+
+/* reducing size of nav-bar text for smaller devices */
 
 .navbar-default .navbar-brand {
     font-size: 25px;
-  }
+}
 
 
-/* To over ride the defaulth theme version */
+
+/* To override the default theme version */
+
 .page-header {
     margin-top: 10px;
     padding: 15px 0;
@@ -173,45 +218,120 @@ footer {
 
 
 
+/* For footer copyright section */
+
+.copyright-section {
+    font-size: 5px;
+    padding: 5px 0;
+}
+
+
+/* about page text - normal (small devices) */
+
+.about-text {
+    font-size: 18px;
+    margin: 0px 0px 0px 5px;
+}
+
+.about-email-text {
+    font-size: 18px;
+    margin: 0px 0px 25px 5px;
+}
+
+
+/* about page text - title (small devices) */
+
+.about-title {
+    font-size: 15px;
+    margin: 5px 0px 0px 0px;
+    font-weight: bold;
+}
+
+
+
+
+
+
 /*
 
 */
-@media (min-width: 768px) {
 
-.navbar-default .navbar-brand {
-    font-size: 40px;
-  }
+@media (min-width: 769px) {
+    /* Navbar text increased for larger devices (as reduced for smaller ones previously) */
+    .navbar-default .navbar-brand {
+        font-size: 40px;
+    }
 
-}
+
 /* To over ride the defaulth theme version */
+
 .page-header {
     margin-top: 10px;
-    padding: 40px 0;    
+    padding: 40px 0;
 }
 
 
-.fa-user.logged-out{
-  position:absolute;
-  font-size:100%;
-  padding:.6em;
-  text-align:center;
-  min-width:2em;
-  font-weight:bold;
-  z-index: 1;
-  width: 5px;
-  left: 35px;
-  top:35%;
+/* Position for user icon changed for larger devices (as not using collapsed bootstrap menu) */
+
+
+/* logged out version */
+
+.fa-user.logged-out {
+    position: absolute;
+    font-size: 100%;
+    padding: .6em;
+    text-align: center;
+    min-width: 2em;
+    font-weight: bold;
+    z-index: 1;
+    width: 5px;
+    left: 35px;
+    top: 35%;
 }
 
-.fa-user.logged-in{
-  position:absolute;
-  font-size:100%;
-  padding:.6em;
-  text-align:center;
-  min-width:2em;
-  font-weight:bold;
-  z-index: 1;
-  width: 5px;
-  left: 47px;
-  top:35%;
+
+/* Position for user icon changed for larger devices (as not using collapsed bootstrap menu) */
+
+
+/* logged in version */
+
+.fa-user.logged-in {
+    position: absolute;
+    font-size: 100%;
+    padding: .6em;
+    text-align: center;
+    min-width: 2em;
+    font-weight: bold;
+    z-index: 1;
+    width: 5px;
+    left: 47px;
+    top: 35%;
+}
+
+
+/* For footer copyright section */
+
+.copyright-section {
+    font-size: 12px;
+    padding: 20px 0;
+}
+
+
+/* about page text - normal */
+
+.about-text {
+    font-size: 25px;
+    margin: 0px 0px 0px 10px;
+}
+
+
+/* about page text - title */
+
+.about-title {
+    font-size: 25px;
+    margin: 20px 0px 0px 0px;
+    font-weight: bold;
+}
+
+
 }

@@ -29,7 +29,7 @@ def user_register(request):
 
                 auth.login(request, user)
                 messages.success(request, "You have successfully logged in")            
-                messages.info(request, "Please be aware you will need a credit card and address registered before you can complete any orders")
+                messages.info(request, "Please be aware you will need to add a credit card and address to your profile before you can complete any orders")
                 return redirect(reverse('profile'))
  
     else:
