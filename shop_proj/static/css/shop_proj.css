@@ -1,5 +1,4 @@
 /* Over riding default theme button colouring*/
-
 .btn-primary-inverse {
     background: #fff;
     color: #ff432e;
@@ -13,7 +12,6 @@
 
 
 /* Over riding default theme button colouring*/
-
 .btn-primary-inverse:hover {
     color: #fff;
     background: #ff432e;
@@ -35,7 +33,6 @@
 
 
 /* Over riding default theme footer size*/
-
 footer {
     margin-bottom: 15px;
     margin-top: 15px;
@@ -54,7 +51,6 @@ footer {
 
 
 /* To override the default theme background image */
-
 .banner {
     text-align: center;
     color: #fff;
@@ -67,22 +63,20 @@ footer {
     background-size: cover;
 }
 
+/* To override the general default theme */
 .section-title {
     margin-bottom: 20px;
 }
 
 
-
-/* for service page */
-
+/* To override the general default for service page */
 #service-section {
     padding-top: 10px;
     padding-bottom: 20px;
 }
 
 
-/* for about page */
-
+/* To override the general default for about page */
 #about-section {
     padding-top: 10px;
     padding-bottom: 40px;
@@ -96,7 +90,6 @@ footer {
 
 
 /* position of font awesome badge-icon (for cart), for small devices */
-
 .fa-stack {
     width: 5px;
     height: 2px;
@@ -106,7 +99,6 @@ footer {
 
 
 /* font awesome badge-icon for cart, for a logged out user */
-
 .fa-stack[data-count].logged-out:after {
     position: absolute;
     content: attr(data-count);
@@ -124,7 +116,6 @@ footer {
 
 
 /* font awesome badge-icon for cart, for a logged in user */
-
 .fa-stack[data-count].logged-in:after {
     position: absolute;
     content: attr(data-count);
@@ -143,7 +134,6 @@ footer {
 
 
 /* font awesome user-icon for small devices */
-
 .fa-user {
     position: absolute;
     font-size: 100%;
@@ -159,28 +149,24 @@ footer {
 
 
 /* font awesome user-icon for logged in user */
-
 .fa-user.logged-in {
     color: green;
 }
 
 
 /* font awesome user-icon for logged out user */
-
 .fa-user.logged-out {
     color: rgb(210, 0, 0);
 }
 
 
-/* Linecon t-shirt icon */
-
+/* Linecon t-shirt icon, amending size */
 .li_t-shirt.large {
     font-size: 1.75em;
 }
 
 
 /* Google map on contact page */
-
 #map {
     height: 20em;
     background-color: grey;
@@ -191,7 +177,6 @@ footer {
 
 
 /* Aligning/spacing text on services page */
-
 .service-centre {
     text-align: center;
     margin-bottom: 2em;
@@ -201,7 +186,6 @@ footer {
 
 
 /* reducing size of nav-bar text for smaller devices */
-
 .navbar-default .navbar-brand {
     font-size: 25px;
 }
@@ -209,7 +193,6 @@ footer {
 
 
 /* To override the default theme version */
-
 .page-header {
     margin-top: 10px;
     padding: 15px 0;
@@ -218,7 +201,6 @@ footer {
 
 
 /* For footer copyright section */
-
 .copyright-section {
     font-size: 5px;
     padding: 5px 0;
@@ -226,7 +208,6 @@ footer {
 
 
 /* about page text - normal (small devices) */
-
 .about-text {
     font-size: 18px;
     margin: 0px 0px 0px 5px;
@@ -239,7 +220,6 @@ footer {
 
 
 /* about page text - title (small devices) */
-
 .about-title {
     font-size: 15px;
     margin: 5px 0px 0px 0px;
@@ -252,7 +232,7 @@ footer {
 
 
 /*
-
+    CSS for larger devices is below, this is in conjunction with the styling/responsiveness of the initial theme selected
 */
 
 @media (min-width: 769px) {
@@ -263,7 +243,6 @@ footer {
 
 
 /* To over ride the defaulth theme version */
-
 .page-header {
     margin-top: 10px;
     padding: 40px 0;
@@ -271,10 +250,7 @@ footer {
 
 
 /* Position for user icon changed for larger devices (as not using collapsed bootstrap menu) */
-
-
 /* logged out version */
-
 .fa-user.logged-out {
     position: absolute;
     font-size: 100%;
@@ -290,8 +266,6 @@ footer {
 
 
 /* Position for user icon changed for larger devices (as not using collapsed bootstrap menu) */
-
-
 /* logged in version */
 
 .fa-user.logged-in {

@@ -1,6 +1,10 @@
 
-/* Code supplied by Code Institute */
-  
+/* Code supplied by Code Institute 
+
+  jQuery which will commuincate with Stripe via its API to validate submitted by user 
+
+*/
+
 $(function() {
 
   $("#register-form").submit(function() {

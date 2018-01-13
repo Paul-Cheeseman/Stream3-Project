@@ -22,10 +22,9 @@ class CCRegistrationForm(forms.Form):
  
 
     def save(self, stripe_token, user, commit=True):
-        #update user with credit card, generate stripe token at checkout
+        #update user with credit card stripe token to enable re-use
         user.stripe_id = stripe_token
         user.save()
-
 
 
 

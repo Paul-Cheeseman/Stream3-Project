@@ -39,8 +39,6 @@
 
     <!-- Moved to top so jQuery is available for stripe validation script -->
     <script src="{% static 'theme/assets/js/jquery-2.1.3.min.js' %}"></script>
-    <!-- Shop_Proj specific JavaScript for whole site-->
-    <script src="{% static 'js/shop_proj.js' %}"></script>
 
     <!-- Pulling in app/page specific items (mainly CSS) -->
     {% block extra_head %}
@@ -143,6 +141,10 @@
     <script src="{% static 'theme/assets/js/count-to.js' %}"></script>
     <script src="{% static 'theme/assets/js/styleswitcher.js' %}"></script>
     <script src="{% static 'theme/assets/js/script.js' %}"></script>
+
+    <!-- Shop_Proj specific JavaScript for whole site-->
+    <script src="{% static 'js/shop_proj.js' %}"></script>
+
 
     <!-- Code for Pop-Up alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  

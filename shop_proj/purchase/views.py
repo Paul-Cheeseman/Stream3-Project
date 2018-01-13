@@ -1,26 +1,24 @@
-from django.shortcuts import render
-from accounts.models import User
-from django.contrib.auth.decorators import login_required
-import datetime
 from django.conf import settings
-from django.template.context_processors import csrf
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-import stripe
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.template.context_processors import csrf
 
-# Create your views here.
+import datetime
+import stripe
 
+from accounts.models import User
 from purchase.forms import AddressForm, CCRegistrationForm
-
 
 
 @login_required() 
 def address(request):
+
+    #If form being submitted (Posted) then check info
     if request.method == 'POST':
         form = AddressForm(request.POST)
-        #data validated via JS
-
+        #validate form and if OK, save details to database 
         if form.is_valid():
             user = get_object_or_404(User, username=request.user)
             user.address_line1 = form.cleaned_data['address_line1']
@@ -28,11 +26,12 @@ def address(request):
             user.county = form.cleaned_data['county']
             user.postcode = form.cleaned_data['postcode']
             user.save()
-
             messages.success(request, "Address successfully updated")
+            #once updated, send user to profile page
             return redirect(reverse('profile'))
             
         else:
+            #inform user why form was rejected
             messages.error(request, "Please only use alpha-numerics to complete address details")
 
     else:
@@ -43,44 +42,32 @@ def address(request):
     return render(request, 'purchase/address.html', args)
 
 
+
 @login_required() 
 def register_cc(request):
-    #The form sent to server
+
+    #If form being submitted (Posted) then check info
     if request.method == 'POST':
-
-        print("request.POST:")
-        print(request.POST)
-
-
         form = CCRegistrationForm(request.POST)
 
         #create stripe_id for this checkout
         if form.is_valid():
             data = form.cleaned_data
-            #form.save(data['stripe_id'], request.user)
-
             user = get_object_or_404(User, username=request.user)
 
-            # ----------------------------------------------------------
-            ### NEED TO PUT IN SOME CHECKING HERE TO VALIDATE CARD IS OK
-            ### Also need to put in a DELETE ACCOUNT, and delete customer 
-            #   from stripe DB along with own: https://stripe.com/docs/api#delete_customer
-            # ----------------------------------------------------------
-
-            #create customer on stripe
+            #create customer on stripe, this creates a customer token on stripe that 
+            #is re-useable rather than one off transational token
             stripe_customer = stripe.Customer.create(
             email=user.username,
             source=data['stripe_id'],
             )
 
-            #save credit card to database for future sure checkouts
+            #save stripe credit card token to database for future sure checkouts
             user = User.objects.filter(username=request.user).update(stripe_custID = stripe_customer.id)
-
-
+            #inform user
             messages.success(request, "Credit Card successfully updated")
-
+            #once updated, send user to profile page
             return redirect(reverse('profile'))
-
 
     else:
         today = datetime.date.today()
