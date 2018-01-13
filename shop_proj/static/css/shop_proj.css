@@ -29,7 +29,6 @@
 
 
 /* Spacing for about page */
-
 #about-section {
     padding-top: 5px;
 }
@@ -310,7 +309,6 @@ footer {
 
 
 /* For footer copyright section */
-
 .copyright-section {
     font-size: 12px;
     padding: 20px 0;
@@ -318,7 +316,6 @@ footer {
 
 
 /* about page text - normal */
-
 .about-text {
     font-size: 25px;
     margin: 0px 0px 0px 10px;
@@ -326,7 +323,6 @@ footer {
 
 
 /* about page text - title */
-
 .about-title {
     font-size: 25px;
     margin: 20px 0px 0px 0px;

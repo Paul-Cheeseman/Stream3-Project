@@ -117,7 +117,6 @@ class Cart(models.Model):
 
 
 
-
 class CartItem(models.Model):
 	cart = models.ForeignKey('cart.Cart')
 	product = models.ForeignKey('products.Product')

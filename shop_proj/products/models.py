@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import uuid
-from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
+from django.db import models
+
+import uuid
 
 
-
-# Create your models here.
- 
 class Product(models.Model):
 
     SIZES = (
@@ -50,7 +48,7 @@ class Product(models.Model):
     gender = models.CharField(max_length=6, choices=GENDER)
     age = models.CharField(max_length=5, choices=AGE)
     colour = models.CharField(max_length=6, choices=COLOUR) 
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(0.00)])
     stock_level = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     category = models.CharField(max_length=30, choices=CATEGORY)
     photo = models.ImageField(upload_to = "img/")
@@ -64,11 +62,9 @@ class Product(models.Model):
     def in_stock(self):
         return self.stock_level > 0
 
+    #compares the current stock of a product to the customer requested amount
+    #will return the current stock level if not enough in stock or None.
     def stock_level_deficite(self, amount_req):
-        print("Posted amount")
-        print(amount_req)
-        print("stock level")
-        print(self.stock_level)
         if int(amount_req) > self.stock_level:
             return self.stock_level
         else:

@@ -1,26 +1,27 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render, get_object_or_404
-from products.models import Product
-from accounts.models import User
-from orders.models import Order, OrderItem
-from cart.models import Cart, CartItem
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-import stripe
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import redirect
+import stripe
+
+from accounts.models import User
+from cart.models import Cart, CartItem
+from orders.models import Order, OrderItem
+from products.models import Product
+
 
 #User has to be logged in to checkout
 @login_required() 
 def checkout(request):
 
-	#assume credit card not record until proven otherwise
+	#assume credit card not recorded for customer until proven otherwise
 	cc_reg = "btn btn-sm btn-success disabled"
-
+	#get user object
 	user = get_object_or_404(User, username=request.user)
 
-	#Timmy Help???
+	#set cost and amount variables
 	global total_cost
 	total_cost = 0
 	total_amount = 0	
@@ -33,27 +34,24 @@ def checkout(request):
 
 		#for each cart item, use the stored product_id to retrive product details from product table
 		products = Product.objects.filter(id__in=[item.product_id for item in items_in_cart])
-		#getting amount ordered of each product so can auto-fill cart list
 
+		#getting amount ordered of each product so can auto-fill checkout list
 		for item in products:
 			cartItem_amount = get_object_or_404(CartItem, product_id=item.id, cart_id=request.session['cart'])
 			item.amount = cartItem_amount.amount
 			item.cost = item.amount * item.price
 			total_cost = total_cost + item.cost
-			
 			total_amount = total_amount + item.amount
-			
 			pence_cost = int(total_cost * 100)
 
-		#£2 deliver charge per item
+		#add £2 deliver charge per item
 		delivery_cost = total_amount * 2
 		total_cost = total_cost + delivery_cost
 
 
-		#Don't process if customer has a cart but nothing in it, tell them
-		#if anything in basket?
 		if items_in_cart.exists():
-			#if credit card stored?
+
+			#Check that credit card and address have been logged before allowing checkout (and enabling purchase button)
 			if user.stripe_custID == "None":
 				messages.error(request, "Please register a credit card before attempting purchase")
 
@@ -61,16 +59,21 @@ def checkout(request):
 				messages.error(request, "Please register a complete address")
 
 			else:
+				#enable purchase button
 				cc_reg = "btn btn-sm btn-success"
 
-				#if POST some is trying to buy product
+				#if request method is POST some is trying to buy product
 				if 'purchase' in request.POST:
-					
+					#set cost and amount variables to check if checkout amounts needs to be refreshed at checkout.
+					#
+					#On a multi-user system for a company with relatively small stock levels, between the customer
+					#putting item(s) in cart and getting to checkout, their is the real risk that another customer purchase 
+					#could pull stock levels down to a level where the current customers order can't be met with existing
+					#stock. This would then require extra time to restock, so the company would prefer the customer call them
+					#so they can speak through the options.
 					total_cost_refresh = 0
 					total_amount_refresh = 0	
 					delivery_cost_refresh = 0
-
-
 
 					#Go through and check stock levels are still OK pre purchase
 					#i.e has another customer made a purchase and reduced available stock levels below what can be fulfilled?
@@ -98,13 +101,9 @@ def checkout(request):
 					delivery_cost_refresh = total_amount_refresh * 2
 					total_cost_refresh = total_cost_refresh + delivery_cost_refresh
 
-					print("refresh_checkout")
-					print(refresh_checkout)
-
-
-					
+		
 					if refresh_checkout == True:
-						messages.error(request, "Other recent customer purchases mean we can no longer currently meet you order with our existing stock, your order has been updated to reflect current stock levels")
+						messages.error(request, "Other recent customer purchases mean we can no longer currently meet you order with our existing stock, your order has been updated to reflect current stock levels. Please contact us to discuss acquiring the additional items.")
 
 						#Need to amend cartItem to store new amount value, so that if purchase not made 
 						#but cart stored, the item is not deleted (on signing back in) unless 
@@ -116,8 +115,7 @@ def checkout(request):
 						return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost_refresh, "total_amount": total_amount_refresh, "delivery_cost": delivery_cost_refresh})
 
 
-
-					#make payment
+					#make payment!
 					charge = stripe.Charge.create(
   						amount=pence_cost,
   						currency="gbp",
@@ -125,9 +123,10 @@ def checkout(request):
 					)
 					messages.success(request, "Payment Successful")
 
+					#disable purchase button, just a belt and braces as get sent to a different page
 					cc_reg = "btn btn-sm btn-success disabled"
 
-					#Create order entries
+										#Create order entries in database
 					customer = get_object_or_404(User, username=request.user)
 					new_order = Order(address_line1=user.address_line1, address_line2=user.address_line2, county=user.county, postcode=user.postcode, total=(pence_cost/100), customer_id=customer.id)
 					new_order.save()
@@ -145,8 +144,10 @@ def checkout(request):
 						current_product.stock_level = current_product.stock_level - item.amount
 						current_product.save()
 
-					#"When Django deletes an object, by default it emulates the behavior of the SQL constraint ON DELETE CASCADE – in other words, any objects which had foreign keys pointing at the object to be deleted will be deleted along with it. "
-					#So this command should remove the cart and associated cart items from database
+					#"When Django deletes an object, by default it emulates the behavior of the SQL constraint ON DELETE 
+					#CASCADE – in other words, any objects which had foreign keys pointing at the object to be deleted 
+					#will be deleted along with it". So this command should remove the cart and associated cart items 
+					#from the database.
 					Cart.objects.filter(id=request.session['cart']).delete()
 					del request.session['cart']
 
@@ -155,16 +156,17 @@ def checkout(request):
 						user.saved_cart_id = 0
 						user.save()
 
-
-
+					#Send user to orders page after successful purchase
 					return redirect("orders")					
 
 				else:
+					#this is enabling purchase button on initial page load (rather than when purchase has been pressed)
+					#when credit card and address have been stored in database.
 					cc_reg = "btn btn-sm btn-success"
 
 			return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost, "total_amount": total_amount, "delivery_cost": delivery_cost})
 
-
+		#empty cart, let use rknow
 		else:
 			messages.error(request, "Nothing in your cart, please add an item before attempting purchase")
 			return render(request, "checkout/checkout.html", {"cc_reg": cc_reg,  "total_cost": total_cost, "total_amount": total_amount, "delivery_cost": delivery_cost})
@@ -172,5 +174,3 @@ def checkout(request):
 	else:
 		messages.error(request, "You don't have a cart yet, please create one by adding an item before attempting purchase")
 		return render(request, "checkout/checkout.html", {"cc_reg": cc_reg,  "total_cost": total_cost, "total_amount": total_amount, "delivery_cost": delivery_cost})
-	#Need name, address etc for customer, if not redirect to profile page
-	#Passing user details across

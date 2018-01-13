@@ -2,13 +2,12 @@ $(document).ready(function() {
 
 
     /*  This code needs to be put in the generic project app if it is to be applied to logout. 
-        This is on the assumption that logout will be used on each page, the code is kepted 
-        commented out here so that it stays with the app, even when it is imported, and uncommented!, 
-        in the main project static JS file 
+        This is on the assumption that logout will be used on each page, the code is kept 
+        commented out here so that it stays with the app, even when it is imported (uncommented!), 
+        in the main project static JS file.
 
-
-        Kept in a seperate file to clearly delinate between code that needs to be site wide and code 
-        in cart.js that can be local to the app.
+        Kept in a seperate file to clearly delinate between app JS code that needs to be site wide (and placed in a 
+        site static folder) and code in cart.js that can be local to the app.
     */
 
 

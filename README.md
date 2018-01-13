@@ -67,6 +67,8 @@ https://sweetalert.js.org/guides/
 
 - stripe (1.73.0), this is probably worth a mention by itself
 
+- Font-awesome for most icons
+- Linecons for t-shirt
 
 jQuery code within the stripe.js file within the purchase app, is code supplied by the Code Institute https://www.codeinstitute.net/
 

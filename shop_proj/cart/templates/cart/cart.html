@@ -7,20 +7,19 @@
 <link rel="stylesheet" type="text/css" href="{% static 'cart/css/cart.css' %}">
 {% endblock %} 
 
-
-        <!-- Start Header Section -->
-        <div class="page-header">
-            <div class="overlay">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Cart List</h1>
-                        </div>
-                    </div>
+<!-- Start Header Section -->
+<div class="page-header">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Cart List</h1>
                 </div>
             </div>
         </div>
-        <!-- End Header Section -->
+    </div>
+</div>
+<!-- End Header Section -->
 
 <section>
 {% if messages %}
@@ -72,11 +71,7 @@
         {% for product in products %}
         <tr>
             <td>{{ product.name }}</td>
-
-
-
             <td><img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}"></td>
-
             <td class="hidden-xs hidden-sm">{{ product.description }}</td>
             <td class="hidden-xs">{{product.category}}</a></td>
             <td>&pound;{{ product.price }}</td>

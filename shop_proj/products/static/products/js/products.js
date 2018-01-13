@@ -1,6 +1,7 @@
 $(document).ready(function() { 
 
 
+    //Highlight table rows for user to see active row
     $('#table-row-highlight tr').hover(function() {
             //Change cursor to pointing finger to make it clear to user that they can click anywhere on row
             $(this).css('cursor','pointer');
@@ -11,6 +12,7 @@ $(document).ready(function() {
         	$(this).removeClass("row-orange");
     });
 
+    //enable highlighted row (see above) to be selected by user
     $('#table-row-highlight tr').click(function() {
 		// Some JS to call page from product table row
         window.location.href = "/products/detail/?product_name=" + $(this).children(":first").text();
@@ -18,6 +20,9 @@ $(document).ready(function() {
     });
 
 
+    //Enable text in dropdown menu to change to show the selection for this filter
+    //To ensure that the selection is maintained between page reloads (ie each time *any* filter changes) the selection
+    //is stored in the customers local storage. This jQuery sets value on screena and sets the value(s) in local storage.
     $(".dropdown-menu.gender li a").click(function(){
         $(".btn.gender:first-child").text($(this).text());
         $(".btn.gender:first-child").val($(this).text());
@@ -25,7 +30,7 @@ $(document).ready(function() {
         localStorage.setItem("gender", $(this).text());
     });
 
-
+    //As above, filter text change
     $(".dropdown-menu.age li a").click(function(){
         $(".btn.age:first-child").text($(this).text());
         $(".btn.age:first-child").val($(this).text());
@@ -33,7 +38,7 @@ $(document).ready(function() {
         localStorage.setItem("age", $(this).text());
     });
 
-
+    //As above, filter text change
     $(".dropdown-menu.ordering li a").click(function(){
         $(".btn.ordering:first-child").text($(this).text());
         $(".btn.ordering:first-child").val($(this).text());
@@ -41,7 +46,7 @@ $(document).ready(function() {
         localStorage.setItem("ordering", $(this).text());
     });
 
-
+    //As above, filter text change
     $(".dropdown-menu.price li a").click(function(){
         $(".btn.price:first-child").text($(this).text());
         $(".btn.price:first-child").val($(this).text());
@@ -49,6 +54,7 @@ $(document).ready(function() {
         localStorage.setItem("price", $(this).text());
     });
 
+    //As above, filter text change
     $(".dropdown-menu.category li a").click(function(){
         $(".btn.category:first-child").text($(this).text());
         $(".btn.category:first-child").val($(this).text());
@@ -56,14 +62,15 @@ $(document).ready(function() {
         localStorage.setItem("category", $(this).text());
     });
 
-
+    //As above, filter text change
     $(".dropdown-menu.colour li a").click(function(){
         $(".btn.colour:first-child").text($(this).text());
         $(".btn.colour:first-child").val($(this).text());
         $(".btn.colour").addClass("selected-filter");        
         localStorage.setItem("colour", $(this).text());
     });
-
+    
+    //As above, filter text change
     $(".dropdown-menu.size li a").click(function(){
         $(".btn.size:first-child").text($(this).text());
         $(".btn.size:first-child").val($(this).text());
@@ -72,7 +79,7 @@ $(document).ready(function() {
     });
 
 
-
+    //To reset filters, local storage is cleared
     $(".resetall-products").click(function(){
         localStorage.removeItem("gender");
         localStorage.removeItem("age");
@@ -84,7 +91,8 @@ $(document).ready(function() {
     });
 
 
-
+    //To ensure that the selection is maintained between page reloads (ie each time *any* filter changes) the selection
+    //is stored in the customers local storage, this is retrieving the value(s)
     if (localStorage.getItem("gender") !== null){
         $(".btn.gender:first-child").text(localStorage.getItem("gender"));
         $(".btn.gender").addClass("selected-filter"); 

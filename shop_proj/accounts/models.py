@@ -4,13 +4,12 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
+#AccountUserManager Model
 class AccountUserManager(UserManager):
     def _create_user(self, username, email, password,
                      is_staff, is_superuser, **extra_fields):
-        """
-       Creates and saves a User with the given username, email and password.
-       """
+
+       #Creates (and saves to DB) a User with the given username, email and password.
         now = timezone.now()
         if not email:
             raise ValueError('The given username must be set')
@@ -25,10 +24,10 @@ class AccountUserManager(UserManager):
  
         return user
  
+#User Model
 class User(AbstractUser):
-    # now that we've abstracted this class we can add any
-    # number of custom attribute to our user class
- 
+    #Uses the AccountUserManager model as base, but creates a User with the additional, site specifc 
+    #custom attributes below
     stripe_custID = models.CharField(max_length=100, default="None") 
     address_line1 = models.CharField(max_length=100, default="None") 
     address_line2 = models.CharField(max_length=100, default="None")

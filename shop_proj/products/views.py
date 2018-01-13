@@ -1,33 +1,30 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
 from .models import Product
 
 
 
 #Change to list all 
 def products(request):
-
-
 	if request.GET.get('resetall') == "y":
-
 		#Determines descending/ascending order of products by name
 		order = ""
 
+		#produce a queryset will all products in it for reset 
 		product_filter = Product.objects.all()
-
 
 	else:
 
+		#Get full queryset, then apply the filters as per request.get
+		#Set up a series of IF's as the filtering needs to be accumulative
 		product_filter = Product.objects.all()
-
 
 		if request.GET.get('category'):
 			cat_filter = request.GET.get('category')
 			product_filter = Product.objects.filter(category=cat_filter)
-
 
 		if request.GET.get('price'):
 			price = request.GET.get('price')
@@ -72,11 +69,9 @@ def products(request):
 			messages.info(request, "No products to display - you've filtered them all out!")
 
 	#Get data for dynamically populated drop downs
-	#-----------------------------------------------
 	category_ddl = Product.objects.values('category').distinct()
 	colour_ddl = Product.objects.values('colour').distinct().order_by('colour')
 	sizes_ddl = Product.objects.values('size').distinct()
-	#Hardcode price ranges
 	price_range_ddl = {"Below 2": "Below 2", "Between 2-4": "Between 2-4", "Above 4": "Above 4"}
 
 
@@ -102,9 +97,8 @@ def products(request):
 
 def product_detail(request):
 	if request.GET.get('product_name'):
+		#get and return the product detail object
 		product_name = request.GET.get('product_name')
-
-		#product_details = get_object_or_404(Product, name=product_name)
 		product = get_object_or_404(Product, name=product_name)
 
 		return render(request, "products/detail.html", {"product": product, "in_stock": product.in_stock()})

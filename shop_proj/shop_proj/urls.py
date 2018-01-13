@@ -34,7 +34,7 @@ urlpatterns = [
   url(r'^purchase/', include('purchase.urls')),
   url(r'^products/', include('products.urls')),
   url(r'^contact', cart_views.get_contact, name='contact'),
-  url(r'^profile/$', accounts_views.profile, name='profile'),	
+  url(r'^profile/$', cart_views.profile, name='profile'),	
   url(r'^services', cart_views.get_services, name='services'),
 
 

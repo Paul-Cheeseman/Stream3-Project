@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from accounts.models import User
 
+#User Registration form
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(
         label='Password',
@@ -18,6 +19,7 @@ class UserRegistrationForm(UserCreationForm):
         fields = ['email', 'password1', 'password2']
         exclude = ['username']
  
+
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')

@@ -3,6 +3,8 @@ from cart.models import Cart
 
 register = template.Library()
 
+#A template tag to show the about of items in a cart on the badge icon
+#placed next to the cart link on the menu
 @register.simple_tag(takes_context=True)
 def cart_item_amount(context):
     request = context['request']
