@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from accounts.models import User
 
-#User Registration form
+#User Registration form - based on code from Code Institute
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(
         label='Password',
@@ -26,9 +26,16 @@ class UserRegistrationForm(UserCreationForm):
  
         if password1 and password2 and password1 != password2:
             message = "Passwords do not match"
-            raise ValidationError(message)
+            raise forms.ValidationError(message)
  
         return password2
+
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not email:
+            message = "Please enter your email address"
+            raise forms.ValidationError(message)
 
  
     def save(self, commit=True):

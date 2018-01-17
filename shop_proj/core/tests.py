@@ -33,3 +33,8 @@ class AccountsTest(TestCase):
 
 
 
+	def test_profile_page_logged_in_content(self):
+		self.client.login(username='testing@account.com', password='testing')
+        home_page = self.client.get('/')
+         home_page_template_output = render_to_response("index.html", {'user': self.user}).content
+        self.assertEquals(home_page.content, home_page_template_output)
