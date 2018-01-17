@@ -29,6 +29,10 @@ def checkout(request):
 
 	#if basket present
 	if 'cart' in request.session:
+
+		print("Yipppeee, in request")
+
+
 		#Select all records from Cart_Item for current id
 		items_in_cart = CartItem.objects.filter(cart_id=request.session['cart'])		
 

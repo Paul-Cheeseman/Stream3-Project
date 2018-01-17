@@ -19,6 +19,10 @@ This code is for a site that is required for the Code Institute end of Stream 3 
 - If at checkout and stock levels have changed, adjustments made to stock and delivery and highlighted to customer
 
 
+- mention claen structure, shop_proj, core app, then accompanying apps (to keep shop level views (index etc) in a tidy place)
+
+ - mention that he reuasable apps are in folder
+
 - Responsive design etc, what were my additions?
 - Made the admin panels more user friendly by adjusting layout
 - Validation and defensive approach on admin panel, either predefined dropdown lists used to ensure consitentsy of input, plus the stock level is checked to ensure it is a value over 0
@@ -35,8 +39,8 @@ https://opensource.org/licenses/BSD-3-Clause
 - HTML
 - CSS
 	- [Bootstrap](http://getbootstrap.com/)
-- JavaScript 
-- Jasmine (https://jasmine.github.io/)
+- JavaScript
+ 	- jQuery
 - Python (https://www.python.org/)
 	- Django Framework (https://www.djangoproject.com/)
 

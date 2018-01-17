@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'products',    
     'purchase',    
     'orders',    
+    'core',    
     'checkout',        
     'easy_thumbnails',
     'debug_toolbar'
@@ -152,7 +153,7 @@ STATIC_URL = '/static/'
 # STATICFILES_DIRS = (os.path.join(
 #    BASE_DIR, "my_app", "static"),)
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"), ("products", "static"), ("purchase", "static"), ("cart", "static"), ("checkout", "static"), ("orders", "static"),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"), ("products", "static"), ("purchase", "static"), ("cart", "static"), ("checkout", "static"), ("orders", "static"), ("core", "static"),)
 
 
 

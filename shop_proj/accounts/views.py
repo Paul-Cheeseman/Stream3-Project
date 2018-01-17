@@ -83,16 +83,17 @@ def login(request):
                         cart = Cart.get_cart(request.session['cart']) 
                         cart_contents = cart.items_in_cart()
 
-                        #check the associated product to see if its stock level is above the quantity
-                        for item in cart_contents:
-                            #pull product from model if the stock level is greater than or equal to desired value
-                            #to ensure stock levels
-                            cart_queryset = Product.objects.filter(id=item.product_id, stock_level__gte=item.amount)
-                            #if no queryset produced, then at lease one item isn't at the right value, to save 
-                            #complications remove whole basket
-                            if not cart_queryset.exists():
-                                cart_amended = True
-                                cart.remove_from_cart(item.product_id)
+                        if cart.amount_items_in_cart() > 0:
+                            #check the associated product to see if its stock level is above the quantity
+                            for item in cart_contents:
+                                #pull product from model if the stock level is greater than or equal to desired value
+                                #to ensure stock levels
+                                cart_queryset = Product.objects.filter(id=item.product_id, stock_level__gte=item.amount)
+                                #if no queryset produced, then at lease one item isn't at the right value, to save 
+                                #complications remove whole basket
+                                if not cart_queryset.exists():
+                                    cart_amended = True
+                                    cart.remove_from_cart(item.product_id)
                         #let user know
                         if cart_amended:
                             messages.error(request, "Your old cart has had at least one item removed due to a reduction in stock levels")
@@ -133,8 +134,13 @@ def logout(request):
     #determine if cart needs to be stored
     if request.GET.get('cart_store') == "yes":
 
-        #store cart reference in the database
-        if 'cart' in request.session:
+        cart = Cart.objects.get(id=request.session['cart'])
+        #Check if the customer is confused and trying to save an empty cart, just delete it if so
+        if cart.amount_items_in_cart() == 0:
+            Cart.objects.get(id=request.session['cart']).delete()
+
+            #store cart reference in the database
+        elif 'cart' in request.session:
             cart = request.session['cart']
             user = User.objects.get(username=request.user)
             user.saved_cart_id = cart

@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from accounts import views as accounts_views
-#from shop import views as shop_views
+from core import views as core_views
 from products import views as product_views
 from cart import views as cart_views
 from checkout import views as checkout_views
@@ -26,16 +26,16 @@ from django.conf.urls.static import static
 
 urlpatterns = [
   url(r'^admin/', admin.site.urls),
-  url(r'^$', cart_views.get_index, name='index'),
+  url(r'^$', core_views.get_index, name='index'),
   url(r'^checkout', include('checkout.urls')),
   url(r'^orders/', include('orders.urls')),
   url(r'^cart/', include('cart.urls')),
   url(r'^accounts/', include('accounts.urls')),
   url(r'^purchase/', include('purchase.urls')),
   url(r'^products/', include('products.urls')),
-  url(r'^contact', cart_views.get_contact, name='contact'),
-  url(r'^profile/$', cart_views.profile, name='profile'),	
-  url(r'^services', cart_views.get_services, name='services'),
+  url(r'^contact', core_views.get_contact, name='contact'),
+  url(r'^profile/$', core_views.profile, name='profile'),	
+  url(r'^services', core_views.get_services, name='services'),
 
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

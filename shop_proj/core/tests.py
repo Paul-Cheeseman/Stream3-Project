@@ -23,12 +23,12 @@ class AccountsTest(TestCase):
 		self.user.last_login = timezone.now()
 		self.user.save()
 
-	#Testing URL resolution
-	def test_login_page_view(self):
-		login_page = resolve('/accounts/login/')
-		self.assertEqual(login_page.func, login)
-
-
+#Need to put in when PROFILE.html has a home
+	def test_profile_page_logged_in_content(self):
+		self.client.login(username='testing@account.com', password='testing')
+		home_page = self.client.get('/core/profile/')
+		home_page_template_output = render_to_response("profile.html", {'user': self.user}).content
+		self.assertEquals(home_page.content, home_page_template_output)
 
 
 

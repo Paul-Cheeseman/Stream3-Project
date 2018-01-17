@@ -11,24 +11,6 @@ from orders.models import Order, OrderItem
 from products.models import Product
 
 
-#
-def get_index(request):
-	return render(request, "index.html")
-
-def get_contact(request):
-	return render(request, "contact.html")
-
-def get_services(request):
-	return render(request, "services.html")
-
-@login_required()
-def profile(request):
-    return render(request, 'profile.html')
-
-
-
-
-
 #Helper function to detemine if value passed is an Integer
 def isNotNum(data):
     try:

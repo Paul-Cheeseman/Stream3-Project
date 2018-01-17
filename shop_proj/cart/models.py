@@ -58,13 +58,11 @@ class Cart(models.Model):
 				cart_queryset = self.items_in_cart()
 				for item in cart_queryset:
 					if item.product_id == int(product_id):
-						print("updating item in cart")
 						item.amount = amount
 						item.save()		
 
 
 	def add_to_cart(self, product_id, amount):
-		print("new item for cart")
 		product_to_add = Product.objects.get(id=product_id)
 		cart = Cart.objects.get(id=self.id)
 		cartItem = CartItem(cart=cart, product=product_to_add, amount=amount)
@@ -73,7 +71,6 @@ class Cart(models.Model):
 
 	def remove_from_cart(self, product_id):
 		#prevent risk of error if called on empty cart
-		print("Remove from Cart")
 		if self.items_in_cart():
 			cart_queryset = CartItem.objects.filter(cart_id=self.id)
 			for item in cart_queryset:
@@ -83,7 +80,6 @@ class Cart(models.Model):
 
 
 	def add_quantity(self):
-		print("Add Quantity")
 		if self.items_in_cart():
 			cart_queryset = self.items_in_cart()
 
