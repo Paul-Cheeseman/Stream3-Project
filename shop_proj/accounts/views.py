@@ -137,8 +137,9 @@ def logout(request):
         #and set saved_cart_id back to 0
         if cart.amount_items_in_cart() == 0:
             Cart.objects.get(id=request.session['cart']).delete()
-            User.objects.get(username=request.user).saved_cart_id = 0
-
+            user = User.objects.get(username=request.user)
+            user.saved_cart_id = 0
+            user.save()
         #store cart reference in the database
         elif 'cart' in request.session:
             cart = request.session['cart']
