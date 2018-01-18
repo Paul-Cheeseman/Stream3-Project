@@ -4,37 +4,51 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.core.urlresolvers import resolve
 from django.shortcuts import render_to_response
-from django.utils import timezone
-from django.test.client import RequestFactory
 
-from accounts.models import User
-from accounts.views import login
+from core.views import get_profile, get_index, get_services, get_contact
 
+class CoreTest(TestCase):
 
+	#Testing URL resolution
+	def test_index_page_view(self):
+		index_page = resolve('/')
+		self.assertEqual(index_page.func, get_index)
 
-# Create your tests here.
+	#Testing URL resolution
+	def test_profile_page_view(self):
+		profile_page = resolve('/core/profile/')
+		self.assertEqual(profile_page.func, get_profile)
 
-class AccountsTest(TestCase):
- 
-	def setUp(self):
-		super(AccountsTest, self).setUp()
-		self.user = User.objects.create(username='testing@account.com')
-		self.user.set_password('testing')
-		self.user.last_login = timezone.now()
-		self.user.save()
+	#Testing URL resolution
+	def test_services_page_view(self):
+		services_page = resolve('/core/services/')
+		self.assertEqual(services_page.func, get_services)
 
-#Need to put in when PROFILE.html has a home
-	def test_profile_page_logged_in_content(self):
-		self.client.login(username='testing@account.com', password='testing')
-		home_page = self.client.get('/core/profile/')
-		home_page_template_output = render_to_response("profile.html", {'user': self.user}).content
-		self.assertEquals(home_page.content, home_page_template_output)
+	#Testing URL resolution
+	def test_contact_page_view(self):
+		contact_page = resolve('/core/contact/')
+		self.assertEqual(contact_page.func, get_contact)
 
+	#Testing Page Content
+	def test_index_page_content(self):
+		index_page = self.client.get('/')
+		index_page_template_output = render_to_response("index.html").content
+		self.assertEquals(index_page.content, index_page_template_output)
 
+	#Testing Page Content
+	def test_profile_page_content(self):
+		profile_page = self.client.get('/core/profile/')
+		profile_page_template_output = render_to_response("profile.html").content
+		self.assertEquals(profile_page.content, profile_page_template_output)
 
+	#Testing Page Content
+	def test_services_content(self):
+		services_page = self.client.get('/core/services/')
+		services_page_template_output = render_to_response("services.html").content
+		self.assertEquals(services_page.content, services_page_template_output)
 
-	def test_profile_page_logged_in_content(self):
-		self.client.login(username='testing@account.com', password='testing')
-        home_page = self.client.get('/')
-         home_page_template_output = render_to_response("index.html", {'user': self.user}).content
-        self.assertEquals(home_page.content, home_page_template_output)
+	#Testing Page Content
+	def test_contact_page_content(self):
+		contact_page = self.client.get('/core/contact/')
+		contact_page_template_output = render_to_response("contact.html").content
+		self.assertEquals(contact_page.content, contact_page_template_output)

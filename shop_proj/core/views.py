@@ -10,6 +10,5 @@ def get_contact(request):
 def get_services(request):
 	return render(request, "services.html")
 
-@login_required()
-def profile(request):
+def get_profile(request):
     return render(request, 'profile.html')

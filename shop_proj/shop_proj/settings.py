@@ -202,5 +202,5 @@ THUMBNAIL_ALIASES = {
 }
 
 #Need to point any attempts to access pages without an authenticated user to the login page
-LOGIN_URL='/accounts/login/'
+#LOGIN_URL='/accounts/login/'
 

@@ -12,17 +12,8 @@ from accounts.models import User
 from accounts.views import login, logout, user_register
 
 
-
 # Create your tests here.
-
 class AccountsPageTest(TestCase):
-	def setUp(self):
-		super(AccountsPageTest, self).setUp()
-		self.user = User.objects.create(username='testing@account.com')
-		self.user.set_password('testing')
-		self.user.last_login = timezone.now()
-		self.user.save()
-
 	#Testing URL resolution
 	def test_login_page_view(self):
 		login_page = resolve('/accounts/login/')
