@@ -29,10 +29,10 @@ def address(request):
             messages.success(request, "Address successfully updated")
             #once updated, send user to profile page
             return redirect(reverse('profile'))
-            
+        
         else:
             #inform user why form was rejected
-            messages.error(request, "Please only use alpha-numerics to complete address details")
+            messages.error(request, "Either incorrect postcode or non alpha-numerics used to complete address details, please re-enter")
 
     else:
         form = AddressForm()

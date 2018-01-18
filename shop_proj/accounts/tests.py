@@ -4,11 +4,8 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.core.urlresolvers import resolve
 from django.shortcuts import render_to_response
-from django.utils import timezone
-from django.test.client import RequestFactory
 from django import forms
 from .forms import UserRegistrationForm, UserLoginForm
-from accounts.models import User
 from accounts.views import login, logout, user_register
 
 

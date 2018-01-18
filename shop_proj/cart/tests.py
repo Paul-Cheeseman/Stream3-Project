@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.core.urlresolvers import resolve
 from django.shortcuts import render_to_response
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 
 from cart.models import Cart, CartItem
 from products.models import Product

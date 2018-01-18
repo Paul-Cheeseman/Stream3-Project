@@ -6,10 +6,22 @@ from django.conf import settings
 from django.core.urlresolvers import resolve
 from django.shortcuts import render_to_response
 from django.test import TestCase
-from django.utils import timezone
 
 from purchase.views import address, register_cc
 from .forms import CCRegistrationForm, AddressForm
+
+
+class PurchasePageTests(TestCase):
+	#Testing URL resolution
+	def test_address_form_page_view(self):
+		address_form_page = resolve('/purchase/address/')
+		self.assertEqual(address_form_page.func, address)
+
+	#Testing URL resolution
+	def test_cc_form_page_view(self):
+		cc_form_page = resolve('/purchase/register_cc/')
+		self.assertEqual(cc_form_page.func, register_cc)
+
 
 
 class PurchaseCCRegFormTest(TestCase):
