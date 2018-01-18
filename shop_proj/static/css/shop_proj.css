@@ -226,9 +226,10 @@ footer {
     font-weight: bold;
 }
 
-
-
-
+/* error msg on contact form page (date field) */
+#formErrorMsg{
+    color: rgb(255, 0, 0)
+}
 
 
 /*

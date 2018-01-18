@@ -30,7 +30,6 @@ def user_register(request):
                 #Use the credentials to log user in
                 user = auth.authenticate(email=request.POST.get('email'), password=request.POST.get('password1'))
                 auth.login(request, user)
-                messages.success(request, "You have successfully logged in")            
                 messages.info(request, "Please be aware you will need to add a credit card and address to your profile before you can complete any orders")
                 #Send user to Profile page
                 return redirect(reverse('profile'))
@@ -52,7 +51,6 @@ def login(request):
             #Accept user if valid credentials
             if user is not None:
                 auth.login(request, user)
-                messages.success(request, "You have successfully logged in")
 
                 #variable to see if old cart is changed after checking against current stock levels
                 cart_amended  = False
@@ -136,10 +134,12 @@ def logout(request):
 
         cart = Cart.objects.get(id=request.session['cart'])
         #Check if the customer is confused and trying to save an empty cart, just delete it if so
+        #and set saved_cart_id back to 0
         if cart.amount_items_in_cart() == 0:
             Cart.objects.get(id=request.session['cart']).delete()
+            User.objects.get(username=request.user).saved_cart_id = 0
 
-            #store cart reference in the database
+        #store cart reference in the database
         elif 'cart' in request.session:
             cart = request.session['cart']
             user = User.objects.get(username=request.user)

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %} 
 {% block content %}
 <!-- Start Header Section -->
 <div class="page-header">
@@ -14,24 +15,61 @@
 </div>
 <!-- End Header Section -->
 
-<!-- Embedded as per -->
-<div class="col-sm-6">
-    <h2>Contact Details</h2>
-    <p class="about-title">Address:</p>
-    <p class="about-text">21 Albert Rd</p> 
-    <p class="about-text">Portsmouth</p>
-    <p class="about-text">Southsea PO5 2SB</p>
-    <p class="about-title">Phone:</p>
-    <p class="about-text">023 9242 1942</p>
-    <p class="about-title">Email:</p>
-    <p class="about-email-text">sewingofsouthsea@void.com</p>
-</div>
+ <main>
+            <section class="row">
+                <!-- Using Bootstrap to use
+                     one column when on xsmall device (phone) - Bootstrap is mobile first, so default value used
+                    two columns when on small device (tablets)
+                    two columns when on medium devices (laptops/desktops)
+                    -->
+                <!-- HTML5 sematic markup -->
+                <header class="col-sm-6">
+                    <P>The form to the right would be used if you wished to contact me regarding work, it validates the input (letting the user know where any errors are) so that I could know the requested start date of the project. I previously used 'would' because the form is not operational yet, it won't send the information anywhere (as we haven't got to that part of the course) so please don't try to contact me through it at the moment.</P>
 
-<div class="col-sm-6">
-    <h2>Our Location:</h2>
-    <div id="map">
-     </div>
-</div>
+                    <!-- Embedded as per -->
+                    <div id="map">
+                    </div>
+
+
+                    
+                </header>
+                <div class="col-xs-12 col-sm-6">
+                    <form name="myform" action="javascript:contact.validateForm()">
+                        <div class="checkbox">
+                            <label><input type="checkbox" onchange="javascript:contact.deadline(this)">Do you have a deadline?</label>
+                        </div>
+                        
+
+                        <div class="form-group">
+                            <!-- Date input type is poorly supported in browsers, so implementing own checking -->
+                            <label class="hidden" id="deadline1" for="date"><span class="trackFontChange  hidden" id="deadline2">Deadline Date: </span><span class="trackFontChange hidden" id="formErrorMsg"></span></label>
+                            <input type="text" class="form-control hidden" placeholder="Please enter dd/mm/yyyy (max year 2029)" id="date" pattern="[0-3]{1}[0-9]{1}/[0-1]{1}[0-9]{1}/20[1-2]{1}[0-9]{1}">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="fname"><span class="trackFontChange">First Name:</span></label>
+                            <input type="text" required="" class="form-control" placeholder="Please enter your first name (min 2 letters)" id="fname" pattern="[A-Za-z]{2,}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lname"><span class="trackFontChange">Last Name:</span></label>
+                            <input type="text" required="" class="form-control"  placeholder="Please enter your first name (min 2 letters)" id="lname" pattern="[A-Za-z]{2,}">
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><span class="trackFontChange">Email Address:</span></label>
+                            <input type="email" required="" class="form-control" placeholder="Requires x@y.com format" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"><span class="trackFontChange">Mobile Phone Number:</span></label>
+                            <input type="text" required="" class="form-control" placeholder="Please enter 11 numbers" id="phone" pattern="[0-9]{11}">
+                        </div>
+                        <button type="submit" class="btn btn-success hidden-xs hidden-sm">Submit</button>
+                        <button type="submit" class="btn btn-success btn-sm hidden-md hidden-lg">Submit</button>
+                        <p class="trackFontChange" id="formSuccess"></p>
+                    </form>
+                </div>
+            </section>
+        </main>
 
 
 {% endblock %}
@@ -39,7 +77,14 @@
 {% block extra_footer %}
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5r-mFuGlcKY1QraqB4LYIAiLbfM5kKE&callback=initMap">
 </script>
+
+
+<script src="{% static 'js/contactPageJS.js' %}"></script>
+
 {% endblock %} 
+
+
+
 
 
 
