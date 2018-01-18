@@ -141,13 +141,25 @@
         {% for product in products_paginated %}
         <tr>
             <td>{{ product.name }}</td>
-            <td><img src="{{ product.photo|thumbnail_url:'list-small' }}" alt="{{ product.photo_alt }}"></td>
+            
+
+            <td class="hidden-xs hidden-sm hidden-md"><img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}"></td>
+            
+            <td class="hidden-xs hidden-sm hidden-lg hidden-xl"><img src="{{ product.photo|thumbnail_url:'list-medium' }}" alt="{{ product.photo_alt }}"></td>
+
+
+            <td class="hidden-md hidden-lg hidden-xl"><img src="{{ product.photo|thumbnail_url:'list-small' }}" alt="{{ product.photo_alt }}"></td>
+
             <td class="hidden-xs hidden-sm">{{ product.description }}</td>
+
+
             <td>{{product.category}}</a></td>
             <td>&pound;{{ product.price }}</td>
         </tr>
         {% endfor %}
     </tbody>
+
+
 </table>
 {% if products_paginated.has_other_pages %}
 <ul class="pagination">

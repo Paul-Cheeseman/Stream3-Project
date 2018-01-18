@@ -1,4 +1,20 @@
 /* Over riding default theme button colouring*/
+
+.modal-body{
+    font-weight: bold; 
+    text-align: center;
+}
+
+.modal-header{
+    background: #ff432e;
+    color: #fff;
+}
+
+.modal-footer{
+    background: #ff432e;
+}
+
+
 .btn-primary-inverse {
     background: #fff;
     color: #ff432e;

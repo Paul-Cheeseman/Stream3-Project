@@ -70,7 +70,7 @@ var contact = (function (){
 		}
 		else{
 			yrRtnVal = "invalid";
-			document.getElementById('formErrorMsg').innerHTML = "  Date in the past, please re-enter";
+			document.getElementById('formErrorMsg').innerHTML = "  Date empty or in the past, please re-enter";
 			document.getElementById('formSuccess').innerHTML = "";
 		}
 		return yrRtnVal;
@@ -181,10 +181,7 @@ var contact = (function (){
 	}
 
 	//Grouping of all cosmetic form actions post successful sumbit	
-	function successfulSubMsg(){
-		//Form is OK
-		document.getElementById('formSuccess').innerHTML = "   Successfully Submitted";
-		document.getElementById('formErrorMsg').innerHTML = "";		
+	function clearForm(){
 		//Clear form data
 		document.getElementById('fname').value = "";
 		document.getElementById('lname').value = "";
@@ -200,21 +197,30 @@ var contact = (function (){
 	// this module. Without passing it back, it could not be invoked. The same applies to initMap.
 	return {
 		validateForm: function(){
-				//Nested to be more efficient, no point in executing subsequent function(s) if error detected
-				isYearValid = validateYear(receivedDate().year, actualDate().year);
-				//console.log("isYearValid: " +isYearValid);
-				if (isYearValid == "same" || isYearValid == "valid"){
-					isMonthValid = validateMonth(receivedDate().month, actualDate().month);
-					//console.log("isMonthValid: " +isMonthValid);
-					if (isMonthValid  == "same" || isMonthValid  == "valid"){
-						isDayValid = validateDay(receivedDate().day, actualDate().day);
-						//console.log("isDayValid: " +isDayValid);
-						if (isDayValid == "valid"){
-							//console.log("Form is fine");
-							successfulSubMsg();
-						}
-					}	
+
+				if (!$("#date").hasClass("hidden")) {
+
+					//Nested to be more efficient, no point in executing subsequent function(s) if error detected
+					isYearValid = validateYear(receivedDate().year, actualDate().year);
+					//console.log("isYearValid: " +isYearValid);
+					if (isYearValid == "same" || isYearValid == "valid"){
+						isMonthValid = validateMonth(receivedDate().month, actualDate().month);
+						//console.log("isMonthValid: " +isMonthValid);
+						if (isMonthValid  == "same" || isMonthValid  == "valid"){
+							isDayValid = validateDay(receivedDate().day, actualDate().day);
+							//console.log("isDayValid: " +isDayValid);
+							if (isDayValid == "valid"){
+								//console.log("Form is fine");
+								clearForm();
+								$('#myModal').modal('show');								
+							}
+						}	
+					}
 				}
+				else{
+					$('#myModal').modal('show');
+					clearForm();					
+				}	
 			},
 
 
@@ -232,6 +238,8 @@ var contact = (function (){
 		},
 
 		deadline: function (checkboxElem) {
+			document.getElementById('date').value = "";
+			document.getElementById('formErrorMsg').innerHTML = "";
 			$("#date").toggleClass('hidden');
 			$("#formErrorMsg").toggleClass('hidden');
 			$("#deadline1").toggleClass('hidden');
