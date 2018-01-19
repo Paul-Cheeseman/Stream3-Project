@@ -16,6 +16,12 @@ def query_transform(context, **kwargs):
     A RequestContext is required for access to the current querystring.
     '''
     query = context['request'].GET.copy()
+    if 'page' in query:
+        del query['page']
     for k, v in kwargs.items():
         query[k] = v
+        #print("K: {0}".format(query[k]))
+        #print("v: {0}".format(v))     
+        #print("urlencode(): {0}".format(query.urlencode()))    
+    #print("final urlencode(): {0}".format(query.urlencode()))            
     return query.urlencode()

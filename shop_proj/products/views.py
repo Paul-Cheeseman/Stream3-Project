@@ -79,7 +79,7 @@ def products(request):
 	page = request.GET.get('page', 1)
 
 	#Paginate the products to 5 per page
-	paginator = Paginator(product_filter, 5)
+	paginator = Paginator(product_filter, 2)
 
 	try:
 		products_paginated = paginator.page(page)

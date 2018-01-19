@@ -130,11 +130,11 @@
 <table class="table table-responsive">
     <thead>
         <tr>
-            <th>Product Name</th>
-            <th>Thumb Nail</th>
-            <th class="hidden-xs hidden-sm">Description</th>
-            <th>Category</th>
-            <th>Price</th>
+            <th class="col-md-2">Product Name</th>
+            <th class="col-md-1">Thumb Nail</th>
+            <th class="col-md-5 hidden-xs hidden-sm">Description</th>
+            <th class="col-md-1">Category</th>
+            <th class="col-md-1">Price</th>
         </tr>
     </thead>
     <tbody id="table-row-highlight">
@@ -143,7 +143,7 @@
             <td>{{ product.name }}</td>
             
 
-            <td class="hidden-xs hidden-sm hidden-md"><img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}"></td>
+            <td class="hidden-xs hidden-sm hidden-md"><img src="{{ product.photo|thumbnail_url:'list-medium' }}" alt="{{ product.photo_alt }}"></td>
             
             <td class="hidden-xs hidden-sm hidden-lg hidden-xl"><img src="{{ product.photo|thumbnail_url:'list-medium' }}" alt="{{ product.photo_alt }}"></td>
 
@@ -163,22 +163,27 @@
 </table>
 {% if products_paginated.has_other_pages %}
 <ul class="pagination">
+    <P>Next Page Num: {{ users.next_page_number }} </P>
     {% if products_paginated.has_previous %}
-    <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+    <li><a href="?page={{ products_paginated.previous_page_number }}&{% query_transform %}">&laquo;</a></li>
     {% else %}
     <li class="disabled"><span>&laquo;</span></li>
     {% endif %} {% for i in products_paginated.paginator.page_range %} {% if products_paginated.number == i %}
     <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
     </li>
     {% else %}
-    <li><a href="?page={{ i }}">{{ i }}</a></li>
+    <li><a href="?page={{ i }}&{% query_transform %}">{{ i }}</a></li>
     {% endif %} {% endfor %} {% if products_paginated.has_next %}
-    <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+    <li><a href="?page={{ products_paginated.next_page_number }}&{% query_transform %}">&raquo;</a></li>
     {% else %}
     <li class="disabled"><span>&raquo;</span></li>
     {% endif %}
 </ul>
 {% endif %} {% endblock %}
+
+
+
+
 
 
 {% block extra_footer %}

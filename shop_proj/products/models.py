@@ -39,7 +39,6 @@ class Product(models.Model):
         ('Trousers', 'Trousers'),
         ('Shirts', 'Shirts'),
         ('Skirts', 'Skirts'),        
-        ('Underwear', 'Underwear'),
     )
 
     name = models.CharField(max_length=30)

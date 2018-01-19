@@ -19,6 +19,9 @@ This code is for a site that is required for the Code Institute end of Stream 3 
 - If at checkout and stock levels have changed, adjustments made to stock and delivery and highlighted to customer
 
 
+MENTION THAT IMAGES AND TEXT ARE CURRENTLY JUST PLACEHOLDING, SO QUALITY MIGHT NIT BE THERE
+
+
 - mention claen structure, shop_proj, core app, then accompanying apps (to keep shop level views (index etc) in a tidy place)
 
  - mention that he reuasable apps are in folder

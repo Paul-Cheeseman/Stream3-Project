@@ -192,14 +192,25 @@ PAYPAL_RECEIVER_EMAIL = 'paul_cheeseman@zoho.com'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
+'''
+THUMBNAIL_ALIASES = {
+    '': {
+            'list-small': {'size': (75, 40), 'upscale': True,},
+            'list-medium': {'size': (150, 80), 'upscale': True,},
+            'list-large': {'size': (400, 400), 'upscale': True,}
+    },
+}
+'''
 
 THUMBNAIL_ALIASES = {
     '': {
-            'list-small': {'size': (75, 40)},
-            'list-medium': {'size': (150, 80)},
-            'list-large': {'size': (300, 160)}
+            'list-small': {'size': (75, 40), 'crop': 'scale', 'upscale': True,},
+            'list-medium': {'size': (150, 75), 'crop': 'scale', 'upscale': True,},
+            'list-large': {'size': (300, 150), 'crop': 'scale', 'upscale': True,}
     },
 }
 
-
-
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.autocrop',
+    'easy_thumbnails.processors.scale_and_crop',
+ )

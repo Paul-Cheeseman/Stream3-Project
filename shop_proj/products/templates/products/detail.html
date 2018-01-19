@@ -26,14 +26,15 @@
 <!-- End Header Section -->
 
 <div class="col-sm-6">
-    <img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
+    <img class="prod-detail-img" src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
 </div>
 
 <div class="col-sm-6">
     <div>
         <h2 class="product-detail-header"><strong>{{product.name}}</strong></h2>
         <h3 class="product-detail-header">Price &pound;{{product.price}}</h3>
-        <h5><strong>Description:</strong></h5>
+        <h4><strong>Description:</strong></h4>
+        <p class="product-detail-detail"> <strong>Details: </strong>{{product.gender}}, {{product.size}}, {{product.age}}</p>
         <p class="product-detail-description">{{product.description}}</p>
     </div>
 
