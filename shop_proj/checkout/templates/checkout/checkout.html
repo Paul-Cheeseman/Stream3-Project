@@ -51,18 +51,18 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Brief Description</th>
-            <th>Price</th>
-            <th>Amount</th>
-            <th>Total</th>            
+            <th class="col-sm-2">Product Name</th>
+            <th class="col-sm-7 hidden-xs">Description</th>
+            <th class="col-sm-1">Price</th>
+            <th class="col-sm-1">Amount</th>
+            <th class="col-sm-1">Total</th>            
         </tr>
     </thead>
     <tbody>
         {% for product in products %}
         <tr>
             <td>{{ product.name }}</td>
-            <td>{{ product.description }}</td>
+            <td class="hidden-xs">{{ product.description }}</td>
             <td>&pound;{{ product.price }}</td>
             <td>{{ product.amount }}</td>
             <td>&pound;{{ product.cost }}</td>
@@ -71,7 +71,7 @@
         {% endfor %}
         <tr class="border_top_dashed">
             <td>Delivery Total</td>
-            <td></td>
+            <td class="hidden-xs"></td>
             <td></td>
             <td>{{total_amount}}</td>
             <td>&pound;{{delivery_cost}}.00</td>
@@ -85,14 +85,14 @@
 
         <tr class="border_top_solid">
             <td class="delivery_total">Complete total</strong></td>
-            <td></td>
+            <td class="hidden-xs"></td>
             <td></td>
             <td></td>
             <td class="delivery_total">&pound;{{total_cost}}</strong></td>            
         </tr>
 
         <tr>
-            <td></td>
+            <td class="hidden-xs"></td>
             <td></td>
             <td></td>
             <td></td>

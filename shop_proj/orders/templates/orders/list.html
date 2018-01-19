@@ -71,7 +71,7 @@
 {% if customer_orders.has_other_pages %}
   <ul class="pagination">
     {% if customer_orders.has_previous %}
-      <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+      <li><a href="?page={{ customer_orders.previous_page_number }}">&laquo;</a></li>
     {% else %}
       <li class="disabled"><span>&laquo;</span></li>
     {% endif %}
@@ -83,7 +83,7 @@
       {% endif %}
     {% endfor %}
     {% if customer_orders.has_next %}
-      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+      <li><a href="?page={{ customer_orders.next_page_number }}">&raquo;</a></li>
     {% else %}
       <li class="disabled"><span>&raquo;</span></li>
     {% endif %}
