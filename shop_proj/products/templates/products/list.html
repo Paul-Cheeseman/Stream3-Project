@@ -52,17 +52,25 @@
 
 <h4>Filtering Options:</h4>
 <div class="btn-group btn-group-justified filter-options">
-    <div class="btn-group">
-        <button type="button" class="btn gender btn-primary dropdown-toggle hidden-xs" data-toggle="dropdown">
+    <div class="btn-group hidden-xs">
+        <button type="button" class="btn gender btn-primary dropdown-toggle" data-toggle="dropdown">
         Gender <span class="caret"></span></button>
-        <button type="button" class="btn gender btn-primary dropdown-toggle hidden-sm hidden-md hidden-lg hidden-xl" data-toggle="dropdown">
-        Gen <span class="caret"></span></button>    
         <ul class="dropdown-menu gender" role="menu">
             <li><a href="{% url 'products' %}?{% query_transform gender="Male" %}">Male</a></li>
             <li><a href="{% url 'products' %}?{% query_transform gender="Female" %}">Female</a></li>
         </ul>
     </div>
-    <div class="btn-group">
+    <div class="btn-group hidden-sm hidden-md hidden-lg hidden-xl">
+        <button type="button" class="btn gender-xs btn-primary dropdown-toggle" data-toggle="dropdown">
+        Gen <span class="caret"></span></button>    
+        <ul class="dropdown-menu gender-xs" role="menu">
+            <li><a href="{% url 'products' %}?{% query_transform gender="Male" %}">Male</a></li>
+            <li><a href="{% url 'products' %}?{% query_transform gender="Female" %}">Female</a></li>
+        </ul>
+    </div>
+
+
+    <div class="btn-group hidden-xs">
         <button type="button" class="btn age btn-primary dropdown-toggle" data-toggle="dropdown">
         Age <span class="caret"></span></button>
         <ul class="dropdown-menu age" role="menu">
@@ -70,7 +78,17 @@
             <li><a href="{% url 'products' %}?{% query_transform age="Child" %}">Child</a></li>
         </ul>
     </div>
-    <div class="btn-group">
+    <div class="btn-group hidden-sm hidden-md hidden-lg hidden-xl">
+        <button type="button" class="btn age-xs btn-primary dropdown-toggle" data-toggle="dropdown">
+        Age <span class="caret"></span></button>
+        <ul class="dropdown-menu age-xs" role="menu">
+            <li><a href="{% url 'products' %}?{% query_transform age="Adult" %}">Adult</a></li>
+            <li><a href="{% url 'products' %}?{% query_transform age="Child" %}">Child</a></li>
+        </ul>
+    </div>
+
+
+    <div class="btn-group hidden-xs">
         <button type="button" class="btn size btn-primary dropdown-toggle" data-toggle="dropdown">
         Size <span class="caret"></span></button>
         <ul class="dropdown-menu size" role="menu">
@@ -79,52 +97,76 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="btn-group">
-        <button type="button" class="btn colour btn-primary dropdown-toggle hidden-xs" data-toggle="dropdown">
+    <div class="btn-group hidden-sm hidden-md hidden-lg hidden-xl">
+        <button type="button" class="btn size-xs btn-primary dropdown-toggle" data-toggle="dropdown">
+        Size <span class="caret"></span></button>
+        <ul class="dropdown-menu size-xs" role="menu">
+            {% for item in sizes_ddl %}
+                <li><a href="{% url 'products' %}?{% query_transform size=item.size %}">{{ item.size }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="btn-group hidden-xs">
+        <button type="button" class="btn colour btn-primary dropdown-toggle" data-toggle="dropdown">
         Colour <span class="caret"></span></button>
-        <button type="button" class="btn colour btn-primary dropdown-toggle hidden-sm hidden-md hidden-lg hidden-xl" data-toggle="dropdown">
-        Col <span class="caret"></span></button>
-
         <ul class="dropdown-menu colour" role="menu">
             {% for item in colour_ddl %}
             <li><a href="{% url 'products' %}?{% query_transform colour=item.colour %}">{{ item.colour }}</a></li>
             {% endfor %}
         </ul>
     </div>
-    <div class="btn-group">
-        <button type="button" class="btn category btn-primary dropdown-toggle hidden-xs" data-toggle="dropdown">
+    <div class="btn-group hidden-sm hidden-md hidden-lg hidden-xl">
+        <button type="button" class="btn colour-xs btn-primary dropdown-toggle" data-toggle="dropdown">
+        Col <span class="caret"></span></button>
+        <ul class="dropdown-menu colour-xs" role="menu">
+            {% for item in colour_ddl %}
+            <li><a href="{% url 'products' %}?{% query_transform colour=item.colour %}">{{ item.colour }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
+    <div class="btn-group hidden-xs">
+        <button type="button" class="btn category btn-primary dropdown-toggle" data-toggle="dropdown">
         Category <span class="caret"></span></button>
-        <button type="button" class="btn category btn-primary dropdown-toggle hidden-sm hidden-md hidden-lg hidden-xl" data-toggle="dropdown">
-        Cat <span class="caret"></span></button>    
         <ul class="dropdown-menu category" role="menu">
             {% for item in category_ddl %}
             <li><a href="{% url 'products' %}?{% query_transform category=item.category %}">{{ item.category }}</a></li>
             {% endfor %}
         </ul>
     </div>
-    <div class="btn-group">
-        <button type="button" class="btn price btn-primary dropdown-toggle hidden-xs" data-toggle="dropdown">
+    <div class="btn-group hidden-sm hidden-md hidden-lg hidden-xl">
+        <button type="button" class="btn category-xs btn-primary dropdown-toggle" data-toggle="dropdown">
+        Cat <span class="caret"></span></button>
+        <ul class="dropdown-menu category-xs" role="menu">
+            {% for item in category_ddl %}
+            <li><a href="{% url 'products' %}?{% query_transform category=item.category %}">{{ item.category }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="btn-group hidden-xs">
+        <button type="button" class="btn price btn-primary dropdown-toggle" data-toggle="dropdown">
         Price <span class="caret"></span></button>
-        <button type="button" class="btn price btn-primary dropdown-toggle hidden-sm hidden-md hidden-lg hidden-xl" data-toggle="dropdown">
-        &pound; <span class="caret"></span></button>    
         <ul class="dropdown-menu price" role="menu">
             {% for price in price_range_ddl %}
                 <li><a href="{% url 'products' %}?{% query_transform price=price %}">{{ price }}</a></li>
             {% endfor %}
         </ul>
     </div>
+
     <div class="btn-group hidden-xs">
         <button type="button" class="btn ordering btn-primary dropdown-toggle" data-toggle="dropdown">
         Ordering <span class="caret"></span></button>
         <ul class="dropdown-menu ordering" role="menu">
-            <li><a href="{% url 'products' %}?{% query_transform name='' %}">Decending</a></li>
-            <li><a href="{% url 'products' %}?{% query_transform name='reverse' %}">Asending</a></li>
+            <li><a href="{% url 'products' %}?{% query_transform name='' %}">Descending (Product name)</a></li>
+            <li><a href="{% url 'products' %}?{% query_transform name='reverse' %}">Ascending (Product name)</a></li>
         </ul>
     </div>
     <a href="{% url 'products' %}" class="btn resetall-products btn-primary btn-primary-inverse hidden-xs">RESET ALL</a>
     <a href="{% url 'products' %}" class="btn resetall-products btn-primary btn-primary-inverse hidden-sm hidden-md hidden-lg hidden-xl"><i class="fa fa-refresh" aria-hidden="true"></i></a>    
 </div>
-
 
 
 <table class="table table-responsive">
