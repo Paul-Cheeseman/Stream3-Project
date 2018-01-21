@@ -41,7 +41,7 @@ class Product(models.Model):
         ('Skirts', 'Skirts'),        
     )
 
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     description = models.TextField()
     size = models.CharField(max_length=6, choices=SIZES)
     gender = models.CharField(max_length=6, choices=GENDER)
