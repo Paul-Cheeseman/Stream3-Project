@@ -30,12 +30,12 @@ def products(request):
 			price = request.GET.get('price')
 			if not product_filter.exists():
 				product_filter = Product.objects
-			if price == "Below 2":
-				product_filter = product_filter.filter(price__lt = 2.00)
-			elif price == "Between 2-4":
-				product_filter = product_filter.filter(price__lte = 4.00).filter(price__gte = 2.00)
-			elif price == "Above 4":
-				product_filter = product_filter.filter(price__gt = 4)				
+			if price == "Below 5":
+				product_filter = product_filter.filter(price__lt = 5.00)
+			elif price == "Between 5-20":
+				product_filter = product_filter.filter(price__lte = 20.00).filter(price__gte = 5.00)
+			elif price == "Above 20":
+				product_filter = product_filter.filter(price__gt = 20)				
 
 		if request.GET.get('name') == "reverse":
 			product_filter = product_filter.order_by('-name')
@@ -72,7 +72,7 @@ def products(request):
 	category_ddl = Product.objects.values('category').distinct()
 	colour_ddl = Product.objects.values('colour').distinct().order_by('colour')
 	sizes_ddl = Product.objects.values('size').distinct()
-	price_range_ddl = {"Below 2": "Below 2", "Between 2-4": "Between 2-4", "Above 4": "Above 4"}
+	price_range_ddl = {"Below 5": "Below 5", "Between 5-20": "Between 5-20", "Above 20": "Above 20"}
 
 
 	#Paginating output (if required)
