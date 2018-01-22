@@ -3,6 +3,11 @@
 ## Overview
 This code is for a site that is required for the Code Institute end of Stream 3 (Full Stack Frameworks) project. It is to demonstrate an ability to code, test and deploy (to GitHub) a full stack website that follows good practice. The website has the dual purpose of covering examination requirements while also illustrating my level of knowledge/competency to prospective employers.
 
+The site is a shop which sells products and advertises services for a small family bespoke clothing and tailoring business. 
+
+MENTION THE CAREFUL MANAGEMENT OF STOCK LEVELS?
+
+
 
 ## Functionality of the project
 - List all functions of cart
@@ -14,7 +19,6 @@ This code is for a site that is required for the Code Institute end of Stream 3 
 - The code to switch the annonymous session to signed in user (PUT IT IN!)
 - Safety, can't checkout without an address or credit card
 - Mention where I have put required JavaScript for project
-- Mention about it being "app-ified" - DO IT
 - If stock level has reduced since last log in, if a customer has a stored cart, the item is removed from the cart and customer informed.
 - If at checkout and stock levels have changed, adjustments made to stock and delivery and highlighted to customer
 

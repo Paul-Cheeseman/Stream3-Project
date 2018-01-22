@@ -1,6 +1,0 @@
-include LICENSE
-include README.rst
-recursive-exclude checkout *.pyc
-recursive-include checkout *.css
-recursive-include checkout *.html
-recursive-include checkout *.py

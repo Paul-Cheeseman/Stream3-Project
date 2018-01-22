@@ -1,6 +1,0 @@
-include LICENSE
-include README.rst
-recursive-exclude orders *.pyc
-recursive-include orders *.css
-recursive-include orders *.html
-recursive-include orders *.py

@@ -1,6 +1,0 @@
-include LICENSE
-include README.rst
-recursive-exclude accounts *.pyc
-recursive-include accounts *.css
-recursive-include accounts *.html
-recursive-include accounts *.py
