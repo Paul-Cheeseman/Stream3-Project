@@ -84,7 +84,7 @@
                         {% cart_item_amount as cart_item_amount_var%}
                         <li><a href="{% url 'cart_list' %}">Cart{% if cart_item_amount_var > 0 %}<span class="fa-stack fa-2x logged-in" data-count="{% cart_item_amount %}"></span>{% endif %}</a></li>
 
-                        <li {% if request.session.cart %}id="logout_btn_save"{% else %}id="logout_btn"{% endif%}><a href="#">Log Out<span class="fa fa-user fa-2x logged-in"></span></a></li>
+                        <li class="resetall-products" {% if request.session.cart %}id="logout_btn_save"{% else %}id="logout_btn"{% endif%}><a href="#">Log Out<span class="fa fa-user fa-2x logged-in"></span></a></li>
 
                         {% else %}
 

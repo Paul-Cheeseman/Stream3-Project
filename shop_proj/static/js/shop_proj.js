@@ -45,7 +45,7 @@ $(document).ready(function() {
 
     /*
         This is a required duplicate of jQuery from the Products app, so the filter bar gets reset to default when the 
-        products menu link clicked.
+        products menu link clicked, plus when logout is clicked.
     */
     $(".resetall-products").click(function(){
         localStorage.removeItem("gender");
