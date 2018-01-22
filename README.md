@@ -94,7 +94,7 @@ Pillow (4.3.0)
 - **** While cart based apps were available, I wanted to develop my own so that I had the opportunity to develope from "the ground up", and alo it would allow me to tailor the app to my specific requirements.
 This can be evidenced through my GIT history.
 
-
+For this project I haven't set up a secure page (HTTPS) for the credit card information as it is only currently a test site. Should I move this project into a production/live ennvironment I would ensure it was because I recognise it is a security risk (due to packet sniffing etc) to send this type of sensitive information across a non-encrypted connection.
 
 
 ## How was the project deployed
@@ -103,11 +103,27 @@ This can be evidenced through my GIT history.
 ## How was the project tested
 - 
 
+## How to set up the project locally
+---------------------------------------------
+THIS NEEDS TIDYING UP!!!!
+- Clone the repo Paul-Cheeseman/Stream3-Project
+- Create and install a virtualenv in a suitable place:
+	- Find a suitable dir to create it
+	- enter command: virtualenv shop_proj
+	- cd to source env/bin/activate 
+	- enter command: activate
+	- go to requirements.txt, enter: pip install requirements.txt
+	- migrate the python files, python manage.py migrate
+    - Run tests: python manage.py test
+    - Run server: python manage.py runserver
+---------------------------------------------
+
 ### Testing code quality
 I validated the HTML used through https://validator.w3.org
 
 I rendered each page in a browser, saved the page, then copied the HTML into the validator
 My aim was to ensure no errors, some warnings persist, some of these were layout issues (sections not having headings, WHY) and also a 3rd party script (SweetAlert) raised a warning.
+
 
 ### Testing Responsive Design:
 I have tested the website, across different devices, different browsers and different Operating Systems, to ensure that the site adapts cleanly/neatly to the different device criteria, summary of what I tested is below (limited to what I had available):
