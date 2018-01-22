@@ -65,19 +65,19 @@ def orders_list(request):
 def orders_detail(request):
 
 	#initialise variables
-	order = 0
+	overall_total = 0
+	delivery_cost = 0
+	complete_total = 0
+	overall_quantity = 0
 	order_id = 0
+	#creating a default empty response for testing
+	order = OrderItem.objects.filter(order_id="-1")
+
 
 	if request.GET.get('id'):
 		#get order id and use it to get order
 		order_id = request.GET.get('id')
 		order = OrderItem.objects.filter(order_id=order_id)
-
-		#initialise variables
-		overall_total = 0
-		delivery_cost = 0
-		complete_total = 0
-		overall_quantity = 0
 
 		#iterate through each order item in order, appending a total and product name. In addition update general order
 		#detail variables to enable delivery cost calculations.

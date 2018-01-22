@@ -1,27 +1,61 @@
-# -*- coding: utf-8 -*-
+	# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django import forms
 from django.conf import settings
-from django.core.urlresolvers import resolve
+from django.core.urlresolvers import resolve, reverse
 from django.shortcuts import render_to_response
 from django.test import TestCase
+from django.utils import timezone
 
+from accounts.models import User
 from purchase.views import address, register_cc
 from .forms import CCRegistrationForm, AddressForm
 
 
 class PurchasePageTests(TestCase):
-	#Testing URL resolution
+
+	#Create user in test database for authentication testing
+	def setUp(self):
+		super(PurchasePageTests, self).setUp()
+		self.user = User.objects.create(username='testing@account.com')
+		self.user.set_password('testing')
+		self.user.last_login = timezone.now()
+		self.user.save()
+
+	#Testing URL resolves to correct page
 	def test_address_form_page_view(self):
 		address_form_page = resolve('/purchase/address/')
 		self.assertEqual(address_form_page.func, address)
 
-	#Testing URL resolution
+	#Testing URL resolves to correct page
 	def test_cc_form_page_view(self):
 		cc_form_page = resolve('/purchase/register_cc/')
 		self.assertEqual(cc_form_page.func, register_cc)
 
+	#Check that unauthorised users get denied and redirected from cc_reg page
+	def test_cc_form_redirect_works(self):
+		cc_reg_response = self.client.get('/purchase/register_cc/')	
+		self.assertEqual(cc_reg_response.status_code, 302)
+		self.assertRedirects(cc_reg_response, "{0}?next={1}".format(settings.LOGIN_URL, reverse(register_cc)))
+
+	#Check that unauthorised users get denied and redirected from address page
+	def test_address_redirect_works(self):
+		address_response = self.client.get('/purchase/address/')	
+		self.assertEqual(address_response.status_code, 302)
+		self.assertRedirects(address_response, "{0}?next={1}".format(settings.LOGIN_URL, reverse(address)))
+
+	#Check that authorised users can access to cc_reg page
+	def test_cc_form_authorised_users(self):
+		self.client.login(username='testing@account.com', password='testing')
+		cc_reg_response = self.client.get('/purchase/register_cc/')	
+		self.assertEqual(cc_reg_response.status_code, 200)
+
+	#Check that authorised users can access to address page
+	def test_address_authorised_users(self):
+		self.client.login(username='testing@account.com', password='testing')		
+		address_response = self.client.get('/purchase/address/')	
+		self.assertEqual(address_response.status_code, 200)
 
 
 class PurchaseCCRegFormTest(TestCase):
