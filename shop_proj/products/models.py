@@ -69,3 +69,5 @@ class Product(models.Model):
         else:
             return None
 
+    class Meta:
+        ordering = ['name']
