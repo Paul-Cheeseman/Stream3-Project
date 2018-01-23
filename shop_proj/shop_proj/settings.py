@@ -204,9 +204,9 @@ THUMBNAIL_ALIASES = {
 
 THUMBNAIL_ALIASES = {
     '': {
-            'list-small': {'size': (100, 50), 'crop': 'scale', 'upscale': True,},
-            'list-medium': {'size': (200, 100), 'crop': 'scale', 'upscale': True,},
-            'list-large': {'size': (300, 150), 'crop': 'scale', 'upscale': True,}
+            'list-small': {'size': (150, 75), 'crop': 'scale', 'upscale': True,},
+            'list-medium': {'size': (300, 150), 'crop': 'scale', 'upscale': True,},
+            'list-large': {'size': (400, 200), 'crop': 'scale', 'upscale': True,}
     },
 }
 

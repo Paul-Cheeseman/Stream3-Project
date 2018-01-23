@@ -173,8 +173,8 @@
     <thead>
         <tr>
             <th class="col-md-2">Product Name</th>
-            <th class="col-md-1">Thumb Nail</th>
-            <th class="col-md-5 hidden-xs hidden-sm">Description</th>
+            <th class="text-center col-md-1">Thumb Nail</th>
+            <th class="col-md-5 hidden-xs">Description</th>
             <th class="col-md-1">Category</th>
             <th class="col-md-1">Price</th>
         </tr>
@@ -185,14 +185,14 @@
             <td>{{ product.name }}</td>
             
 
-            <td class="hidden-xs hidden-sm hidden-md"><img src="{{ product.photo|thumbnail_url:'list-medium' }}" alt="{{ product.photo_alt }}"></td>
+            <td class="hidden-xs hidden-sm hidden-md hidden-lg"><img src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}"></td>
             
-            <td class="hidden-xs hidden-sm hidden-lg hidden-xl"><img src="{{ product.photo|thumbnail_url:'list-medium' }}" alt="{{ product.photo_alt }}"></td>
+            <td class="hidden-xs hidden-xl"><img src="{{ product.photo|thumbnail_url:'list-medium' }}" alt="{{ product.photo_alt }}"></td>
 
 
-            <td class="hidden-md hidden-lg hidden-xl"><img src="{{ product.photo|thumbnail_url:'list-small' }}" alt="{{ product.photo_alt }}"></td>
+            <td class="hidden-sm hidden-md hidden-lg hidden-xl"><img src="{{ product.photo|thumbnail_url:'list-small' }}" alt="{{ product.photo_alt }}"></td>
 
-            <td class="hidden-xs hidden-sm">{{ product.description }}</td>
+            <td class="hidden-xs">{{ product.description }}</td>
 
 
             <td>{{product.category}}</a></td>

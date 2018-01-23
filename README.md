@@ -73,6 +73,7 @@ https://opensource.org/licenses/BSD-3-Clause
 	- [Bootstrap](http://getbootstrap.com/)
 - JavaScript
  	- jQuery
+ 	- Jasmine (https://jasmine.github.io/)
 - Python (https://www.python.org/)
 	- Django Framework (https://www.djangoproject.com/)
 
@@ -109,11 +110,7 @@ Also, for this project I haven't set up a secure page (HTTPS) for the credit car
 
 
 ## How was the project deployed
-- 
-
-
-## How to set up the project locally
-------------------------------------
+-------------------------------
 - Clone the repo https://github.com/Paul-Cheeseman/Stream3-Project to a dir of your choice 
 - Install virtualenv software if requrird https://docs.python.org/3/tutorial/venv.html
 - Go to the dir where you want to install your virtualenv, then:
@@ -135,17 +132,16 @@ Also, for this project I haven't set up a secure page (HTTPS) for the credit car
 ## How was the project tested
 The project was tested in a variety of ways.
 
-
-### Testing code quality
-I validated the HTML used through https://validator.w3.org
-
->>>>>>>>>>>>>>>>>>>>>> Validate via URL
-
+### Testing HTML quality
+HTML validated through https://validator.w3.org
 
 ### Django Unit Testing:
 Unit Testing, testing specific modules/functions of code, has been carried out to some degree on all sections of the sites code. The 'test' file within each app lists the tests that have been created and each of those tests will will not only check functionality for this currecnt release, they will form the basis of future regression testing which will check if/how subsequent software impacted the sites.
 
 It is worth noting that the cart function was deemed an integral part of the site which would need to be used by the majority of the sites other core functionality. Because of this the cart function was rewritten to be more modular in design, allowing better reuse of code and enabled unit testing of specific functions within the module rather than just checking the correct resolving of URLs and testing aspects og the http response. 
+
+### JavaScript Unit Testing:
+The only JavaScript suitable for testing was related to the form on the contact page, the code being tested and jasmine files can be found within the js_testing files within the shop_proj dierctory.
 
 
 ### Functional Testing:
@@ -163,5 +159,5 @@ I have tested the website, across different devices, different browsers and diff
 - iPad: Firefox, Chrome, Opera
 - Laptop Win10: Firefox, Chrome, Opera (resizing browser window to check scalability)
 - Desktop OS X Mavericks: Firefox, Chrome, Opera (resizing browser window to check scalability)
-The google mobile views don't do iphone 5 size etc and it seemed reasonable to take that as 
+Please Note: The google mobile views don't do iphone 5 size etc and it seemed reasonable to take that as 
 

@@ -26,7 +26,11 @@
 <!-- End Header Section -->
 
 <div class="col-sm-6">
-    <img class="prod-detail-img" src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
+    <img class="prod-detail-img hidden-xs hidden-sm hidden-md hidden-lg" src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
+            
+    <img class="prod-detail-img hidden-xs hidden-xl" src="{{ product.photo|thumbnail_url:'list-medium' }}" alt="{{ product.photo_alt }}">
+
+    <img class="prod-detail-img hidden-sm hidden-md hidden-lg hidden-xl" src="{{ product.photo|thumbnail_url:'list-small' }}" alt="{{ product.photo_alt }}">
 </div>
 
 <div class="col-sm-6">
