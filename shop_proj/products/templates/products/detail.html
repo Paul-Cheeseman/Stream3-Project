@@ -25,6 +25,7 @@
 
 <!-- End Header Section -->
 
+<section>
 <div class="col-sm-6">
     <img class="prod-detail-img hidden-xs hidden-sm hidden-md hidden-lg" src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
             
@@ -82,6 +83,7 @@
     </div>
     {% endif %}
 </div>
+</section>
 {% endblock %} 
 
 {% block extra_footer %}

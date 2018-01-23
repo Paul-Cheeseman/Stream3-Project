@@ -15,6 +15,7 @@
 </div>
 <!-- End Header Section -->
 
+<section>
 {% if messages %}
     {% for message in messages %} 
         {% if message.tags == "error"%}
@@ -26,7 +27,7 @@
         {% endif %}
    {% endfor %}
 {% endif %}
-
+</section>
 
 <form role="form" method="post" action="{% url 'user_register' %}">
     {% csrf_token %}

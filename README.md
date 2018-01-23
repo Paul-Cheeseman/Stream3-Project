@@ -20,7 +20,7 @@ https://opensource.org/licenses/BSD-3-Clause
 - Cart
 	- Add/remove and list items in cart
 	- Option to save current cart and resume with it a next login
-		- 	If cart previously saved, on subsequent sign-in cart checked to see if current stock levels can still honour 	each cart item order, if not the given items are removed and customer informed.
+		- If cart previously saved, on subsequent sign-in cart checked to see if current stock levels can still honour 	each cart item order, if not the given items are removed and customer informed.
 		- If a user signs in with an session cart active but a cart stored from the previous session, the current session cart is used, the perviously stored cart removed, and customer informed.
 	- If a annonymous user signs-in (or signs-up) the current session cart is associated with user account giving a seemless transition for user.
 	- Cart badge colour coded (red/green to show signed in/out), cart badge shows quantity of items ordered.

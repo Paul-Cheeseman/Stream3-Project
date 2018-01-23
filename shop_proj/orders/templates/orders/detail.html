@@ -1,94 +1,81 @@
 {% extends "base.html" %} 
 {% load staticfiles %} 
-
 {% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{% static 'orders/css/orders.css' %}">
-{% endblock %} 
-
-
-{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/orders.css' %}"> {% endblock %} {% block content %}
 <!-- Start Header Section -->
 <div class="page-header">
     <div class="overlay">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                  <h1>Your Orders</h1>
+                    <h1>Your Orders</h1>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- End Header Section -->
-
-
-
-<h3> ORDER ID: {{order_id}} </h3>
-
-<table class="table table-responsive">
-    <thead>
-       <tr>
-          <th class="col-md-2">Name</th>
-          <th class="col-md-7 hidden-xs">Description</th>
-          <th class="col-md-1">Price</th>
-          <th class="col-md-1">Amount</th>
-          <th class="col-md-1">Total</th>            
-
-      </tr>
-    </thead>
-    <tbody>
-        {% for orderItem in order %}
-        <tr>
-            <td>{{orderItem.name}}</td>
-            <td class="hidden-xs">{{orderItem.description}}</td>
-            <td>&pound;{{orderItem.price}}</td>
-            <td>{{orderItem.quantity}}</td>
-            <td>&pound;{{orderItem.total}}</td>            
-        </tr>
-        {% endfor %}
-        <tr class="border_top_dashed">
-            <td>Delivery Total</td>
-            <td class="hidden-xs"></td>
-            <td></td>
-            <td></td>
-            <td>&pound;{{delivery_cost}}.00</td>
-        </tr>
-        <tr class="border_top_solid">
-            <td class="delivery_total">Complete total</strong></td>
-            <td class="hidden-xs"></td>
-            <td></td>
-            <td></td>
-            <td class="delivery_total">&pound;{{complete_total}}</strong></td>            
-        </tr>
-    </tbody>
-</table>
-
-
-{% if customer_orders.has_other_pages %}
-  <ul class="pagination">
-    {% if customer_orders.has_previous %}
-      <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
-    {% for i in customer_orders.paginator.page_range %}
-      {% if customer_orders.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-      {% else %}
+<section>
+    <h3> ORDER ID: {{order_id}} </h3>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th class="col-md-2">Name</th>
+                <th class="col-md-7 hidden-xs">Description</th>
+                <th class="col-md-1">Price</th>
+                <th class="col-md-1">Amount</th>
+                <th class="col-md-1">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for orderItem in order %}
+            <tr>
+                <td>{{orderItem.name}}</td>
+                <td class="hidden-xs">{{orderItem.description}}</td>
+                <td>&pound;{{orderItem.price}}</td>
+                <td>{{orderItem.quantity}}</td>
+                <td>&pound;{{orderItem.total}}</td>
+            </tr>
+            {% endfor %}
+            <tr class="border_top_dashed">
+                <td>Delivery Total</td>
+                <td class="hidden-xs"></td>
+                <td></td>
+                <td></td>
+                <td>&pound;{{delivery_cost}}.00</td>
+            </tr>
+            <tr class="border_top_solid">
+                <td class="delivery_total">Complete total</strong>
+                </td>
+                <td class="hidden-xs"></td>
+                <td></td>
+                <td></td>
+                <td class="delivery_total">&pound;{{complete_total}}</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% if customer_orders.has_other_pages %}
+    <ul class="pagination">
+        {% if customer_orders.has_previous %}
+        <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %} {% for i in customer_orders.paginator.page_range %} {% if customer_orders.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+        </li>
+        {% else %}
         <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if customer_orders.has_next %}
-      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
-{% endif %}
-
+        {% endif %} {% endfor %} {% if customer_orders.has_next %}
+        <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+    {% endif %} 
+</section>
 {% endblock %}
-
 
 {% block extra_footer %}
 <script src="{% static 'orders/js/orders.js' %}"></script>
-{% endblock %} 
+{% endblock %}
