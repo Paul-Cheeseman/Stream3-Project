@@ -54,25 +54,6 @@ class AccountsPageTest(TestCase):
 
  
 class AccountsFormsTest(TestCase):
-	#Based on code from Code Institute
-	def test_registration_form(self):
-		form = UserRegistrationForm({
-			'email': 'testing@account.com',
-			'password1': 'testing',
-			'password2': 'testing',
-		})
-		self.assertTrue(form.is_valid())
-
-
-	#Based on code from Code Institute
-	def test_registration_form_fails_with_missing_email(self):
-		form = UserRegistrationForm({
-			'password1': 'testing',
-			'password2': 'testing',
-		})
-		self.assertFalse(form.is_valid())
-		self.assertRaisesMessage(forms.ValidationError,"Please enter your email address", form.full_clean())
-
 
 	#Based on code from Code Institute
 	def test_registration_form_fails_with_incorrect_password(self):

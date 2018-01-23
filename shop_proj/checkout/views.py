@@ -133,8 +133,6 @@ def checkout(request):
 					new_order.save()
 					
 					for item in products:
-						print("item cost post order!")
-						print(item.cost)
 						new_orderItem = OrderItem(order_id=new_order.id, product=item, quantity=item.amount, price=item.price)
 						new_orderItem.save()
 
