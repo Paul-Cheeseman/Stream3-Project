@@ -1,0 +1,1 @@
+-r shop_app/requirements/staging.txt
