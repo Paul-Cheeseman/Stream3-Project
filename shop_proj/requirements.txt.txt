@@ -1,1 +1,1 @@
--r shop_app/requirements/staging.txt
+-r requirements/staging.txt
