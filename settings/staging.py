@@ -1,4 +1,5 @@
 from .base import *
+import dj_database_url
 
 #To import secret keys not held on GitHub
 from .private import *
@@ -10,12 +11,9 @@ import stripe
 DEBUG = False
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# Load the ClearDB connection details from the environment variable
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config('CLEARDB_DATABASE_URL')
 }
 
 
