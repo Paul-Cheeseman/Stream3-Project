@@ -1,1 +1,0 @@
-web: python36 manage.py runserver
