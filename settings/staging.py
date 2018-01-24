@@ -31,7 +31,7 @@ STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE', 'pk_test_zkkJLlqQ1Tc9XhPXQh
 stripe.api_key = settings.STRIPE_SECRET
 
 SITE_URL = 'https://stream-3-project.herokuapp.com'
-ALLOWED_HOSTS.append('https://stream-3-project.herokuapp.com')
+ALLOWED_HOSTS.append('stream-3-project.herokuapp.com')
  
 # Log DEBUG information to the console
 LOGGING = {
