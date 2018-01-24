@@ -14,3 +14,4 @@ six==1.11.0
 sqlparse==0.2.4
 stripe==1.73.0
 urllib3==1.22
+whitenoise==3.3.1
