@@ -30,8 +30,8 @@ STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE', 'pk_test_zkkJLlqQ1Tc9XhPXQh
 #STRIPE_SECRET is in private.py, which is ignroed by GIT, to prevent it being uploaded to GitHub
 stripe.api_key = settings.STRIPE_SECRET
 
-SITE_URL = 'https://your-heroku-app.herokuapp.com'
-ALLOWED_HOSTS.append('your-heroku-app.herokuapp.com')
+SITE_URL = 'https://stream-3-project.herokuapp.com'
+ALLOWED_HOSTS.append('https://stream-3-project.herokuapp.com')
  
 # Log DEBUG information to the console
 LOGGING = {
