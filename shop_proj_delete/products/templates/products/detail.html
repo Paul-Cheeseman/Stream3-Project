@@ -1,0 +1,91 @@
+{% extends "base.html" %} 
+{% load thumbnail %} 
+{% load staticfiles %} 
+{% load product_templatetags %} 
+
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'products/css/products.css' %}"> 
+{% endblock %} 
+
+
+{% block content %}
+<!-- Start Header Section -->
+<div class="page-header">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Product Detail</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Header Section -->
+
+<section>
+<div class="col-sm-6">
+    <img class="prod-detail-img hidden-xs hidden-sm hidden-md hidden-lg" src="{{ product.photo|thumbnail_url:'list-large' }}" alt="{{ product.photo_alt }}">
+            
+    <img class="prod-detail-img hidden-xs hidden-xl" src="{{ product.photo|thumbnail_url:'list-medium' }}" alt="{{ product.photo_alt }}">
+
+    <img class="prod-detail-img hidden-sm hidden-md hidden-lg hidden-xl" src="{{ product.photo|thumbnail_url:'list-small' }}" alt="{{ product.photo_alt }}">
+</div>
+
+<div class="col-sm-6">
+    <div>
+        <h2 class="product-detail-header"><strong>{{product.name}}</strong></h2>
+        <h3 class="product-detail-header">Price &pound;{{product.price}}</h3>
+        <h4><strong>Description:</strong></h4>
+        <p class="product-detail-detail"> <strong>Details: </strong>{{product.gender}}, {{product.size}}, {{product.age}}</p>
+        <p class="product-detail-description">{{product.description}}</p>
+    </div>
+
+<section>
+{% if messages %}
+    {% for message in messages %} 
+        {% if message.tags == "error"%}
+        <div class="alert alert-danger">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>
+        {% endif %}
+   {% endfor %}
+{% endif %}
+</section>
+    
+
+{% if not in_stock %}
+    <h3 class="product-detail-header out-of_stock_clr">Currently out of Stock</h3>
+{% endif%}
+
+{% if in_stock %}
+    <h4>Order Amount:</h4>
+    <div class="form-horizontal">
+        <form method="post" action="{% url 'cart_add' %}">{% csrf_token %}
+            <input type="number" name="amount" id="search"
+                {% if stock_control_max_limit > 0  %}
+                    value={{product.stock_level}} 
+                {% else %}
+                    value=0 
+                {% endif %}
+                    min="0" 
+                {% if stock_control_max_limit > 0  %}
+                    max="{{product.stock_level}}" 
+               {% endif %}
+            />
+            <input name="product" type="hidden" value="{{product.id}}">
+            <button class="btn btn-sm btn-success resetall-products" type="submit">Add</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+</section>
+{% endblock %} 
+
+{% block extra_footer %}
+    <script src="{% static 'products/js/products.js' %}"></script>
+{% endblock %}

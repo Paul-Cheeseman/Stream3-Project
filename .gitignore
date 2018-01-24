@@ -1,4 +1,4 @@
-shop_proj/settings/private.py
-shop_proj/settings/private.pyc
+settings/private.py
+settings/private.pyc
 
 *.sqlite

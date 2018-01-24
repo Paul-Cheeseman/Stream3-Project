@@ -1,0 +1,131 @@
+{% load staticfiles %} 
+{% load cart_templatetags %}
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><html lang="en" class="no-js"> <![endif]-->
+<html lang="en">
+
+<head>
+    <!-- Basic -->
+    <title>Sewing of Southsea</title>
+    <!-- Define Charset -->
+    <meta charset="utf-8">
+    <!-- Responsive Metatag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Bootstrap CSS  -->
+    <link rel="stylesheet" href="{% static 'theme/assets/bootstrap/css/bootstrap.min.css' %}" type="text/css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="{% static 'theme/assets/font-awesome/css/font-awesome.min.css' %}" type="text/css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="{% static 'theme/assets/css/owl.carousel.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'theme/assets/css/owl.theme.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'theme/assets/css/owl.transitions.css' %}" type="text/css">
+    <!-- Css3 Transitions Styles  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'theme/assets/css/animate.css' %}">
+    <!-- Lightbox CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'theme/assets/css/lightbox.css' %}">
+    <!-- Sulfur CSS Styles  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'theme/assets/css/style.css' %}">
+    <!-- Responsive CSS Style -->
+    <link rel="stylesheet" type="text/css" href="{% static 'theme/assets/css/responsive.css' %}">
+    <script src="{% static 'theme/assets/js/modernizrr.js' %}"></script>
+    <!-- Bespoke stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/shop_proj.css' %}">
+    <!-- Icon Stylesheet to compliment font-awesome (t-shirt img) -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Linecons/style.css' %}">
+    <!-- Moved to top so jQuery is available for stripe validation script -->
+    <script src="{% static 'theme/assets/js/jquery-2.1.3.min.js' %}"></script>
+    <!-- Pulling in app/page specific items (mainly CSS) -->
+    {% block extra_head %} {% endblock %}
+</head>
+
+<body>
+    <div class="navbar navbar-default navbar-top">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- Stat Toggle Nav Link For Mobiles -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <!-- End Toggle Nav Link For Mobiles -->
+                <a class="navbar-brand" href="#">Sewing of Southsea</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <!-- Start Navigation List -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'profile' %}">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clothing<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="resetall-products"><a href="{% url 'products' %}">Products</a></li>
+                            <li><a href="{% url 'services' %}">Services</a></li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'register_cc' %}">Credit Card</a></li>
+                            <li><a href="{% url 'address' %}">Add Address</a></li>
+                            <li><a href="{% url 'orders' %}">Orders</a></li>
+                        </ul>
+                    </li>
+                    {% cart_item_amount as cart_item_amount_var%}
+                    <li><a href="{% url 'cart_list' %}">Cart{% if cart_item_amount_var > 0 %}<span class="fa-stack fa-2x logged-in" data-count="{% cart_item_amount %}"></span>{% endif %}</a></li>
+                    <li class="resetall-products" {% if request.session.cart %}id="logout_btn_save" {% else %}id="logout_btn" {% endif%}><a href="#">Log Out<span class="fa fa-user fa-2x logged-in"></span></a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Login<span class="fa fa-user fa-2x logged-out"></span></a></li>
+                    <li><a href="{% url 'user_register' %}">Register</a></li>
+                    {% cart_item_amount as cart_item_amount_var%}
+                    <li><a href="{% url 'cart_list' %}">Cart{% if cart_item_amount_var > 0 %}<span class="fa-stack fa-2x logged-out" data-count="{% cart_item_amount %}"></span>{% endif %}</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+                <!-- End Navigation List -->
+            </div>
+        </div>
+    </div>
+    <!-- End Header Logo & Naviagtion -->
+    </header>
+    <!-- End Header Section -->
+    <main class="container">
+        {% block content %} {% endblock %}
+    </main>
+    <footer class="container">
+        <!-- Start Copyright Section -->
+        <div id="copyright-section" class="copyright-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="copyright">
+                            Copyright © 2017 - Paul Cheeseman
+                        </div>
+                    </div>
+                </div>
+                <!--/.row -->
+            </div>
+            <!-- /.container -->
+        </div>
+    </footer>
+    <!-- End Copyright Section -->
+    <!-- Sulfur JS File -->
+    <script src="{% static 'theme/assets/js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{% static 'theme/assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'theme/assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'theme/assets/js/jquery.appear.js' %}"></script>
+    <script src="{% static 'theme/assets/js/jquery.fitvids.js' %}"></script>
+    <script src="{% static 'theme/assets/js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'theme/assets/js/lightbox.min.js' %}"></script>
+    <script src="{% static 'theme/assets/js/count-to.js' %}"></script>
+    <script src="{% static 'theme/assets/js/styleswitcher.js' %}"></script>
+    <script src="{% static 'theme/assets/js/script.js' %}"></script>
+    <!-- Shop_Proj specific JavaScript for whole site-->
+    <script src="{% static 'js/shop_proj.js' %}"></script>
+    <!-- Code for Pop-Up alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Pulling in app/page specific scripts -->
+    {% block extra_footer %}
+    {% endblock %}
+</body>
+
+</html>

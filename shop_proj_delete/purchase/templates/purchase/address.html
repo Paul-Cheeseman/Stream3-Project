@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% load bootstrap_tags %} {% load staticfiles %} {% block content %}
+<!-- Start Header Section -->
+<div class="page-header">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Address Registration</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section>
+{% if messages %}
+    {% for message in messages %} 
+        {% if message.tags == "error"%}
+        <div class="alert alert-danger">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>
+        {% elif message.tags == "success"%}
+        <div class="alert alert-success">
+            <div class="messages">
+               {{ message }} 
+            </div>
+        </div>        
+        {% endif %}
+   {% endfor %}
+{% endif %}
+</section>
+<!-- End Header Section -->
+<form method="post" id="register-form" action="{% url 'address' %}">
+    <fieldset>
+        <legend>Enter Address</legend>
+        {% csrf_token %} 
+        {{ form|as_bootstrap }}
+        <div class="form-group">
+            <input class="btn btn-success" id="address_input" name="commit" type="submit" value="Update Address">
+        </div>
+     </fieldset>
+</form>
+{% endblock %}
