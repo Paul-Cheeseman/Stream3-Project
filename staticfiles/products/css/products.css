@@ -1,0 +1,41 @@
+	
+.row-orange {
+	background-color: rgba(255, 67, 46, 0.2);
+}
+
+
+.product-detail-header{
+	margin-bottom: 1em;
+}
+
+
+	margin-bottom: 2em;
+
+}
+
+p.product-detail-detail{
+	margin-top: 0.5em;	
+	font-size: 0.8em;
+}
+
+.product-detail-order-opt{
+	margin-bottom: 2em;
+}
+
+.out-of_stock_clr{
+	color: rgb(255, 67, 46);	
+}
+
+.selected-filter{
+	color: rgb(0, 0, 0);	
+}
+
+#search{
+	width: 40px;
+}
+
+.prod-detail-img{
+	width: auto;
+    display: block;
+    margin: 0 auto;
+}
