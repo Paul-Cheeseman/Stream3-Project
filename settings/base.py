@@ -114,8 +114,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 
-#http://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
-THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 THUMBNAIL_ALIASES = {
     '': {
