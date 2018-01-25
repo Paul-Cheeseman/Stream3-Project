@@ -53,8 +53,10 @@ LOGGING = {
 
 AWS_STORAGE_BUCKET_NAME = 'stream3img'
 AWS_S3_REGION_NAME = 'eu-west-2'  # e.g. us-east-2
-AWS_ACCESS_KEY_ID = 'AKIAIRSALN3EJ2Y4DZLQ'
-AWS_SECRET_ACCESS_KEY = '+DVvnwnuuul+k4AdKW8dYgSjKjWaH9Tg0LcY6raI'
+
+#### These are set on heroku as config variables to avoid prying eyes!
+#AWS_ACCESS_KEY_ID = 'secret squirrel'
+#AWS_SECRET_ACCESS_KEY = 'secret squirrel'
 
 # Tell django-storages the domain to use to refer to static files.
 AWS_S3_CUSTOM_DOMAIN = 's3.%s.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
