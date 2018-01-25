@@ -51,6 +51,12 @@ LOGGING = {
 }
 
 
+
+MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+#Point media files to Amazon storage files
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3Boto3Storage'
+
+
 AWS_STORAGE_BUCKET_NAME = 'stream3img'
 AWS_S3_REGION_NAME = 'eu-west-2'  # e.g. us-east-2
 AWS_ACCESS_KEY_ID = 'AKIAIRSALN3EJ2Y4DZLQ'
@@ -59,8 +65,6 @@ AWS_SECRET_ACCESS_KEY = '+DVvnwnuuul+k4AdKW8dYgSjKjWaH9Tg0LcY6raI'
 # Tell django-storages the domain to use to refer to static files.
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-#Point media files to Amazon storage files
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3Boto3Storage'
 
 
 
