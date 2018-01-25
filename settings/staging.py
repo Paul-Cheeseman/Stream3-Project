@@ -17,7 +17,7 @@ DATABASES = {
 }
 
 #Adding for Amazon s3 access
-INSTALLED_APPS.append('storages')
+#INSTALLED_APPS.append('storages')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '%yxc&s2vg&-y)2f@3%ix_m6@3y9vlr10350^gnib4*o=pm2vn&'
