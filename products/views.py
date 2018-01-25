@@ -24,7 +24,7 @@ def products(request):
 
 		if request.GET.get('category'):
 			cat_filter = request.GET.get('category')
-			product_filter = Product.objects.filter(category=cat_filter).distinct()
+			product_filter = Product.objects.filter(category=cat_filter)
 
 		if request.GET.get('price'):
 			price = request.GET.get('price')
@@ -51,12 +51,12 @@ def products(request):
 
 		if request.GET.get('colour'):
 			get_colour = request.GET.get('colour')
-			product_filter = product_filter.filter(colour=get_colour).distinct()
+			product_filter = product_filter.filter(colour=get_colour)
 
 
 		if request.GET.get('size'):
 			get_size = request.GET.get('size')
-			product_filter = product_filter.filter(size=get_size).distinct()
+			product_filter = product_filter.filter(size=get_size)
 
 
 		if request.GET.get('age'):
