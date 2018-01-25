@@ -66,8 +66,8 @@ AWS_S3_CUSTOM_DOMAIN = 's3.%s.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 #https://s3.eu-west-2.amazonaws.com/stream3img/Yellow_Trousers_2.jpg
 #MEDIA_ROOT = "https://%s.%s/" % (AWS_S3_REGION_NAME, AWS_S3_CUSTOM_DOMAIN)
-THUMBNAIL_MEDIA_ROOT = 'https://s3.eu-west-2.amazonaws.com/stream3img/'
-THUMBNAILMEDIA_URL = 'media/'
+MEDIA_ROOT = 'https://s3.eu-west-2.amazonaws.com/stream3img/'
+MEDIA_URL = 'media/'
 
 print("media ROOT")
 print(MEDIA_ROOT)
