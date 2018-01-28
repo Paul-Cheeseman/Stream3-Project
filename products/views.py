@@ -69,9 +69,32 @@ def products(request):
 			messages.info(request, "No products to display - you've filtered them all out!")
 
 	#Get data for dynamically populated drop downs
-	category_ddl = Product.objects.values('category').distinct()
-	colour_ddl = Product.objects.values('colour').distinct().order_by('colour')
-	sizes_ddl = Product.objects.values('size').distinct()
+	#category_ddl = Product.objects.values('category').distinct()
+	#Catering for Django distinct() not working when being used on SQL (which it is LIVE)
+	category_ddl_group = Product.objects.values('category').order_by('category')
+	category_ddl = []
+	for item in category_ddl_group:
+		if not item in category_ddl:
+			category_ddl.append(item)
+	
+	#colour_ddl = Product.objects.values('colour').distinct().order_by('colour')
+	#Catering for Django distinct() not working when being used on SQL (which it is LIVE)
+	colour_ddl_group = Product.objects.values('colour').distinct().order_by('colour')
+	colour_ddl = []
+	for item in colour_ddl_group:
+		if not item in colour_ddl:
+			colour_ddl.append(item)
+
+
+	#sizes_ddl = Product.objects.values('size').distinct()
+	#Catering for Django distinct() not working when being used on SQL (which it is LIVE)
+	sizes_ddl_group = Product.objects.values('size').order_by('size').reverse()
+	sizes_ddl = []
+	for item in sizes_ddl_group:
+		if not item in sizes_ddl:
+			sizes_ddl.append(item)
+
+
 	price_range_ddl = {"Below 5": "Below 5", "Between 5-20": "Between 5-20", "Above 20": "Above 20"}
 
 

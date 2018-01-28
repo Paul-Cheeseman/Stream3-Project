@@ -32,3 +32,7 @@ STRIPE_TEST_TOKEN = 'cus_C5Y4XV57a4s0xz'
 STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE', 'pk_test_zkkJLlqQ1Tc9XhPXQhJi7QZC')
 #STRIPE_SECRET is in private.py, which is ignroed by GIT, to prevent it being uploaded to GitHub
 stripe.api_key = settings.STRIPE_SECRET
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
