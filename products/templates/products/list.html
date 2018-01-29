@@ -24,8 +24,9 @@
 <!-- End Header Section -->
 
 
-<section>
+
 {% if messages %}
+<section>
     {% for message in messages %} 
         {% if message.tags == "error"%}
         <div class="alert alert-danger">
@@ -47,8 +48,9 @@
         </div>                
         {% endif %}
    {% endfor %}
-{% endif %}
 </section>
+{% endif %}
+
 
 <section>
 <h4>Filtering Options:</h4>

@@ -21,8 +21,9 @@
 </div>
 <!-- End Header Section -->
 
-<section>
+
 {% if messages %}
+<section>
     {% for message in messages %} 
         {% if message.tags == "error"%}
         <div class="alert alert-danger">
@@ -44,8 +45,9 @@
         </div>                
         {% endif %}
    {% endfor %}
-{% endif %}
 </section>
+{% endif %}
+
 
 
 {% if delete_button_show  %}

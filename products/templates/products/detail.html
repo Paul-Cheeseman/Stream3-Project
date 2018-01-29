@@ -9,7 +9,6 @@
 
 
 {% block content %}
-<!-- Start Header Section -->
 <div class="page-header">
     <div class="overlay">
         <div class="container">
@@ -22,9 +21,7 @@
     </div>
 </div>
 
-<!-- End Header Section -->
 
-photo {{product.photo}}
 
 <section>
 <div class="col-sm-6">
@@ -64,7 +61,7 @@ photo {{product.photo}}
 {% endif%}
 
 {% if in_stock %}
-    <h4>Order Amount:</h4>
+    <h4 id="order-amount-heading">Order Amount:</h4>
     <div class="form-horizontal">
         <form method="post" action="{% url 'cart_add' %}">{% csrf_token %}
             <input type="number" name="amount" id="search"

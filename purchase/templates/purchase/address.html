@@ -11,8 +11,10 @@
         </div>
     </div>
 </div>
-<section>
+
+
 {% if messages %}
+<section>
     {% for message in messages %} 
         {% if message.tags == "error"%}
         <div class="alert alert-danger">
@@ -28,8 +30,9 @@
         </div>        
         {% endif %}
    {% endfor %}
-{% endif %}
 </section>
+{% endif %}
+
 <!-- End Header Section -->
 <form method="post" id="register-form" action="{% url 'address' %}">
     <fieldset>

@@ -2,7 +2,7 @@
 {% load staticfiles %} 
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'orders/css/orders.css' %}"> {% endblock %} {% block content %}
-<!-- Start Header Section -->
+
 <div class="page-header">
     <div class="overlay">
         <div class="container">
@@ -14,22 +14,30 @@
         </div>
     </div>
 </div>
-<!-- End Header Section -->
+
+
+{% if messages %} 
 <section>
-    {% if messages %} {% for message in messages %} {% if message.tags == "success"%}
-    <div class="alert alert-success">
-        <div class="messages">
-            {{ message }}
-        </div>
-    </div>
-    {% elif message.tags == "info"%}
-    <div class="alert alert-warning">
-        <div class="messages">
-            {{ message }}
-        </div>
-    </div>
-    {% endif %} {% endfor %} {% endif %}
+    {% for message in messages %} 
+        {% if message.tags == "success"%}
+            <div class="alert alert-success">
+                <div class="messages">
+                    {{ message }}
+                </div>
+            </div>
+        {% elif message.tags == "info"%}
+            <div class="alert alert-warning">
+                <div class="messages">
+                    {{ message }}
+                </div>
+            </div>
+        {% endif %} 
+    {% endfor %} 
 </section>
+{% endif %}
+
+
+
 <section>
     <table class="table table-responsive">
         <thead>
