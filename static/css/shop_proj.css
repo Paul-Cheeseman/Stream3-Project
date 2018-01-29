@@ -27,6 +27,12 @@
 }
 
 
+/* over riding default theme to add a small margin on pic on profile/home page */
+.img-responsive{
+    margin-bottom: 1em;
+}
+
+
 /* Over riding default theme button colouring*/
 .btn-primary-inverse:hover {
     color: #fff;
