@@ -207,8 +207,8 @@
 
 </table>
 {% if products_paginated.has_other_pages %}
+<P>Next Page Num: {{ users.next_page_number }} </P>
 <ul class="pagination">
-    <P>Next Page Num: {{ users.next_page_number }} </P>
     {% if products_paginated.has_previous %}
     <li><a href="?page={{ products_paginated.previous_page_number }}&{% query_transform %}">&laquo;</a></li>
     {% else %}
