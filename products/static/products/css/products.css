@@ -39,3 +39,11 @@ p.product-detail-detail{
 #order-amount-heading{
 	margin-bottom: 0.5em;
 }
+
+ul.pagination{
+	margin-top: 0.2em;
+}
+
+p.pagination-align{
+	margin-bottom: 0.2em;
+}

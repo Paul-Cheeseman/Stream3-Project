@@ -19,3 +19,11 @@ tr.border_top_solid {
 	font-size: 1.1em;	
 	font-weight: bold;
 }
+
+ul.pagination{
+	margin-top: 0.2em;
+}
+
+p.pagination-align{
+	margin-bottom: 0.2em;
+}
