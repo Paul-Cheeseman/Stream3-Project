@@ -14,48 +14,46 @@
     </div>
 </div>
 <!-- End Header Section -->
-<main>
-    <section class="row">
-        <header class="col-sm-6">
-            <P>Please use the form on the right if you wish to contact us if we can help you in anyway. If your request is urgent please ensure we are aware of any deadline so that we can do our best to prioritise your request. Whilst we can't guarantee to meet your deadline, rest assured we will do our best to help you with urgent requests whenever possible. </P>
-            <!-- Embedded as per -->
-            <div id="map">
-            </div>
-        </header>
-        <div class="col-xs-12 col-sm-6">
-            <form name="myform" action="javascript:contact.validateForm()">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" onchange="javascript:contact.deadline(this)">Do you have a deadline?</label>
-                </div>
-                <div class="form-group">
-                    <!-- Date input type is poorly supported in browsers, so implementing own checking -->
-                    <label class="hidden" id="deadline1" for="date"><span class="trackFontChange  hidden" id="deadline2">Deadline Date: </span><span class="trackFontChange hidden" id="formErrorMsg"></span></label>
-                    <input type="text" class="form-control hidden" placeholder="Please enter dd/mm/yyyy (max year 2029)" id="date" pattern="[0-3]{1}[0-9]{1}/[0-1]{1}[0-9]{1}/20[1-2]{1}[0-9]{1}">
-                </div>
-                <div class="form-group">
-                    <label for="fname"><span class="trackFontChange">First Name:</span></label>
-                    <input type="text" required="" class="form-control" placeholder="Please enter your first name (min 2 letters)" id="fname" pattern="[A-Za-z]{2,}">
-                </div>
-                <div class="form-group">
-                    <label for="lname"><span class="trackFontChange">Last Name:</span></label>
-                    <input type="text" required="" class="form-control" placeholder="Please enter your first name (min 2 letters)" id="lname" pattern="[A-Za-z]{2,}">
-                </div>
-                <div class="form-group">
-                    <label for="email"><span class="trackFontChange">Email Address:</span></label>
-                    <input type="email" required="" class="form-control" placeholder="Requires x@y.com format" id="email">
-                </div>
-                <div class="form-group">
-                    <label for="phone"><span class="trackFontChange">Mobile Phone Number:</span></label>
-                    <input type="text" required="" class="form-control" placeholder="Please enter 11 numbers" id="phone" pattern="[0-9]{11}">
-                </div>
-                <button type="submit" class="btn btn-success hidden-xs hidden-sm">Submit</button>
-                <button type="submit" class="btn btn-success btn-sm hidden-md hidden-lg">Submit</button>
-                <p class="trackFontChange" id="formSuccess"></p>
-            </form>
+<section class="row">
+    <header class="col-sm-6">
+        <P>Please use the form on the right if you wish to contact us if we can help you in anyway. If your request is urgent please ensure we are aware of any deadline so that we can do our best to prioritise your request. Whilst we can't guarantee to meet your deadline, rest assured we will do our best to help you with urgent requests whenever possible. </P>
+        <!-- Embedded as per -->
+        <div id="map">
         </div>
-    </section>
-</main>
+    </header>
+    <div class="col-xs-12 col-sm-6">
+        <form name="myform" action="javascript:contact.validateForm()">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" onchange="javascript:contact.deadline(this)">Do you have a deadline?</label>
+            </div>
+            <div class="form-group">
+                <!-- Date input type is poorly supported in browsers, so implementing own checking -->
+                <label class="hidden" id="deadline1" for="date"><span class="trackFontChange  hidden" id="deadline2">Deadline Date: </span><span class="trackFontChange hidden" id="formErrorMsg"></span></label>
+                <input type="text" class="form-control hidden" placeholder="Please enter dd/mm/yyyy (max year 2029)" id="date" pattern="[0-3]{1}[0-9]{1}/[0-1]{1}[0-9]{1}/20[1-2]{1}[0-9]{1}">
+            </div>
+            <div class="form-group">
+                <label for="fname"><span class="trackFontChange">First Name:</span></label>
+                <input type="text" required="" class="form-control" placeholder="Please enter your first name (min 2 letters)" id="fname" pattern="[A-Za-z]{2,}">
+            </div>
+            <div class="form-group">
+                <label for="lname"><span class="trackFontChange">Last Name:</span></label>
+                <input type="text" required="" class="form-control" placeholder="Please enter your first name (min 2 letters)" id="lname" pattern="[A-Za-z]{2,}">
+            </div>
+            <div class="form-group">
+                <label for="email"><span class="trackFontChange">Email Address:</span></label>
+                <input type="email" required="" class="form-control" placeholder="Requires x@y.com format" id="email">
+            </div>
+            <div class="form-group">
+                <label for="phone"><span class="trackFontChange">Mobile Phone Number:</span></label>
+                <input type="text" required="" class="form-control" placeholder="Please enter 11 numbers" id="phone" pattern="[0-9]{11}">
+            </div>
+            <button type="submit" class="btn btn-success hidden-xs hidden-sm">Submit</button>
+            <button type="submit" class="btn btn-success btn-sm hidden-md hidden-lg">Submit</button>
+            <p class="trackFontChange" id="formSuccess"></p>
+        </form>
+    </div>
+</section>
 <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -75,7 +73,8 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-{% endblock %} {% block extra_footer %}
+{% endblock %} 
+{% block extra_footer %}
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5r-mFuGlcKY1QraqB4LYIAiLbfM5kKE&callback=initMap">
 </script>
 <script src="{% static 'js/contactPageJS.js' %}"></script>
