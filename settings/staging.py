@@ -50,7 +50,6 @@ LOGGING = {
 #Compressing static files
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
 AWS_STORAGE_BUCKET_NAME = 'stream3img'
 AWS_S3_REGION_NAME = 'eu-west-2'  # e.g. us-east-2
 
@@ -74,9 +73,8 @@ AWS_S3_CUSTOM_DOMAIN = 's3.%s.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 MEDIA_URL = 'https://s3.eu-west-2.amazonaws.com/stream3img/media/'
 
-
-print("media ROOT")
-print(MEDIA_ROOT)
+#print("media ROOT")
+#print(MEDIA_ROOT)
 
 #Point media files to Amazon storage files
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3Boto3Storage'
