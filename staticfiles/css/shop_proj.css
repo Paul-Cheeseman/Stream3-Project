@@ -27,6 +27,12 @@
 }
 
 
+/* over riding default theme to add a small margin on pic on profile/home page */
+.img-responsive{
+    margin-bottom: 1em;
+}
+
+
 /* Over riding default theme button colouring*/
 .btn-primary-inverse:hover {
     color: #fff;
@@ -70,7 +76,7 @@ footer {
 .banner {
     text-align: center;
     color: #fff;
-    background: url(../../media/img/sewingmachine.jpg) no-repeat;
+    background: url(../../../media/img/sewingmachine.jpg) no-repeat;
     background-attachment: scroll;
     background-position: center center;
     -webkit-background-size: cover;

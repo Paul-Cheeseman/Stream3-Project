@@ -9,10 +9,6 @@
 }
 
 
-	margin-bottom: 2em;
-
-}
-
 p.product-detail-detail{
 	margin-top: 0.5em;	
 	font-size: 0.8em;
@@ -38,4 +34,8 @@ p.product-detail-detail{
 	width: auto;
     display: block;
     margin: 0 auto;
+}
+
+#order-amount-heading{
+	margin-bottom: 0.5em;
 }
