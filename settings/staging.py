@@ -47,8 +47,9 @@ LOGGING = {
     },
 }
 
-#Compressing static files
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#Compressing static files, comemnted out as this causes the site to fail
+#https://stackoverflow.com/questions/26829435/collectstatic-command-fails-when-whitenoise-is-enabled/32347324#32347324
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AWS_STORAGE_BUCKET_NAME = 'stream3img'
 AWS_S3_REGION_NAME = 'eu-west-2'  # e.g. us-east-2
