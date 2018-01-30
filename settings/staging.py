@@ -54,8 +54,8 @@ AWS_STORAGE_BUCKET_NAME = 'stream3img'
 AWS_S3_REGION_NAME = 'eu-west-2'  # e.g. us-east-2
 
 #### These are set on heroku as config variables to avoid prying eyes!
-#AWS_ACCESS_KEY_ID = 'secret squirrel'
-#AWS_SECRET_ACCESS_KEY = 'secret squirrel'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID') 
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 # Tell django-storages the domain to use to refer to static files.
 AWS_S3_CUSTOM_DOMAIN = 's3.%s.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
@@ -64,6 +64,8 @@ AWS_S3_CUSTOM_DOMAIN = 's3.%s.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 #https://eu-west-2.s3.stream3img.amazonaws.com/
 
 #https://s3.eu-west-2.amazonaws.com/stream3img/Yellow_Trousers_2.jpg
+
+
 #MEDIA_ROOT = "https://%s.%s/" % (AWS_S3_REGION_NAME, AWS_S3_CUSTOM_DOMAIN)
 #MEDIA_ROOT = "https://%s.%s/" % (AWS_S3_REGION_NAME, AWS_S3_CUSTOM_DOMAIN)
 #MEDIA_URL = 'media/'
@@ -77,7 +79,7 @@ MEDIA_URL = 'https://s3.eu-west-2.amazonaws.com/stream3img/media/'
 #print(MEDIA_ROOT)
 
 #Point media files to Amazon storage files
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 
