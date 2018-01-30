@@ -73,7 +73,7 @@ AWS_S3_CUSTOM_DOMAIN = 's3.%s.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 #THUMBNAILMEDIA_URL = 'media/'
 #THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto.S3Boto3Storage'
 
-MEDIA_URL = 'https://s3.eu-west-2.amazonaws.com/stream3img/img/'
+MEDIA_URL = 'https://s3.eu-west-2.amazonaws.com/stream3img/'
 
 #print("media ROOT")
 #print(MEDIA_ROOT)
