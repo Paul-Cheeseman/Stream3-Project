@@ -34,8 +34,12 @@
 
 <div class="col-sm-6">
     <div>
-        <h2 class="product-detail-header"><strong>{{product.name}}</strong></h2>
-        <h3 class="product-detail-header">Price &pound;{{product.price}}</h3>
+        <h2 class="product-detail-header hidden-xs"><strong>{{product.name}}</strong></h2>
+        <h2 class="product-detail-header text-center hidden-sm hidden-md hidden-lg hidden-xl"><strong>{{product.name}}</strong></h2>
+
+        <h3 class="product-detail-header hidden-xs">Price &pound;{{product.price}}</h3>
+        <h3 class="product-detail-header text-center hidden-sm hidden-md hidden-lg hidden-xl">Price &pound;{{product.price}}</h3>
+
         <h4><strong>Description:</strong></h4>
         <p class="product-detail-detail"> <strong>Details: </strong>{{product.gender}}, {{product.size}}, {{product.age}}</p>
         <p class="product-detail-description">{{product.description}}</p>
