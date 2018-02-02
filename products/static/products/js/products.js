@@ -7,10 +7,8 @@ $(document).ready(function() {
             $(this).css('cursor','pointer');
             //Highlight active row for user
         	$(this).addClass("row-orange");
-        }, function() {
-            //Remove active row highlight when row not hovered over
-        	$(this).removeClass("row-orange");
-    });
+            $(this).siblings().removeClass("row-orange");
+        });
 
     //enable highlighted row (see above) to be selected by user
     $('#table-row-highlight tr').click(function() {
