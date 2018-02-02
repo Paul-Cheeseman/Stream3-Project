@@ -165,7 +165,7 @@ footer {
     font-weight: bold;
     z-index: 1;
     width: 5px;
-    left: 45px;
+    left: 37px;
     top: 35%;
 }
 
@@ -258,7 +258,7 @@ footer {
     CSS for larger devices is below, this is in conjunction with the styling/responsiveness of the initial theme selected
 */
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
     /* Navbar text increased for larger devices (as reduced for smaller ones previously) */
     .navbar-default .navbar-brand {
         font-size: 40px;
