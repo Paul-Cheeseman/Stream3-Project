@@ -116,48 +116,51 @@ def checkout(request):
 						return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost_refresh, "total_amount": total_amount_refresh, "delivery_cost": delivery_cost_refresh})
 
 
-					#make payment!
-					charge = stripe.Charge.create(
-  						amount=pence_cost,
-  						currency="gbp",
-  						customer=user.stripe_custID,
-					)
-					messages.success(request, "Payment Successful")
+					try:
+						#Try to make payment!
+						charge = stripe.Charge.create(
+  							amount=pence_cost,
+  							currency="gbp",
+  							customer=user.stripe_custID,
+						)
+						messages.success(request, "Payment Successful")
 
-					#disable purchase button, just a belt and braces as get sent to a different page
-					cc_reg = "btn btn-sm btn-success disabled"
-
-										#Create order entries in database
-					customer = get_object_or_404(User, username=request.user)
-					new_order = Order(address_line1=user.address_line1, address_line2=user.address_line2, county=user.county, postcode=user.postcode, total=(pence_cost/100), customer_id=customer.id)
-					new_order.save()
+						#Create order entries in database
+						customer = get_object_or_404(User, username=request.user)
+						new_order = Order(address_line1=user.address_line1, address_line2=user.address_line2, county=user.county, postcode=user.postcode, total=(pence_cost/100), customer_id=customer.id)
+						new_order.save()
 					
-					for item in products:
-						new_orderItem = OrderItem(order_id=new_order.id, product=item, quantity=item.amount, price=item.price)
-						new_orderItem.save()
+						for item in products:
+							new_orderItem = OrderItem(order_id=new_order.id, product=item, quantity=item.amount, price=item.price)
+							new_orderItem.save()
 
-						#Reduce the stock level
-						#The amount won't be bigger than current stock levels due to pre-purchase stock
-						#level checks (so no need to check here)
-						current_product = get_object_or_404(Product, id=item.id)
-						current_product.stock_level = current_product.stock_level - item.amount
-						current_product.save()
+							#Reduce the stock level
+							#The amount won't be bigger than current stock levels due to pre-purchase stock
+							#level checks (so no need to check here)
+							current_product = get_object_or_404(Product, id=item.id)
+							current_product.stock_level = current_product.stock_level - item.amount
+							current_product.save()
 
-					#"When Django deletes an object, by default it emulates the behavior of the SQL constraint ON DELETE 
-					#CASCADE – in other words, any objects which had foreign keys pointing at the object to be deleted 
-					#will be deleted along with it". So this command should remove the cart and associated cart items 
-					#from the database.
-					Cart.objects.filter(id=request.session['cart']).delete()
-					del request.session['cart']
+						#"When Django deletes an object, by default it emulates the behavior of the SQL constraint ON DELETE 
+						#CASCADE – in other words, any objects which had foreign keys pointing at the object to be deleted 
+						#will be deleted along with it". So this command should remove the cart and associated cart items 
+						#from the database.
+						Cart.objects.filter(id=request.session['cart']).delete()
+						del request.session['cart']
 
-					#If the cart was from a stored version, remove it
-					if user.saved_cart_id != 0:
-						user.saved_cart_id = 0
-						user.save()
+						#If the cart was from a stored version, remove it
+						if user.saved_cart_id != 0:
+							user.saved_cart_id = 0
+							user.save()
 
-					#Send user to orders page after successful purchase
-					return redirect("orders")					
+						#Send user to orders page after successful purchase
+						return redirect("orders")					
 
+					#Gracefully catch error, inform customer of issue
+					except stripe.error.CardError as e:
+						body = e.json_body
+						err  = body.get('error', {})
+						messages.error(request, err.get('message'))
 				else:
 					#this is enabling purchase button on initial page load (rather than when purchase has been pressed)
 					#when credit card and address have been stored in database.

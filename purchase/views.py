@@ -55,19 +55,27 @@ def register_cc(request):
             data = form.cleaned_data
             user = get_object_or_404(User, username=request.user)
 
-            #create customer on stripe, this creates a customer token on stripe that 
-            #is re-useable rather than one off transational token
-            stripe_customer = stripe.Customer.create(
-            email=user.username,
-            source=data['stripe_id'],
-            )
 
-            #save stripe credit card token to database for future sure checkouts
-            user = User.objects.filter(username=request.user).update(stripe_custID = stripe_customer.id)
-            #inform user
-            messages.success(request, "Credit Card successfully updated")
-            #once updated, send user to profile page
-            return redirect(reverse('profile'))
+            try:
+                #create customer on stripe, this creates a customer token on stripe that 
+                #is re-useable rather than one off transational token
+                stripe_customer = stripe.Customer.create(
+                email=user.username,
+                source=data['stripe_id'],
+                )
+
+                #save stripe credit card token to database for future sure checkouts
+                user = User.objects.filter(username=request.user).update(stripe_custID = stripe_customer.id)
+                #inform user
+                messages.success(request, "Credit Card successfully updated")
+                #once updated, send user to profile page
+                return redirect(reverse('profile'))
+
+            #Gracefully catch error, inform customer of issue
+            except stripe.error.CardError as e:
+                body = e.json_body
+                err  = body.get('error', {})
+                messages.error(request, err.get('message'))
 
     else:
         today = datetime.date.today()
