@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 
+from accounts.models import User
 from products.models import Product
 
 # Create your models here.
@@ -98,16 +99,18 @@ class Cart(models.Model):
 		print("")
 
 
+
 	def del_cart(self, request):
-		#remove all cart items from db
-		items_in_cart = CartItem.objects.filter(cart_id=self.id)
-		for item in items_in_cart:
-			CartItem.objects.filter(id=item.id).delete()
+        #This removes the cart and its associated cart items from database 
+        #(Django will remove associated foreign key items when primary key deleted)
+		Cart.objects.get(id=request.session['cart']).delete()
 
-		#remove cart from db
-		Cart.objects.filter(id=self.id).delete()		
+		#set user associated cart ref back to 0 (so on login no attempt at retrieving a stored cart is made)
+		user = User.objects.get(username=request.user)
+		user.saved_cart_id = 0
+		user.save()
 
-		#delete session key
+        #remove cart from request.session to give a 'fresh start'
 		del request.session['cart']
 
 

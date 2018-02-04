@@ -113,6 +113,10 @@ def checkout(request):
 						cart_item.amount = current_product.stock_level
 						cart_item.save()
 
+						#disable the purchase button if refrsh has meant the order is now for nothing (to prevent processing errors)
+						if total_amount_refresh == 0:
+							cc_reg = "btn btn-sm btn-success disabled"		
+
 						return render(request, "checkout/checkout.html", {"user": user, "products": products, "cc_reg": cc_reg, "total_cost": total_cost_refresh, "total_amount": total_amount_refresh, "delivery_cost": delivery_cost_refresh})
 
 
