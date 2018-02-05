@@ -106,9 +106,11 @@ class Cart(models.Model):
 		Cart.objects.get(id=request.session['cart']).delete()
 
 		#set user associated cart ref back to 0 (so on login no attempt at retrieving a stored cart is made)
-		user = User.objects.get(username=request.user)
-		user.saved_cart_id = 0
-		user.save()
+		user_signed_in = User.objects.filter(username=request.user)
+		if user_signed_in.exists():
+			user = User.objects.get(username=request.user)
+			user.saved_cart_id = 0
+			user.save()
 
         #remove cart from request.session to give a 'fresh start'
 		del request.session['cart']
