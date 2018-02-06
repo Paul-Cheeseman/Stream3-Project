@@ -165,7 +165,7 @@ footer {
     font-weight: bold;
     z-index: 1;
     width: 5px;
-    left: 37px;
+    left: 40px;
     top: 35%;
 }
 
@@ -261,7 +261,7 @@ footer {
 @media (min-width: 768px) {
     /* Navbar text increased for larger devices (as reduced for smaller ones previously) */
     .navbar-default .navbar-brand {
-        font-size: 40px;
+        font-size: 1.8em;
     }
 
 
