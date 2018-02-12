@@ -188,6 +188,8 @@ var contact = (function (){
 		document.getElementById('email').value = "";
 		document.getElementById('date').value = "";
 		document.getElementById('phone').value = "";
+		//also clear error is there was one
+		document.getElementById('formErrorMsg').innerHTML = "";
 	}
 
 
