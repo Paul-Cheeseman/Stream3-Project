@@ -14,7 +14,7 @@ $(document).ready(function() {
         //This is for alert/confirmation box for deleting cart
         //It is based on code from: https://sweetalert.js.org/guides/
         swal({
-                title: "Cart Deletion",
+                title: "Cart Save",
                 text: "Would you like to save your cart for the next time you log in?",
                 icon: "warning",
                 buttons: true,
