@@ -15,7 +15,7 @@ https://opensource.org/licenses/BSD-3-Clause
 - Accounts
 	- User sign-up/registration
 	- User authentication system
-   - Login, handles attempt at duplicate name sign-up graceful
+    - Login, handles attempt at duplicate name sign-up gracefully
 
 - Cart
 	- Add/remove and list items in cart
@@ -89,7 +89,7 @@ https://opensource.org/licenses/BSD-3-Clause
 
  - jQuery code within the stripe.js file within the purchase app, is code supplied by the Code Institute https://www.codeinstitute.net/
 
- - The register/login/logout views within accounts app, it is based on code supplied by the Code Institute https://www.codeinstitute.net/ but has been changed substantially. For example the register views now gracefully handles attempts to register a username already used, the login app now checks for a stored cart from a the last login and if present restores it, the logout app now stores a cart if required.
+ - The register/login/logout views within accounts app, it is based on code supplied by the Code Institute https://www.codeinstitute.net/ but has been changed substantially. For example the register views now gracefully handles attempts to register a username already in use, the login app now checks for a stored cart from a the last login and if present restores it, the logout app now stores a cart if required.
 
 
 #### Justification of approach

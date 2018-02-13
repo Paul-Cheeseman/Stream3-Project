@@ -79,7 +79,7 @@ def products(request):
 	
 	#colour_ddl = Product.objects.values('colour').distinct().order_by('colour')
 	#Catering for Django distinct() not working when being used on SQL (which it is LIVE)
-	colour_ddl_group = Product.objects.values('colour').distinct().order_by('colour')
+	colour_ddl_group = Product.objects.values('colour').order_by('colour')
 	colour_ddl = []
 	for item in colour_ddl_group:
 		if not item in colour_ddl:
