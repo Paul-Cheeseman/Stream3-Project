@@ -54,10 +54,10 @@ def checkout(request):
 
 			#Check that credit card and address have been logged before allowing checkout (and enabling purchase button)
 			if user.stripe_custID == "None":
-				messages.error(request, "Please register a credit card before attempting purchase")
+				messages.error(request, "Please register a valid credit card in your profile")
 
 			elif user.address_line1 == "None" or user.address_line2 == "None" or user.county == "None" or user.postcode == "None":
-				messages.error(request, "Please register a complete address")
+				messages.error(request, "Please register a delivery address in your profile")
 
 			else:
 				#enable purchase button
