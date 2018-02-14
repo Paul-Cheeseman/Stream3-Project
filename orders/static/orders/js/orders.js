@@ -8,12 +8,12 @@ $(document).ready(function() {
             //Highlight active row for user
             $(this).addClass("row-orange");
             $(this).siblings().removeClass("row-orange");
-        });
+    });
 
-    //enable highlighted row (see above) to be selected by user
     $('#table-row-highlight tr').click(function() {
-        // Some JS to call page from product table row
-        window.location.href = "/products/detail/?product_name=" + $(this).children(":first").text();
+		// Some JS to call page from product table row
+        window.location.href = "/orders/detail/?id=" + $(this).find('.order_id').text();
+        //console.log($(this).find('.order_id').text());
 
     });
 
