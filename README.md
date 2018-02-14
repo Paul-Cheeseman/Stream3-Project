@@ -7,7 +7,7 @@ The site is a shop which sells products and advertises services for a small fami
 
 The clients wanted primarily mobile devices and were not too bothered about large screen PC's as they envisioned most of the customers on laptops, tablets or phones (as shown in the customer profiling in the additional documents submitted).
 
-- Licence open source, used:
+- Licence: open source, used:
 https://opensource.org/licenses/BSD-3-Clause
 
 
