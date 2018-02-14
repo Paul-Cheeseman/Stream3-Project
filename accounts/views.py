@@ -66,11 +66,16 @@ def login(request):
                         #request.session['cart']), delete the stored cart and then re-apply the recently created cart 
                         #reference to the request.session['cart'] variable
                         hold_cart_num = request.session['cart']
+
+                        #switch to old cart in session to remove everything cleanly
+                        request.session['cart'] = user.saved_cart_id
                         #get stored cart and remove
-                        cart = Cart.get_cart(user.saved_cart_id) 
+                        cart = Cart.get_cart(request.session['cart']) 
                         cart.del_cart(request)
-                        #use current cart
+
+                        #switch back to use new/current cart
                         request.session['cart'] = hold_cart_num
+
                         #let user know
                         messages.info(request, "Your current cart has replaced the cart you stored on your last visit")
     
