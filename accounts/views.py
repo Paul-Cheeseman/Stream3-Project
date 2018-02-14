@@ -99,7 +99,7 @@ def login(request):
                                     cart.remove_from_cart(item.product_id)
                         #let user know
                         if cart_amended:
-                            messages.error(request, "Your old cart has had at least one item removed due to a reduction in stock levels")
+                            messages.error(request, "Your saved cart has restored but had at least one item removed due to a reduction in stock levels")
                         else:
                             messages.info(request, "The cart you stored at the end of your previous session has been restored")
                 

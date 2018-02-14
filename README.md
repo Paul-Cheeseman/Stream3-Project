@@ -38,15 +38,15 @@ https://opensource.org/licenses/BSD-3-Clause
 		- Uses an ID along with the time and date to identify order, meaning can cater for multiple orders from same customer in same day
 		- Orders listed chronologically with last order first to enable easier checking for customers on recent orders
 	- Each listing is linked to the details of the specific order
-	- Pagination implemented for better usability
+	- Pagination (triggered on over 10 orders listed) implemented for better usability
 
 - Products
 	- Product listing - Multiple filtering on products to given granularity when searching
 	- Product detail - if the customer tries to purchase more than is in stock, customer told how many in stock and then that limit is imposed on order value to prevent purchase of unstocked items (as per client requirements). 
-	 - Click selection on product table rows
+	 - Click selection on product table rows give product detail page
 	 - jQuery stores filtering values/selections so that they are retained across server calls
-	- Product detail - if product out of stock then ordering amount input removed
-	- Pagination implemented for better usability
+	- Product detail - if product out of stock, the input box for entering the amount of items is removed
+	- Pagination implemented (triggered on over 5 items listed) for better usability
 
 - Purchase
 	- When customer registers a credit card a stripe token for it created (via the stripe API) and stored in the database. This means when the user subsequently signs-in they can checkout without inputting card details (and their card details are not stored in this sites database).
@@ -55,8 +55,8 @@ https://opensource.org/licenses/BSD-3-Clause
 
 - General
 	- Uses easythumbnails, so it is uses smaller size (in bytes) images for smaller devices, making it responsive plus more data efficient
-	- Admin panels made more user friendly by putting in code to adjust the layout for administrator
-	- Validation and defensive approach on admin panel, either predefined drop-down lists used to ensure consistency of input, plus the stock level is checked to ensure it is a value over 0
+	- The admin panels have been customised and made more user friendly for the administrator(s)
+	- Validation and defensive approach on admin panel, predefined drop-down lists used to ensure consistency of input and the stock level is checked to ensure it is a value over 0
 
 
 

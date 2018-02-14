@@ -47,8 +47,8 @@ def orders_list(request):
 	#Paginating output (if required)
 	page = request.GET.get('page', 1)
 
-	#Paginate the orders to 5 per page
-	paginator = Paginator(order_list, 5)
+	#Paginate the orders to 10 per page
+	paginator = Paginator(order_list, 10)
 
 	try:
 		customer_orders = paginator.page(page)
