@@ -1,11 +1,8 @@
 from .base import *
 import dj_database_url
 
-#To import secret keys not held on GitHub
-from .private import *
 from django.conf import settings
 import stripe
-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -15,6 +12,11 @@ DEBUG = False
 DATABASES = {
     'default': dj_database_url.config('CLEARDB_DATABASE_URL')
 }
+
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+STRIPE_SECRET = os.getenv('STRIPE_SECRET')
+PAYPAL_RECEIVER_EMAIL = os.getenv('STRIPE_SECRET')
 
 
 #Stripe Environment Variables:

@@ -1,3 +1,5 @@
+settings/private.py
+settings/private.pyc
 *.odt
 *.odp
 *.sqlite3
