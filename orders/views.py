@@ -41,8 +41,6 @@ def orders_list(request):
 			item_quantity = 0
 			for item in order_items:
 				item_quantity = item_quantity + item.quantity
-			#The *2 is for the £2 delivery charge, ideally this would be a global var that would be referenced
-			order.total = order.total + (item_quantity * 2)
 
 	#Paginating output (if required)
 	page = request.GET.get('page', 1)

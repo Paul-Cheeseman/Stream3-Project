@@ -43,12 +43,11 @@ def checkout(request):
 			item.cost = item.amount * item.price
 			total_cost = total_cost + item.cost
 			total_amount = total_amount + item.amount
-			pence_cost = int(total_cost * 100)
 
 		#add £2 deliver charge per item
 		delivery_cost = total_amount * 2
 		total_cost = total_cost + delivery_cost
-
+		pence_cost = int(total_cost * 100)
 
 		if items_in_cart.exists():
 
