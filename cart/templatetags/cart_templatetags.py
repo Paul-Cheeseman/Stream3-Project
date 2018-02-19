@@ -13,8 +13,6 @@ def cart_item_amount(context):
 
 		if 'cart' in request.session:
 			cart_num = request.session['cart']
-			print("cart being retrieved")
-			print(cart_num)
 			cart = Cart.get_cart(cart_num)
 			return cart.amount_items_in_cart()
 		else:
