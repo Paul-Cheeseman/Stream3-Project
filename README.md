@@ -27,7 +27,7 @@ https://opensource.org/licenses/BSD-3-Clause
 
 - Checkout
 	- If stock levels change in between the customer putting in cart and the checkout (another customer order may reduced stock levels) the customer the order is recalculated to current stock levels and customer informed of change.
-- Can't checkout without an address or credit card having been registered 
+	- Can't checkout without an address or credit card having been registered.
 
 - Core
 	- Contact page has a JavaScript validated 'deadline date' field on the contact form to ensure that valid details are entered. 
