@@ -103,19 +103,19 @@ Also, for this project I haven't set up a secure page (HTTPS) for the credit car
 - Clone the repo https://github.com/Paul-Cheeseman/Stream3-Project to a dir of your choice 
 - Install virtualenv software if required https://docs.python.org/3/tutorial/venv.html
 - Go to the dir where you want to install your virtualenv, then:
-	C:\your-desired-folder>mkdir virtualenv
-	C:\your-desired-folder>cd virtualenv
-	C:\your-desired-folder\virtualenv>virtualenv shop_proj
-	C:\your-desired-folder\virtualenv>cd scripts
-	C:\your-desired-folder\virtualenv\scripts> activate
+	- C:\your-desired-folder>mkdir virtualenv
+	- C:\your-desired-folder>cd virtualenv
+	- C:\your-desired-folder\virtualenv>virtualenv shop_proj
+	- C:\your-desired-folder\virtualenv>cd scripts
+	- C:\your-desired-folder\virtualenv\scripts> activate
 - Within the virtualenv go to shop_proj dir within the downloaded repo:
-	C:\.........\shop_proj>pip install requirements.txt
+	- C:\.........\shop_proj>pip install requirements.txt
 - Migrate the python files:
-	C:\.........\shop_proj>python manage.py migrate
+	- C:\.........\shop_proj>python manage.py migrate
 - Run tests: 
-	C:\.........\shop_proj>python manage.py test
+	- C:\.........\shop_proj>python manage.py test
 - Run server to activate site: 
-	C:\.........\shop_proj>python manage.py runserver
+	- C:\.........\shop_proj>python manage.py runserver
 
 
 ## How was the project tested
