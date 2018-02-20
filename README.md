@@ -21,12 +21,12 @@ https://opensource.org/licenses/BSD-3-Clause
 	- Add/remove and list items in cart
 	- Option to save current cart and resume with it a next login
 		- If cart previously saved, on subsequent sign-in cart checked to see if current stock levels can still honour 	each cart item order, if not the given items are removed and customer informed.
-		- If a user signs in with an session cart active but a cart stored from the previous session, the current session cart is used, the previously stored cart removed, and customer informed.
-	- If a anonymous user signs-in (or signs-up) the current session cart is associated with user account giving a seamless transition for user.
+		- If a user signs in with a session cart active but a cart stored from the previous session, the current session cart is used, the previously stored cart removed, and customer informed.
+	- If an anonymous user signs-in (or signs-up) the current session cart is associated with user account giving a seamless transition for user.
 	- Cart badge colour coded (red/green to show signed in/out), cart badge shows quantity of items ordered.
 
 - Checkout
-	- If stock levels change in between the customer putting in cart and the checkout (another customer order may reduced stock levels) the customer the order is recalculated to current stock levels and customer informed of change.
+	- If the stock level of an item is reduced in real-time (by another customer purchase) to the level of not being able to fulfil an order already in the cart of another active customer. When the customer attempts to make the purchase the order is recalculated to reflect the current stock levels and the customer is informed of change.
 	- Can't checkout without an address or credit card having been registered.
 
 - Core
@@ -34,14 +34,14 @@ https://opensource.org/licenses/BSD-3-Clause
 	- Login icon colour coded (red/green to show signed in/out).
 
 - Orders
-	- Listing of all orders made for a registered customer
+	- Listing of all orders made for a registered customer:
 		- Uses an ID along with the time and date to identify order, meaning the site can cater for multiple orders from same customer in same day
 		- Orders listed chronologically with last order first to enable easier checking for customers on recent orders
-	- Each listing is linked to the details of the specific order
+	- Each order listing is linked to a details page of the specific order
 	- Pagination (triggered on over 10 orders listed) implemented for better usability
 
 - Products
-	- Product listing - Multiple filtering on products to given granularity when searching
+	- Product listing - Multiple filtering on products to give granularity when searching
 	- Product detail - if the customer tries to purchase more than is in stock, the customer is told how many of the item are in stock and then that limit is imposed as a maximum value on the order amount to prevent purchase of unstocked items (as per client requirements). 
 	 - Click selection on product table rows gives the products detail page
 	 - jQuery stores filtering values/selections so that they are retained across server calls
@@ -125,9 +125,9 @@ The project was tested in a variety of ways.
 HTML validated through https://validator.w3.org
 
 ### Django Unit Testing:
-Unit Testing (testing specific modules/functions of code) has been carried out to some degree on all sections of the sites code. The 'test' file within each app lists the tests that have been created and each of those tests will will not only check functionality for this current release, they will form the basis of future regression testing which will check if/how subsequent software impacted the sites.
+Unit Testing (testing specific modules/functions of code) has been carried out to some degree on all sections of the sites code. The 'test' file within each app lists the tests that have been created and each of those tests will will not only check functionality for this current release, they will form the basis of future regression testing which will check if/how subsequent updates impact the site.
 
-It is worth noting that the cart function was deemed an integral part of the site which would need to be used by the majority of the sites other core functionality. Because of this the cart function was rewritten to be more modular in design, allowing better reuse of code and enabled unit testing of specific functions within the module rather than just checking the correct resolving of URLs and testing aspects of the http response. 
+It is worth noting that the cart function was deemed an integral part of the site which would need to be used by the majority of the sites other core functionality. Because of this the cart function was rewritten to be more modular in design, allowing better reuse of code. This enabled unit testing of specific functions within the module rather than just checking the correct resolution of URLs and testing aspects of the http response. 
 
 ### JavaScript Unit Testing:
 The only JavaScript suitable for testing was related to the form on the contact page, the code being tested and jasmine files can be found within the js_testing files within the shop_proj directory.
