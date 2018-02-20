@@ -109,13 +109,13 @@ Also, for this project I haven't set up a secure page (HTTPS) for the credit car
 	- C:\your-desired-folder\virtualenv>cd scripts
 	- C:\your-desired-folder\virtualenv\scripts> activate
 - Within the virtualenv go to shop_proj dir within the downloaded repo:
-	- C:\.........\shop_proj>pip install requirements.txt
+	- C:\ ........\shop_proj>pip install requirements.txt
 - Migrate the python files:
-	- C:\.........\shop_proj>python manage.py migrate
+	- C:\ ........\shop_proj>python manage.py migrate
 - Run tests: 
-	- C:\.........\shop_proj>python manage.py test
+	- C:\ ........\shop_proj>python manage.py test
 - Run server to activate site: 
-	- C:\.........\shop_proj>python manage.py runserver
+	- C:\ ........\shop_proj>python manage.py runserver
 
 
 ## How was the project tested
