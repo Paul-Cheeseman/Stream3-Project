@@ -43,9 +43,9 @@ https://opensource.org/licenses/BSD-3-Clause
 - Products
 	- Product listing - Multiple filtering on products to given granularity when searching
 	- Product detail - if the customer tries to purchase more than is in stock, customer told how many in stock and then that limit is imposed on order value to prevent purchase of unstocked items (as per client requirements). 
-	 - Click selection on product table rows give product detail page
+	 - Click selection on product table rows gives the products detail page
 	 - jQuery stores filtering values/selections so that they are retained across server calls
-	- Product detail - if product out of stock, the input box for entering the amount of items is removed
+	- Product detail - if product out of stock, the input box for entering the amount of items to order is removed and an 'out of stock' message presented to customer
 	- Pagination implemented (triggered on over 5 items listed) for better usability
 
 - Purchase
