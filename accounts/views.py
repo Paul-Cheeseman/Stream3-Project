@@ -171,3 +171,4 @@ def logout(request):
     #log user out
     auth.logout(request)
     return redirect(reverse('index'))
+

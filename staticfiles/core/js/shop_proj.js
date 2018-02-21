@@ -27,7 +27,6 @@ $(document).ready(function() {
                     });
 
                     //setTimeout(function() {
-                    //    console.log("Triggered");
                     window.location.href = "/accounts/logout/?cart_store=yes";
                     // }, 3500);
                 } else {
@@ -60,7 +59,7 @@ $(document).ready(function() {
 
 });
 
-
+   
 //For Google Maps
 function initMap() {
     var fleet = {lat: 50.7879964, lng: -1.0840458};

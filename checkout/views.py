@@ -79,6 +79,9 @@ def checkout(request):
 					#i.e has another customer made a purchase and reduced available stock levels below what can be fulfilled?
 					refresh_checkout = False
 
+					#This is a 
+					cart_items_to_refresh = []
+
 					for item in products:
 						#Need to get current stock level
 						current_product = get_object_or_404(Product, id=item.id)
@@ -86,6 +89,7 @@ def checkout(request):
 							refresh_checkout = True
 							#Get the object that hold this amount value
 							cartItem = get_object_or_404(CartItem, product_id=item.id, cart_id=request.session['cart'])
+							
 							#set it to the stock leve value (so that 'refresh_checkout' won't be true 2nd time around)
 							cartItem.amount = current_product.stock_level
 							#save it to database
@@ -93,24 +97,36 @@ def checkout(request):
 							#Also change value of item being iterated over
 							item.amount = current_product.stock_level
 
+							#tracking the items in order that need to be refreshed
+							cart_items_to_refresh.append(current_product)
+
 						item.cost = item.amount * item.price
 						total_cost_refresh = total_cost_refresh + (item.amount * item.price)
 						total_amount_refresh = total_amount_refresh + item.amount
+
 
 					#£2 deliver charge per item
 					delivery_cost_refresh = total_amount_refresh * 2
 					total_cost_refresh = total_cost_refresh + delivery_cost_refresh
 
-		
+
+
 					if refresh_checkout == True:
 						messages.error(request, "Other recent customer purchases mean we can no longer currently meet you order with our existing stock, your order has been updated to reflect current stock levels. Please contact us to discuss acquiring the additional items.")
 
 						#Need to amend cartItem to store new amount value, so that if purchase not made 
 						#but cart stored, the item is not deleted (on signing back in) unless 
 						#stock levels has actually gone below the amended amount 
-						cart_item = get_object_or_404(items_in_cart, product_id=item.id)
-						cart_item.amount = current_product.stock_level
-						cart_item.save()
+						for item in cart_items_to_refresh:
+							current_product = get_object_or_404(Product, id=item.id)
+							cart_item = get_object_or_404(CartItem, product_id=item.id, cart_id=request.session['cart'])
+							#if the stock level is 0, remove from cart, no point in having it (would only confuse customer)
+							if current_product.stock_level == 0:
+								cart_item.delete()								
+							else:
+								cart_item.amount = current_product.stock_level
+								cart_item.save()
+
 
 						#disable the purchase button if refrsh has meant the order is now for nothing (to prevent processing errors)
 						if total_amount_refresh == 0:

@@ -135,7 +135,7 @@ def cart_add(request):
 	#Paginating output (if required)
 	page = request.GET.get('page', 1)
 	#Paginate the products to 2 per page
-	paginator = Paginator(products, 3)
+	paginator = Paginator(products, 5)
 	try:
 		products_paginated = paginator.page(page)
 	except PageNotAnInteger:
@@ -182,6 +182,9 @@ def cart_list(request):
 			if 'product' in request.POST and 'amount' in request.POST:
 				product_id = int(request.POST['product'])
 				amount_req = request.POST['amount']
+
+				if amount_req == '':
+					amount_req = 0
 
 				#if the user request is higher than the amount in stock set 'stock_control_max_limit' variable 
 				# to the stock level amount, which wil then be used as a max value for form. In addition produce
