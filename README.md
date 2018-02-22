@@ -21,14 +21,14 @@ https://opensource.org/licenses/BSD-3-Clause
 
 - Cart
 	- Add/remove and list items in cart
-	- Option to save current cart and resume with it a next login
+	- Option to save current cart and resume with it at next login:
 		- If cart previously saved, on subsequent sign-in cart checked to see if current stock levels can still honour 	each cart item order, if not the given items are removed and customer informed.
 		- If a user signs in with a session cart active but a cart stored from the previous session, the current session cart is used, the previously stored cart removed, and customer informed.
 	- If an anonymous user signs-in (or signs-up) the current session cart is associated with user account giving a seamless transition for user.
 	- Cart badge colour coded (red/green to show signed in/out), cart badge shows quantity of items ordered.
 
 - Checkout
-	- If the stock level of an item is reduced in real-time (by another customer purchase) to the level of not being able to fulfil an order already in the cart of another active customer. When the customer attempts to make the purchase the order is recalculated to reflect the current stock levels and the customer is informed of change.
+	- If the stock level of an item is reduced in real-time (by another customer purchase) to the level of not being able to fulfil an order already in the cart of another active customer, when the customer attempts to make the purchase the order is recalculated to reflect the current stock levels and the customer is informed of change.
 	- Can't checkout without an address or credit card having been registered.
 
 - Core
@@ -45,8 +45,8 @@ https://opensource.org/licenses/BSD-3-Clause
 - Products
 	- Product listing - Multiple filtering on products to give granularity when searching
 	- Product detail - if the customer tries to purchase more than is in stock, the customer is told how many of the item are in stock and then that limit is imposed as a maximum value on the order amount to prevent purchase of unstocked items (as per client requirements). 
-	 - Click selection on product table rows gives the products detail page
-	 - jQuery stores filtering values/selections so that they are retained across server calls
+	- Click selection on product table rows gives the products detail page
+	- jQuery stores filtering values/selections so that they are retained across server calls
 	- Product detail - if product out of stock, the input box for entering the amount of items to order is removed and an 'out of stock' message presented to customer
 	- Pagination implemented (triggered on over 5 items listed) for better usability
 
